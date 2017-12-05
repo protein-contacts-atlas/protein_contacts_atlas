@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./img/Rajini_abstract_1.png">
+
+    <title>Protein Contacts Atlas</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="bootstrap-3.2.0-dist/css/navbar-fixed-top.css" rel="stylesheet">
+
+	<!-- To fix white space on the bottom of every page, done by melis -->
+	<link href="css/fix_bottom_space.css" rel="stylesheet">
+
+	<script type='text/javascript' src='./js/jquery.ba-hashchange.min.js'></script>
+	<script src="js/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="css/ui/1.10.3/theme/smoothness/jquery-ui.css" />
+
+
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-45268894-1', 'cam.ac.uk');
+	  ga('send', 'pageview');
+
+	</script>
+
+	  <style>
+
+	  .item{
+
+	      height: 400px !important;
+	  }
+
+		  .carousel-inner > .item > img {
+		      margin: 0 auto;
+		  }
+	  </style>
+
+   <script>
+
+	  function uploadgifshow() {
+
+	  	$('#uploadgif').show();
+
+	  }
+
+
+	  function readText() {
+
+	  	$('#submitbutton').removeClass('disabled');
+
+	  }
+	  function process_new() {
+
+	  	$('#progressgif').show();
+
+	  	$.ajax({
+	  	        type: 'post',
+	  	        url: 'chains_process_combined.php',
+	  	        data: {
+	  	            PDB: $('#PDB').val(),
+	  	        },
+	  	        success: function( data ) {
+
+	  				eval(data);
+
+	  	        }
+	  	    });
+	  }
+
+
+$(document).ready(function() {
+
+    // $(".panel").hide();
+	 $("#panel2").hide();
+
+/* set advanced options toggle */
+    $("#flip").click(function(e){
+    //$(".panel").slideToggle("slow");
+	$("#panel2").slideToggle("slow");
+	e.preventDefault();
+
+  });
+
+
+
+});
+
+$(function() {
+  $( document ).tooltip();
+});
+
+    </script>
+
+</head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./index.html">Protein Contacts Atlas</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+
+ 			 <li style="padding-top:12px;"><input class="span1" type="text" id="PDB" name="PDB" size="5" oninput="if (!document.getElementById('PDB').value.charAt(0).match(/[^0-9]/)) { if(document.getElementById('PDB').value.length == 4) { readText();} else { $('#submitbutton').addClass('disabled'); } } " placeholder="PDB ID"/ >
+ 			</li>
+ 			<li style="padding-top:10px; padding-left:10px;"><button type="submit" onclick="process_new();" id="submitbutton" class="btn btn-primary btn-xs disabled popover-bottom" data-toggle="popover" data-content="Click to process structure"> Run</button></li>
+
+            <li><a href="./index.html">Home</a></li>
+			<li class="active" class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced Features <span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="./index_search.html">Search any keyword</a></li>
+					<li><a href="./pfam_mapping.html">Pfam mappings</a></li>
+                    <li class="active"><a href="./index_upload.html">Upload your own structure</a></li>
+				</ul>
+
+			</li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+
+		  <div class="title" id="titles" style="width:100%;">
+
+					<h1 align="center">Protein Contacts Atlas</h1>
+					
+		  	<!-- <div align="center"> <a href="./index.html"><img border="0" src="./img/Rajini_logo_cyan_500by230.png" alt="Introduction to Rajini" width="250" height="115" ></a></div> -->
+		  	<h4 align="center" style = "font-weight:bold;">Structural Insights through Network Analysis</h4>
+		  </div>
+
+
+	  </div> <!-- /jumbotron -->
+
+	  <div class="jumbotron" style="background-color: #FFFFFF">
+
+					 <div class="container" >
+
+					         <div class="row">
+
+					           <div class="col-md-6 col-md-offset-3">
+					             <h4>Choose a file to upload:</h4>
+
+						   		  <div class="span3">
+						   			<div class="well">
+
+									<form  enctype="multipart/form-data" action="chains_process_combined_upload.php" method="POST">
+		 					             <input name="uploadedfile" id="file" type="file" />
+										<br/>
+							             <button type="submit" id="uploadbutton" class="btn btn-default disabled" onclick="uploadgifshow();" style="margin-left:auto;margin-right:auto;display:block; margin-top:-5px;">Process structure!</button>
+								    </form>
+
+									<script>
+									$(document).ready(
+									    function(){
+									        $('input:file').change(
+									            function(){
+									                if ($(this).val()) {
+									                    //$('input:submit').attr('disabled',false);
+														$('#uploadbutton').removeClass('disabled');
+									                }
+									            }
+									            );
+									    });
+									</script>
+
+						   			</div>
+						   		</div>
+
+					          </div>
+
+				           <div class="col-md-6">
+
+							 <!-- <img src="./img/illustrations/support_images_introduction.png" style="width:450px;"> -->
+
+				           </div>
+
+
+
+					         </div> <!-- /row -->
+
+ 					 		<div id="uploadgif" class="btnExample" style="margin-left:auto; margin-right:auto; text-align:center; display:none; ">
+
+ 					 			<h8 align="center" >Uploading and processing the file, please wait...</h8>
+
+ 					 			<div align="center">
+ 					 			 	<img src="./img/Preloader_4.gif" style="height:100px;width:100px; ">
+ 					 			</div>
+
+ 					 		 </div>
+
+
+			 </div> <!-- /container -->
+
+
+		</div> <!-- /jumbotron -->
+
+
+	  <div class="jumbotron">
+
+	           <div class="row">
+	             <div class="col-md-6">
+
+	  			   <div class="slides">
+
+		  			   <div id="myCarousel" class="carousel slide" data-interval="3000" data-ride="carousel">
+						<!-- Carousel indicators -->
+						        <ol class="carousel-indicators">
+						            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+						            <li data-target="#myCarousel" data-slide-to="1"></li>
+						            <li data-target="#myCarousel" data-slide-to="2"></li>
+						            <li data-target="#myCarousel" data-slide-to="3"></li>
+						            <li data-target="#myCarousel" data-slide-to="4"></li>
+						        </ol>
+							    <!-- Carousel items -->
+							           <div class="carousel-inner">
+							               <div class="active item">
+							                   <img src="./img/mixed_trans.png" width="400" height="370"/>
+							                   <!-- <div class="carousel-caption">
+
+							                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+							                   </div> -->
+							               </div>
+							               <div class="item">
+											   <img src="./img/chord_trans.png"  width="400" height="370"/>
+							                   <!-- <div class="carousel-caption">
+
+							                     <p>Aliquam sit amet gravida nibh, facilisis gravida odio.</p>
+							                   </div> -->
+							               </div>
+							               <div class="item">
+							                  <img src="./img/illustrations/features_slideshow_cartoon_network.png"  width="400" height="370"/>
+							                   <!-- <div class="carousel-caption">
+
+							                     <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+							                   </div> -->
+							               </div>
+							               <div class="item">
+							                  <img src="./img/illustrations/features_slideshow_cartoon.png"  width="400" height="370"/>
+							                   <!-- <div class="carousel-caption">
+
+							                     <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+							                   </div> -->
+							               </div>
+							               <div class="item">
+							                  <img src="./img/illustrations/features_slideshow_network.png"  width="400" height="370"/>
+							                   <!-- <div class="carousel-caption">
+
+							                     <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+							                   </div> -->
+							               </div>
+							           </div>
+	  	  		        <!-- <div class="carousel-inner" role="listbox">
+	  	  		          <div class="item active">
+	  	  		            <img data-src="./img/mixed_trans.png" alt="First slide">
+	  	  		          </div>
+	  	  		          <div class="item">
+	  	  		            <img data-src="./img/chord_trans.png" alt="Second slide">
+	  	  		          </div>
+	  	  		          <div class="item">
+	  	  		            <img data-src="./img/matrix_trans.png" alt="Third slide">
+	  	  		          </div>
+	  	  		        </div> -->
+	  				   <!-- Carousel nav -->
+	  				           <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+	  				               <span class="glyphicon glyphicon-chevron-left"></span>
+	  				           </a>
+	  				           <a class="carousel-control right" href="#myCarousel" data-slide="next">
+	  				               <span class="glyphicon glyphicon-chevron-right"></span>
+	  				           </a>
+	  	  		      </div>
+	  			   </div>
+	  			   <!--end of class slides -->
+
+	  	  	    <!-- <img src="./img/mixed_trans.png"  width="400" height="370"/>
+	  	  		<img src="./img/chord_trans.png"  width="400" height="370"/>
+	  	  	    <img src="./img/matrix_trans.png"  width="400" height="350"/>
+	  	  		<img src="./img/network_trans.png"  width="400" height="350"/>
+	  	  	    <img src="./img/protein_view_trans.png"  width="400" height="350"/> -->
+
+	             </div> <!--end of col -->
+
+	             <div class="col-md-6">
+
+	  		  	<h2  align="center" >Features</h2>
+
+	  		      <ul class="banner-bulletpoints">
+	  		          <li>Enter pdb id or any term
+	  		          </li><li>Can choose any chains of interest
+	  		          </li><li>Generates network analysis within and between chains
+	  		          </li><li>Different representations of the residue interactions
+	  		          </li><li>Secondary Structure and Residue Statictics views</li>
+	  		       </ul>
+	  	       </div>
+
+	  	   </div>
+
+      </div> <!-- /jumbotron -->
+
+      <footer>
+        <p>&copy; MRC Laboratory of Molecular Biology, 2017</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+
+	  <script src="js/jquery-1.9.1.min.js"></script>
+	  <script src="js/ui/1.10.3/jquery-ui.js"></script>
+
+  </body>
+</html>

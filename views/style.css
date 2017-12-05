@@ -1,0 +1,304 @@
+
+  /*FIX title BAR*/
+  .title {
+/*    position: fixed;*/
+    right: 0;
+    left: 0;
+/*    z-index: 1030;*/
+    margin-bottom: 0;
+
+	border-width: 0 0 1px;
+
+	padding-right: 0;
+	padding-left: 0;
+
+ 	-webkit-border-radius: 15px;
+ 	-moz-border-radius: 15px;
+ 	border-radius: 15px;
+
+	 top: 0;
+
+  }
+
+  /*AN EASY NAVIGATOR, FOR MAIN NAVIGATION MENU*/
+
+  .nav_ {
+  list-style:none;
+  font-weight:bold;
+  margin-bottom:10px;
+  /*width:100%;*/
+  /*text-align: center;*/
+
+  }
+
+  .nav_ ul {
+  list-style-type: none;
+  padding: 0;
+  float:right;
+  margin-top:15px;
+  margin-bottom:10px;
+  /*display:inline-block;*//*BU ONEMLI COMMENT OUT EDINCE HOME, ABOUT ETC TABLERI VE RAJNI LOGOSU AYNI HIZAYA GELDI!!!*/
+  }
+
+  .nav_ li {
+  margin:0px;
+  display:inline;
+  }
+
+
+  .nav_ li a {
+  padding: 7px;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: bold;
+
+   border-radius: 0px;/*sonradan eklendi, rounded olsun die*/
+
+  /*original*/
+  /* color:#929192;*/
+
+   color:#EAE8E8;
+
+  /* background-color: #EAE8E8;*/
+
+  /*float:left;*/
+
+  }
+  .nav_ li a:hover {
+
+  /*		background-color:#E1E0E0;*/
+
+  		color:#717072;
+   }
+
+    .chains {
+    list-style:none;
+    font-weight:bold;
+/*    margin-bottom:10px;*/
+/*    width:100%;*/
+    text-align: center;
+ /*
+    margin-left:-590px;*/
+   /* position:relative;*/
+
+    }
+
+    .chains ul {
+    list-style-type: none;
+/*    padding: 12px;*/
+    font-size: 15px;
+    font-weight: bold;
+    }
+
+
+    /*//////////////////*/
+
+    .chains label {
+    margin:0px;
+/*    display:inline;*/
+    padding: 12px;
+    font-size: 15px;
+    text-decoration: none;
+    font-weight: bold;
+
+
+    }
+
+	/*//to overwrite the tab color to grey from blue
+	// .nav-pills > li.active > a,
+// 	.nav-pills > li.active > a:hover,
+// 	.nav-pills > li.active > a:focus {
+// 	  color: #fff;
+// 	  background-color: #D0D0D0;
+// 	}*/
+
+
+/*	look at this again for glmol canvas, try to do it centered but did not work*/
+	canvas {
+	display: inline;
+
+/*	margin:auto;*/
+	}
+
+/*************************************************************************/
+
+/*THE NEW LIBRARY THAT I USE FOR SHOWING PRGRESS BAR UNTIL PAGE LOADS., THIS IS SO THAT NOTHING WILL BE SEEN IN THE BACKGROUND UNTIL PAGE LOADS*/
+	.pace-running .s3-loader{
+	    zoom:1;
+	    filter:alpha(opacity=10);
+	    opacity:0.03;
+	}
+	.pace-done .s3-loader{
+	    zoom:1;
+	    filter:alpha(opacity=100);
+	    opacity:1;
+	    -webkit-transition:opacity 1s linear;
+	    -moz-transition:opacity 1s linear;
+	    -o-transition:opacity 1s linear;
+	    transition:opacity 1s linear;
+	}
+
+/**************************************************/
+
+/*bootstrap three does not have left and right tabs, these are added to have it for network stats if between chains to choose between chains*/
+	.tabs-below > .nav-tabs,
+	.tabs-right > .nav-tabs,
+	.tabs-left > .nav-tabs {
+	  border-bottom: 0;
+	}
+
+	.tab-content > .tab-pane,
+	.pill-content > .pill-pane {
+	  display: none;
+	}
+
+	.tab-content > .active,
+	.pill-content > .active {
+	  display: block;
+	}
+
+	.tabs-below > .nav-tabs {
+	  border-top: 1px solid #ddd;
+	}
+
+	.tabs-below > .nav-tabs > li {
+	  margin-top: -1px;
+	  margin-bottom: 0;
+	}
+
+	.tabs-below > .nav-tabs > li > a {
+	  -webkit-border-radius: 0 0 4px 4px;
+	     -moz-border-radius: 0 0 4px 4px;
+	          border-radius: 0 0 4px 4px;
+	}
+
+	.tabs-below > .nav-tabs > li > a:hover,
+	.tabs-below > .nav-tabs > li > a:focus {
+	  border-top-color: #ddd;
+	  border-bottom-color: transparent;
+	}
+
+	.tabs-below > .nav-tabs > .active > a,
+	.tabs-below > .nav-tabs > .active > a:hover,
+	.tabs-below > .nav-tabs > .active > a:focus {
+	  border-color: transparent #ddd #ddd #ddd;
+	}
+
+	.tabs-left > .nav-tabs > li,
+	.tabs-right > .nav-tabs > li {
+	  float: none;
+	}
+
+	.tabs-left > .nav-tabs > li > a,
+	.tabs-right > .nav-tabs > li > a {
+	  min-width: 74px;
+	  margin-right: 0;
+	  margin-bottom: 3px;
+	}
+
+	.tabs-left > .nav-tabs {
+	  float: left;
+	  margin-right: 19px;
+	  border-right: 1px solid #ddd;
+	}
+
+	.tabs-left > .nav-tabs > li > a {
+	  margin-right: -1px;
+	  -webkit-border-radius: 4px 0 0 4px;
+	     -moz-border-radius: 4px 0 0 4px;
+	          border-radius: 4px 0 0 4px;
+	}
+
+	.tabs-left > .nav-tabs > li > a:hover,
+	.tabs-left > .nav-tabs > li > a:focus {
+	  border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+	}
+
+	.tabs-left > .nav-tabs .active > a,
+	.tabs-left > .nav-tabs .active > a:hover,
+	.tabs-left > .nav-tabs .active > a:focus {
+	  border-color: #ddd transparent #ddd #ddd;
+	  *border-right-color: #ffffff;
+	}
+
+	.tabs-right > .nav-tabs {
+	  float: right;
+	  margin-left: 19px;
+	  border-left: 1px solid #ddd;
+	}
+
+	.tabs-right > .nav-tabs > li > a {
+	  margin-left: -1px;
+	  -webkit-border-radius: 0 4px 4px 0;
+	     -moz-border-radius: 0 4px 4px 0;
+	          border-radius: 0 4px 4px 0;
+	}
+
+	.tabs-right > .nav-tabs > li > a:hover,
+	.tabs-right > .nav-tabs > li > a:focus {
+	  border-color: #eeeeee #eeeeee #eeeeee #dddddd;
+	}
+
+	.tabs-right > .nav-tabs .active > a,
+	.tabs-right > .nav-tabs .active > a:hover,
+	.tabs-right > .nav-tabs .active > a:focus {
+	  border-color: #ddd #ddd #ddd transparent;
+	  *border-left-color: #ffffff;
+	}
+
+
+	.d3-tip {
+	 /* line-height: 1;
+	  font-weight: bold;
+	  padding: 12px;
+	  border-radius: 2px;*/
+
+/*copied from bootstrap popover css*/
+     position: absolute;
+     top: 0;
+     left: 0;
+     z-index: 1060;
+/*     display: none;*/
+     max-width: 276px;
+     padding: 5px;
+     text-align: left;
+     white-space: normal;
+     background-color: #fff;
+     -webkit-background-clip: padding-box;
+             background-clip: padding-box;
+     border: 1px solid #ccc;
+     border: 1px solid rgba(0, 0, 0, .2);
+     border-radius: 6px;
+     -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+             box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+
+	}
+
+	/* Creates a small triangle extender for the tooltip */
+	.d3-tip:after {
+	  box-sizing: border-box;
+	  display: inline;
+	  font-size: 10px;
+	  width: 100%;
+	  line-height: 1;
+	  content: "\25BD";
+	  position: absolute;
+	  text-align: center;
+	}
+
+	/* Style northward tooltips differently */
+	.d3-tip.n:after {
+	  margin: -1px 0 0 0;
+	  top: 100%;
+	  left: 0;
+	}
+
+/*this is for the PDF report tables, we want every even row to be grey and odd row to be white colored*/
+tr:nth-child(even) {background: #FFF}
+tr:nth-child(odd) {background: #CCC}
+
+
+
+	/*body{
+		zoom: 60%;
+	}*/

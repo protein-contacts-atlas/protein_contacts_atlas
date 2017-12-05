@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+
+<head>
+	<link rel="icon" type="image/png" href="../img/Rajini_abstract_1.png" />
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Protein Contacts Atlas</title>
+	<link type="text/css" rel="stylesheet" href="demo_table.css" />
+
+	<script type="text/javascript" src="../js/d3.v3.min.js"></script>
+
+	<script type="text/javascript" src="../js/colorbrewer.js"></script>
+	<script type="text/javascript" src="../js/json.js"></script>
+	<!--the following two files needs to be here , if they were below d3.layout.js file, then it messed up with the panel sizes -->
+	<script type="text/javascript" src="../js/getdata.js"></script>
+	<script type="text/javascript" language="javascript" src="../js/jquery.js"></script>
+
+	<!-- <script src="../js/jquery-1.9.1.min.js"></script> -->
+	<script src="https://code.jquery.com/jquery-1.12.3.js"></script>
+
+	<script src="../js/Three49custom.js"></script>
+	<script type="text/javascript" src="../js/GLmol.js"></script>
+
+	<!-- OLD JQUERY UI -->
+	<!-- <link rel="stylesheet" href="../css/ui/1.10.3/theme/smoothness/jquery-ui.css">
+	<script src="../js/ui/1.10.3/jquery-ui.js"></script> -->
+	<!-- NEW JQUERY UI -->
+	<link rel="stylesheet" href="../js/jquery-ui-1.12.1.custom/jquery-ui.min.css">
+	<script src="../js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+
+	<!-- <script type="text/javascript" src="../DataTables-1.10.3/media/js/jquery.dataTables.js"></script> -->
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.2/js/dataTables.fixedColumns.min.js"></script>
+
+	<script type="text/javascript" language="javascript" src="../DataTables-1.10.3/extensions/TableTools/js/dataTables.tableTools.js"></script>
+
+	<!-- <link type="text/css" rel="stylesheet" href="../DataTables-1.10.3/media/css/jquery.dataTables.css" /> -->
+	<link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
+	<link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.2/css/fixedColumns.dataTables.min.css"/>
+
+	<link type="text/css" rel="stylesheet" href="../DataTables-1.10.3/extensions/TableTools/css/dataTables.tableTools.css" />
+
+	<script src='allfunctions.js' type='text/javascript'>
+	</script>
+	<script src='splom.js' type='text/javascript'>
+	</script>
+	<!-- <script type="text/javascript" src="../js/jpreloader.js"></script>-->
+	<!-- Bootstrap core CSS -->
+    <!-- <link href="../bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- col-md-6 is added seperately in bootstrap.css just for rajini, and commented out from its original line with other col- classes. labelling of residues does not work if col-md-6 (the div that protein view is in) is postion:relative so I commented that part out -->
+    <link href="../bootstrap-3.2.0-dist/css/bootstrap.css" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link href="../bootstrap-3.2.0-dist/css/navbar-fixed-top.css" rel="stylesheet">
+	<!-- To fix white space on the bottom of every page, done by melis -->
+	<link href="../css/fix_bottom_space.css" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="style.css" />
+	<link type="text/css" rel="stylesheet" href="../css/selection.css" />
+	<!-- <link type="text/css" rel="stylesheet" href="jpreloader.css"/> -->
+
+	<script type="text/javascript" src="../js/jquery.form.js"></script>
+	<!-- <script src="http://malsup.github.com/jquery.form.js"></script>-->
+
+	<script src="../js/html2canvas.js"></script>
+	<!--PACE IS USED TO HAVE PROGRESS BAR UNTIL PAGE LOADS -->
+	<!--<script data-pace-options='{ "restartOnPushState": false, "restartOnRequestAfter": false }' src="../PACE/pace.min.js"></script>-->
+	<script data-pace-options='{ "restartOnPushState": false, "restartOnRequestAfter": false }' src="../PACE/pace.min.js"></script>
+	<link href="../PACE/pace-theme-center-circle.css" rel="stylesheet" />
+	<!--TOURIST PLUGIN IS USED TO MAKE A TUTORIAL IN THE WEBSITE -->
+	<script src="../tourist/underscore.js"></script>
+	<script src="../tourist/backbone.js"></script>
+	<script src="../tourist/tourist.js"></script>
+	<link rel="stylesheet" href="../tourist/tourist.css" type="text/css" media="screen">
+	<script src="../js/jquery.scrollTo.min.js"></script>
+
+	<script type="text/javascript" src="../js/d3-tip-master/index.js"></script>
+	<!-- <script type="text/javascript" src="../js/d3.tip.v0.6.3.js"></script> -->
+	<!-- <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script> -->
+
+	<script src="../js/detect-zoom.js"></script>
+
+	<script src="../js/writepymol.js"></script>
+
+<link type="text/css" rel="stylesheet" href="../css/col-md-6.css" />
+
+<!-- PDBE COMPONENT LIBRARY -->
+<link rel="stylesheet" href="//www.ebi.ac.uk/pdbe/pdb-component-library/v1.0/css/pdb.component.library.min-1.0.0.css" />
+<!-- <script src="//www.ebi.ac.uk/pdbe/pdb-component-library/libs/d3.min.js"></script> -->
+<script src="//www.ebi.ac.uk/pdbe/pdb-component-library/libs/angular.1.4.7.min.js"></script>
+<script src="//www.ebi.ac.uk/pdbe/pdb-component-library/v1.0/js/pdb.component.library.min-1.0.0.js"></script>
+
+<link type="text/css" rel="stylesheet" href="../bootstrap-3.2.0-dist/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" />
+
+<script src="../js/tutorial.js"></script>
+
+<link type="text/css" rel="stylesheet" href="../css/tooltip_custom.css" />
+
+	<script>
+
+	$(document).ready(function() {
+		$('body').click(function(){
+	  	//console.log('clicked');
+			tooltip.style("visibility", "hidden");
+		});
+	})
+
+	(function () {
+		setTimeout(function() {
+			'use strict';
+	  	angular.element(document).ready(function () {
+	    angular.bootstrap(document, ['pdb.component.library']);
+			// console.log("kokoooo")
+	  	});
+		}, 5000);
+
+	}());
+
+      var zoom = detectZoom.zoom();
+      var device = detectZoom.device();
+
+     // console.log(zoom, device);
+
+		(function(i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function() {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+			a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-45268894-1', 'cam.ac.uk');
+		ga('send', 'pageview');
+
+
+		// $(function()
+		// 	{
+		// 		$("body").jpreLoader();
+		// 	});
+
+		$(function() {
+			$("article.tabs").tabs({
+				collapsible: false
+			});
+			//$( "article.tabs" ).tabs({collapsible: true, active: false });
+
+		});
+
+		$(function() {
+			$("#interactions").draggable();
+		});
+
+		// this will be used to change color of the tabs in nav2 ... leave it for now
+
+		$(function() {
+			$('.nav2 a').each(function() {
+				if ($(this).attr('href') === window.location.pathname) {
+					$(this).addClass('current');
+				}
+			});
+		});
+
+		function readText() {
+			$('#submitbutton').removeClass('disabled');
+		}
+
+		function process_new() {
+
+			$('#progressgif').show();
+
+			var option=$('input[type="radio"]:checked').val();
+
+			$.ajax({
+				type: 'post',
+				url: './chains_process_combined_in_views.php',
+				data: {
+					cutoff: option,
+					PDB: $('#PDB').val(),
+				},
+				success: function(data) {
+
+					eval(data);
+
+				}
+			});
+		}
+
+		function process_newin() {
+
+			$('#myModalprocess').modal('show');
+			//$('#progressgif').show();
+			var option=$('input[type="radio"]:checked').val();
+
+			$.ajax({
+				type: 'post',
+				url: './chains_process_combined_in_views.php',
+				data: {
+					cutoff: option,
+					PDB: $('#PDBin').val(),
+				},
+				success: function(data) {
+
+					eval(data);
+
+				}
+			});
+		}
+
+		// TODO: hard coded functions , can be improved later
+		function changetab() {
+
+			$('#firstpanel').css('display', 'block');
+			$('#secondpanel').css('display', 'none');
+			$('#thirdpanel').css('display', 'none');
+
+			$('#tab1').addClass('active');
+			$('#tab2').removeClass('active');
+			$('#tab3').removeClass('active');
+
+			var heights = $(".panel-body").map(function() {
+					return $(this).height();
+				}).get(),
+
+				maxHeight = Math.max.apply(null, heights);
+
+			$(".panel-body").height(maxHeight);
+
+			var heights1 = $(".panel-footer").map(function() {
+					return $(this).height();
+				}).get(),
+
+				maxHeight1 = Math.max.apply(null, heights1);
+
+			$(".panel-footer").height(maxHeight1);
+
+			switchTabs("chord");
+
+			//preventDefault function prevents the page to reload if a tab is clicked
+			//not working in firefox so be careful
+			 //event.preventDefault();
+			//we need to define event so that it works in firefox
+			//it is below where we added an event listener for tab1 separetly
+			document.getElementById("tab1").addEventListener("click", function(event){
+					event.preventDefault()
+			});
+
+		}
+
+		function changetab2() {
+
+			$('#secondpanel').css('display', 'block');
+			$('#firstpanel').css('display', 'none');
+			$('#thirdpanel').css('display', 'none');
+
+			$('#tab1').removeClass('active');
+			$('#tab2').addClass('active');
+			$('#tab3').removeClass('active');
+
+			var heights = $(".panel-body").map(function() {
+					return $(this).height();
+				}).get(),
+
+				maxHeight = Math.max.apply(null, heights);
+
+			$(".panel-body").height(maxHeight);
+
+			var heights1 = $(".panel-footer").map(function() {
+					return $(this).height();
+				}).get(),
+
+				maxHeight1 = Math.max.apply(null, heights1);
+
+			$(".panel-footer").height(maxHeight1);
+
+			switchTabs("network");
+			//reDrawProtein([], []);
+
+			//event.preventDefault();
+			document.getElementById("tab2").addEventListener("click", function(event){
+					event.preventDefault()
+			});
+
+		}
+
+		function changetab3() {
+
+			$('#thirdpanel').css('display', 'block');
+			$('#firstpanel').css('display', 'none');
+			$('#secondpanel').css('display', 'none');
+
+			$('#tab1').removeClass('active');
+			$('#tab2').removeClass('active');
+			$('#tab3').addClass('active');
+
+			var heights = $(".panel-body").map(function() {
+					return $(this).height();
+				}).get(),
+
+				maxHeight = Math.max.apply(null, heights);
+
+			$(".panel-body").height(maxHeight);
+
+			var heights1 = $(".panel-footer").map(function() {
+					return $(this).height();
+				}).get(),
+
+				maxHeight1 = Math.max.apply(null, heights1);
+
+			$(".panel-footer").height(maxHeight1);
+
+			switchTabs("ligand");
+
+			//event.preventDefault();
+			document.getElementById("tab3").addEventListener("click", function(event){
+					event.preventDefault()
+			});
+
+		}
+
+		function changetabsplom(panel) {
+
+			if (panel == "fragment-1s") {
+				$('#fragment-1s').css('display', 'block');
+				$('#fragment-2s').css('display', 'none');
+				//$('#fragment-3s').css('display', 'none');
+
+				$('#tab1s').addClass('active');
+				$('#tab2s').removeClass('active');
+				$('#tab3s').removeClass('active');
+
+				$('#content1s').css('display', 'block');
+				$('#content2s').css('display', 'none');
+				$('#content3s').css('display', 'none');
+
+				//	switchViewSplom('scatter');
+			} else if (panel == "fragment-2s") {
+
+				$('#fragment-1s').css('display', 'none');
+				$('#fragment-2s').css('display', 'block');
+				//$('#fragment-3s').css('display', 'none');
+
+				$('#tab1s').removeClass('active');
+				$('#tab2s').addClass('active');
+				$('#tab3s').removeClass('active');
+
+				$('#content1s').css('display', 'none');
+				$('#content2s').css('display', 'block');
+				$('#content3s').css('display', 'none');
+
+				//the following code is added because in this tab, we have a table created with DataTable and TableTools is used to save as PDF
+				//Save as excell or PDF did not work when the table was in another tab. this way, When a tab is shown, we iterate through all the TableTools instances and check if a resize is needed, if it is, we do it!
+				ttInstances = TableTools.fnGetMasters();
+				for (i in ttInstances) {
+					if (ttInstances[i].fnResizeRequired()) ttInstances[i].fnResizeButtons();
+				}
+
+				//	switchViewSplom('stats');
+			}
+
+			var heights = $(".panel-body").map(function() {
+					return $(this).height();
+				}).get(),
+
+				maxHeight = Math.max.apply(null, heights);
+
+			$(".panel-body").height(maxHeight);
+
+			var heights1 = $(".panel-footer").map(function() {
+					return $(this).height();
+				}).get(),
+
+				maxHeight1 = Math.max.apply(null, heights1);
+
+			$(".panel-footer").height(maxHeight1);
+
+			//event.preventDefault();
+			document.getElementById("tab1s").addEventListener("click", function(event){
+					event.preventDefault()
+			});
+			document.getElementById("tab2s").addEventListener("click", function(event){
+					event.preventDefault()
+			});
+		}
+
+		// $(window).on('hashchange', function() {
+// 			 //console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+// 			//redirectHome();
+// 		});
+
+		// window.addEventListener('popstate', function(event)
+// 		{
+// 			//redirectHome();
+// 		    console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+//
+// 		});
+
+		// window.onbeforeunload = function (e) {
+// 			HandleBackFunctionality();
+// 		}
+//
+// 		function HandleBackFunctionality()
+//            {
+// 			   alert("IN FUNCTION");
+//                if(window.event)
+//                {
+//                   if(window.event.clientX < 40 && window.event.clientY < 0)
+//                   {
+//                       alert("Browser back button is clicked…");
+//                   }
+//                  else
+//                  {
+//                      alert("Browser refresh button is clicked…");
+//                   }
+//                }
+//               else
+//               {
+//                    if(event.currentTarget.performance.navigation.type == 1)
+//                    {
+//                       alert("Browser refresh button is clicked…");
+//                    }
+//                    if(event.currentTarget.performance.navigation.type == 2)
+//                    {
+//                       alert("Browser back button is clicked…");
+//                     }
+//                }
+//           }
+//
+// $(document).ready(function() {
+//
+// 	 	if (navigator.userAgent.indexOf('Chrome') != -1 || navigator.userAgent.indexOf('Firefox') != -1 || navigator.userAgent.indexOf('Opera') != -1)
+// 		{
+//
+//   		  	  if (window.history && window.history.pushState) {
+//
+//   		  	    $(window).on('popstate', function() {
+//   		  	      var hashLocation = location.hash;
+//   		  	      var hashSplit = hashLocation.split("#!/");
+//   		  	      var hashName = hashSplit[1];
+//
+//   		  		  // alert(hashLocation);
+//   		  		  // alert(hashSplit);
+//   		  	 	  // alert(hashName);
+//   		  	 	  // alert(window.location.hash);
+//
+//   		  	      if (hashName !== '') {
+//   		  	        var hash = window.location.hash;
+//
+//   		  	        if (hash === '' && (viewOptions.showhide!="yes" && viewOptions.showupload!="yes")) {
+//   		  	          // alert('Back button was pressed.');
+//   		  			  redirectHome();
+//   		  	        }
+//   		  	      }
+//   		  	    });
+//
+//   		  	   // window.history.pushState('forward', null, './#forward');
+//   		  	  }
+// 		 }
+//
+// 		else{
+// 		  	 // alert('Safari');
+// 			 //FOR NOW, SEPERATED SAFARI WITH OTHERS. BECAUSE IN SAFARI, IT IMMEDIATELY GOES INTO POPSTATE ON PAGE LOAD AND THEREFORE REDIRECTS TO INDEX PAGE WHICH WE DON'T WANT
+// 			 //NOW, IN SAFARI, NO GOING TO INDEX ON BACK BUTTON CLICK. WILL LOOK LATER
+// 		}
+// });
+
+
+
+		function goBack() {
+ 				console.log();
+		}
+		$(document).ready(function() {
+
+			document.onmouseover = function() {
+			    //User's mouse is inside the page.
+			    window.innerDocClick = true;
+			}
+
+			document.onmouseleave = function() {
+			    //User's mouse has left the page.
+			    window.innerDocClick = false;
+			}
+
+			window.onhashchange = function() {
+			    if (window.innerDocClick) {
+			        //Your own in-page mechanism triggered the hash change
+			    } else {
+			        //Browser back button was clicked
+			    }
+			}
+
+		});
+
+	</script>
+	<style>
+
+	#residueTable tbody tr {
+
+		cursor: pointer;
+
+	}
+
+		label {
+			display: inline-block;
+			width: 5em;
+		}
+		.ui-tabs .ui-tabs-nav a {
+			background-color: none;
+		}
+		.glyphicon {
+			display: inline-block;
+			border-radius: 4px
+		}
+		.dataTables_filter {
+			display: none;
+		}
+
+	</style>
+</head>
+
+<body onload="load();" bgcolor="#F2F2F2">
+	<div class="s3-loader">
+		<!-- Fixed navbar -->
+		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="../index.html">Protein Contacts Atlas</a>
+					<button href="#" id="help" style="margin-top:8px;" class="btn btn-primary popover-bottom btn-sm pull-right" data-toggle="popover" data-content="Click to see tutorial">Quick Tutorial</button>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li style="padding-top:8px; padding-right:5px;">
+							<button type="submit" id="showpdf" class="btn btn-default popover-bottom" data-toggle="modal" data-target="#reportprocess" onclick="addPDFreport(); return false;" data-content="Click to download the report for the selected chain"><span class="glyphicon glyphicon-save"></span>Structure Report</button>
+						</li>
+
+						<li><a href="../index.html">Home</a>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced Features <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="../index_search.html">Search any keyword</a></li>
+								<li><a href="../pfam_mapping.html">Pfam mappings</a></li>
+							</ul>
+						</li>
+						<!-- <li><a href="../index_search.html">Search any keyword</a>
+						</li>
+						<li><a href="../pfam_mapping.html">Pfam mappings</a>
+						</li> -->
+						<!-- <li><a href="../about.html">About</a> -->
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">About<span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="../about.html">Description</a></li>
+								<li><a href="../features.html">Features</a></li>
+								<li><a href="../downloadables.html">Downloadable Files' Description</a></li>
+								<li><a href="../disciplines.html">Scientific Disciplines</a></li>
+							</ul>
+						</li>
+						</li>
+						<li><a href="../contact.html">Contact</a>
+						</li>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</div>
+		<div class="container">
+			<div style="margin-top:-20px;">
+				<div class="title" id="titles" style=" width:90%;  margin-left: auto ; margin-right: auto ;">
+					<div id="explanation" style=" width:auto; text-align:center; margin-left:auto; margin-right:auto; margin-bottom:-30px;">
+						<div class="nav_" id="glmol01_pdbTitle" style="color: black; font-size:10px;"></div>
+					</div>
+					<!-- Modal -->
+					<div class="modal fade" id="reportprocess" tabindex="-1" role="dialog" aria-labelledby="myModalLabelprocess" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-body">
+									<div id="progressgif" class="btnExample" style="margin-left:auto; margin-right:auto; text-align:center; ">
+										<h4 align="center">Generating the structure report, please wait...(Enable popups)</h4>
+										<div align="center">
+											<img src="../img/Preloader_4.gif" style="height:100px;width:100px; ">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div><!-- END OF MODALS -->
+				</div>
+				<!--/title -->
+				<div class="row">
+					<div class="col-md-2">
+						<div class="row">
+								<div class="input-group" id="pdbidiv">
+
+										<span class="input-group-addon">PDB ID:</span>
+
+										<input readonly type="text" id="PDBin" name="PDBin" class="form-control" size="4" onchange="process_newin();" oninput="if (!document.getElementById('PDBin').value.charAt(0).match(/[^0-9]/)) { if(document.getElementById('PDBin').value.length == 4) { readText();} else { $('#submitbutton').addClass('disabled'); } } " placeholder="PDB ID">
+						  				<!-- Modal -->
+						  				<div class="modal fade" id="myModalprocess" tabindex="-1" role="dialog" aria-labelledby="myModalLabelprocess" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+						  					<div class="modal-dialog">
+						  						<div class="modal-content">
+
+						  							<div class="modal-body">
+						  								<div id="progressgif" class="btnExample" style="margin-left:auto; margin-right:auto; text-align:center;">
+						  									<h4 align="center">Processing the new structure, please wait...</h4>
+						  									<div align="center">
+						  										<img src="../img/Preloader_4.gif" style="height:100px;width:100px; ">
+						  									</div>
+						  								</div>
+						  							</div>
+
+						  						</div>
+						  					</div>
+						  				</div><!-- END OF MODALS -->
+
+										<span class="input-group-btn">
+											<!-- 10.08.17 for now disabled the cutoff button and pdb entry within the page -->
+											<!-- <button type="button" class="btn btn-default pull-left popover-top" data-content="Choose cutoff value" id="buttoncutoff" style="z-index:10;" data-toggle="modal" data-target="#myModalcutoff">
+												<span id="span_cutoff" class="glyphicon glyphicon-plus"></span>
+
+											</button> -->
+											<!-- Modal -->
+											<div class="modal fade" id="myModalcutoff" tabindex="-1" role="dialog" aria-labelledby="myModalLabelcutoff" aria-hidden="true">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h4 class="modal-title">Change cut off value for distance calculation between atoms</h4>
+
+															<div class="alert alert-warning" role="alert" id="ssnotice" style="display:none;">
+																<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+																</button>
+															</div>
+															<script>
+																$('.alert .close').click(function() {
+																	$(this).parent().hide();
+																});
+															</script>
+														</div>
+														<div class="modal-body">
+															<div id="below_chart">
+																The default cut off value is chosen as 0.5 Angstroms. You can select from one of the below values to recalculate distances. This might take a while as all distances are recalculated</br>
+																<br>
+
+																<!-- <div id='elements'></div> -->
+																<div class="btn-group" data-toggle="buttons">
+																	<label class="btn btn-primary">
+																    <input type="radio" name="options" id="option0" value="0.0" autocomplete="off"> 0.0
+																  </label>
+																  <label class="btn btn-primary active">
+																    <input type="radio" name="options" id="option1" value="0.5" autocomplete="off" checked> 0.5
+																  </label>
+																  <label class="btn btn-primary">
+																    <input type="radio" name="options" id="option2" value="0.6" autocomplete="off"> 0.6
+																  </label>
+																  <label class="btn btn-primary">
+																    <input type="radio" name="options" id="option3" value="0.7" autocomplete="off"> 0.7
+																  </label>
+																  <label class="btn btn-primary">
+																    <input type="radio" name="options" id="option4" value="0.8" autocomplete="off"> 0.8
+																  </label>
+																	<label class="btn btn-primary">
+																    <input type="radio" name="options" id="option5" value="1.0" autocomplete="off"> 1.0
+																  </label>
+																</div>
+																<!-- <button class="btn btn-primary pull-right" id="redefine">Re-calculate and process structure</button></br> -->
+															</div>
+
+														</div>
+														<div class="modal-footer" style="z-index:8; position:relative;">
+															<button type="button" class="btn btn-default" data-dismiss="modal">Go back to the main page</button>
+														</div>
+													</div>
+												</div>
+											</div><!-- END OF MODALS -->
+										</span>
+								</div>
+						</div><!-- end of row -->
+						<div class="row">
+							<div>
+								<button type="button" class="btn btn-default btn-xs pull-left popover-top" data-content="Show/Hide section" id="button3" style="display:inline-block; z-index:10;">
+									<span id="span_3" class="glyphicon glyphicon-minus"></span>
+								</button>
+								<button id="show" style="width:100%; margin-top:-30px;" class="btn btn-default popover-top" data-toggle="modal" data-content="Show/Hide chains" data-target="#myModal">
+									<div class="chains"></div>
+									<div id='screenshot_chains' style="width:auto; margin-left:auto; margin-right:auto; margin-top:-10px;; display: inline-block;">
+									</div>
+								</button>
+								<!-- end of show -->
+							</div>
+
+						</div>
+						<!-- end of row -->
+					</div>
+					<!-- end of col -->
+					<div class="col-md-10" id="pymols">
+
+						<div id="ssline" style="text-align:center; width:100%;"></div>
+
+						<div id="pymolseqs" style="text-align:center; overflow-x:auto;">
+							<div id="pymolseqs1" style="text-align:center; ">
+							</div>
+							<div id="pymolseqs2" style="text-align:center; margin-top:-5px; ">
+							</div>
+						</div>
+					</div>
+					<!-- end of col -->
+				</div>
+				<!-- end of row -->
+				<script>
+
+				// $(document).click(function() {
+				// 		tooltip.style("visibility", "hidden");
+				// });​
+
+					$("#button3").click(function() {
+						$("#show").slideToggle("fast");
+						if ($("#span_3").hasClass("glyphicon-minus")) {
+							$("#span_3").removeClass('glyphicon-minus');
+							$("#span_3").addClass('glyphicon-plus');
+						} else {
+							$("#span_3").removeClass('glyphicon-plus');
+							$("#span_3").addClass('glyphicon-minus');
+						}
+					});
+					$('#help').click(function() {
+						guide();
+						 $('#help').addClass("disabled");
+					});
+
+					$(function(){
+
+					     $('#myModal').on('show.bs.modal', function () {
+					        $('#glmol01_load').focus();
+							//console.log("in focus?");
+					    });
+					});
+
+				</script>
+			</div>
+			<!-- /jumbotron -->
+			<!-- <div style="background-color: #F2F2F2"> -->
+			<div>
+				<div id="buttons" style="text-align:center;margin-left:auto; margin-right:auto;">
+					<a href="#" id="left" class="btn btn-default btn-sm popover-top" data-toggle="popover" data-content="Swap panels"><span class="glyphicon glyphicon-resize-horizontal"></span></a>
+					<!-- <a href="#" id="resetall" class="btn btn-default btn-sm popover-top" data-toggle="popover" data-content="Reset to default view"><span class="glyphicon glyphicon-refresh"></span></a> -->
+					<a href="#" id="zoomout" class="btn btn-default btn-sm popover-top" data-toggle="popover" data-content="Zoom out"><span class="glyphicon glyphicon-zoom-out"></span></a>
+					<a href="#" id="zoomin" class="btn btn-default btn-sm popover-top" data-toggle="popover" data-content="Zoom in"><span class="glyphicon glyphicon-zoom-in"></span></a>
+					<a href="#" id="disease" class="btn btn-default btn-sm popover-top" data-toggle="modal" data-content="Show disease mutations" data-target="#myModalMutations">Show disease mutations</a>
+
+					<!-- <button id="show" style="width:100%; margin-top:-30px;" class="btn btn-default popover-top" data-toggle="modal" data-content="Show/Hide chains" data-target="#myModal">
+						<div class="chains"></div>
+						<div id='screenshot_chains' style="width:auto; margin-left:auto; margin-right:auto; margin-top:-10px;; display: inline-block;">
+						</div>
+					</button> -->
+
+				</div>
+
+				<script>
+					// $('#resetall').click(function(event) {
+					//
+					// 	event.preventDefault();
+					// 	removeURLpart("group1");
+					// 	removeURLpart("group2");
+					// 	updateURL(viewOptions);
+					// 	initializeProteinView([], [], 0);
+					// 	reDrawProtein([], [], 0);
+					//
+					// 	switchView("chord");
+					//
+					// });
+
+					var currFFZoom = 1;
+					var currIEZoom = 100;
+					$('#zoomout').click(function() {
+
+							if (navigator.userAgent.indexOf('Firefox') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Firefox') + 8)) >= 3.6)
+								{//Firefox
+							        var step = 0.10;
+							        currFFZoom -= step;
+							        $('body').css('MozTransform','scale(' + currFFZoom + ')');
+
+							    } else {
+							        var step = 10;
+							        currIEZoom -= step;
+							        $('body').css('zoom', ' ' + currIEZoom + '%');
+							    }
+
+					});
+					$('#zoomin').click(function() {
+
+						//event.preventDefault();
+
+					    if (navigator.userAgent.indexOf('Firefox') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Firefox') + 8)) >= 3.6){//Firefox
+					           var step = 0.10;
+					           currFFZoom += step;
+					           $('body').css('MozTransform','scale(' + currFFZoom + ')');
+					       } else {
+					           var step = 10;
+					           currIEZoom += step;
+					           $('body').css('zoom', ' ' + currIEZoom + '%');
+					       }
+
+						  // drawSplom();
+
+					});
+
+				</script>
+<!--
+				<ul id="tabs_outer_vertical" class="nav nav-tabs tabs-vertical tabs-left nav-justified">
+					<li id="tab1_v" class="active">Contacts</li>
+
+				</ul> -->
+				<div class="row">
+
+					<!-- <h3><a class='pdb-links' pdb-id="3SN6" href="javascript:void(0);" style="color: #A0A1A2">3SN6</a> -->
+					<!-- <a class='pdb-links' pdb-id='1cbs' href='javascript:void(0);'>1cbs</a> -->
+					<div class="col-md-6" id="first">
+
+						<ul id="tabs_outer" class="nav nav-tabs nav-justified">
+							<li id="tab1" class="active"><a href="#" onclick="changetab();">Secondary Structures</a> </li>
+							<!-- <li id="tab2" class="disabled"><a>Network Statistics</a></li> -->
+							<li id="tab3"><a href="#" onclick="changetab3();">Ligands and Residues</a>
+							</li>
+							<li id="tab2"><a href="#" onclick="changetab2();">Per Residue Statistics</a>
+							</li>
+							<!-- <li id="tab3" class="disabled"><a>Ligands/Residues</a></li> -->
+						</ul>
+						<div class="panel panel-default" id="firstpanel">
+							<div class="panel-heading text-center clearfix">
+								<div class="btn-group pull-right">
+									<button type="button" class="btn btn-default btn-sm popover-top savearpeggio" id="savearpeggio" data-toggle="popover" data-content="Save arpeggio files which have all contact types (.zip)" style="display:none;">
+										<span class="glyphicon glyphicon-file">Arpeggio</span>
+									</button>
+									<button type="button" class="btn btn-default btn-sm popover-top savesif" id="savesif" data-toggle="popover" data-content="Save sif files to be used in Cytoscape (.zip)">
+										<span class="glyphicon glyphicon-file">Cytoscape</span>
+									</button>
+									<button type="button" class="btn btn-default btn-sm popover-top savecsv" id="savecsv" data-toggle="popover" data-content="List of all contacts in atomic level (.zip)">
+										<span class="glyphicon glyphicon-file">Contacts</span>
+									</button>
+									<button type="button" class="btn btn-default btn-sm popover-top" id="savesvg" data-toggle="popover" data-content="Save the image as svg">
+										<span class="glyphicon glyphicon-camera"></span>
+									</button>
+									<a href="#" id="resetall" class="btn btn-default btn-sm popover-top resetall" data-toggle="popover" data-content="Deselect and reset to default"><span class="glyphicon glyphicon-refresh"></span></a>
+									<!-- <script>
+
+									$('#savesif').click(function() {
+										//triggerSaveFile("savecsv");
+										triggerSaveFile("savesif");
+									});
+
+										$('#savecsv').click(function() {
+											//triggerSaveFile("savecsv");
+											triggerSaveFile("savezip");
+										});
+
+										$('#savesvg').click(function() {
+											triggerSaveFile("savesvg");
+										});
+
+									</script> -->
+								</div>
+								<h3 class="panel-title popover-top" style="text-align:left; font-size: 150%;" data-toggle="popover" data-content="Click on the chords in the plot to view the atomic contacts.">Chord Plot</h3>
+							</div>
+							<div class="panel-body" id="chord">
+
+								<!-- <div id="ssline" style="text-align:center; width:100%;"></div> -->
+								<div style="width:auto; text-align:center; margin-left:auto; margin-right:auto; ">
+									<div id="contenttext" style="text-align:center; width:auto; margin-left:auto; margin-right:auto; display: inline-block;"></div>
+									<div class="btn-group pull-left popover-top" data-toggle="popover" data-content="Secondary Structure Chord" style="z-index:12; width:auto; margin-left:auto; margin-right:auto; display: none; top:-30px;" id="chord_button"><a href="" onclick="switchView('chord'); return false;"><span style="cursor:pointer" > <img src="../img/chord_logo.png" width="35" height="35" onmouseover="this.src='../img/chord_logo_dark.png'" onmouseout="this.src='../img/chord_logo.png'"></span></a>
+									</div>
+								</div>
+								<div id="outer_schmips" style="height:500px; position:relative;">
+									<div class="panel panel-default" id="infobox" style="top:40px; left:180px; width: 60%; height:15%; position:relative; position:absolute; margin: 0 auto; display:none;">
+										<div class="panel-body" id="contactpanel" style="text-align:center;">
+										</div>
+									</div>
+									<div id="contactmatrix" style="top:150px; left:150px; width: 60%; height:60%; position:relative; position:absolute; margin: 0 auto; display:none;">
+										<div id='chordGraph' style=" top:60px; left:60px;  overflow-x:auto; overflow-y:auto; position:absolute; width:80%; height:80%;"></div>
+										<div id='rowtext2' style="top:60px; left:0px; position:absolute; width:50px; height:80%; overflow-x:hidden; overflow-y:hidden; "> </div>
+										<div id='coltext2' style="top:0px; left:60px; position:absolute; width:80%; height:50px; overflow-x:hidden; overflow-y:hidden;"> </div>
+									</div>
+									<div class='block' id='chordGraph_real' style="width: 100%; height:450px; position:absolute;"> </div>
+
+								</div>
+								<script>
+									$(document).ready(function() {
+										$("#chordGraph").scroll(function() {
+											$("#rowtext2").scrollTop($("#chordGraph").scrollTop());
+											//  $("#right").scrollLeft($("#left").scrollLeft());
+										});
+										$("#chordGraph").scroll(function() {
+											//  $("#lef").scrollTop($("#right").scrollTop());
+											$("#coltext2").scrollLeft($("#chordGraph").scrollLeft());
+										});
+										$("#rowtext2").scroll(function() {
+											$("#chordGraph").scrollTop($("#rowtext2").scrollTop());
+											//  $("#right").scrollLeft($("#left").scrollLeft());
+										});
+										$("#coltext2").scroll(function() {
+											//  $("#lef").scrollTop($("#right").scrollTop());
+											$("#chordGraph").scrollLeft($("#coltext2").scrollLeft());
+										});
+
+									});
+								</script>
+							</div>
+							<!-- /"panel-body"  -->
+							<div class="panel-footer" id="expand_footer">
+								<!-- <div id="infobox" style="float:left; padding-bottom:12px; display:inline; "><a href="#"><img src="../img/InfoBox-icon.png" width="20" height="20" title="Include loops checkbox will be functional soon!"></a></div>-->
+								<div id="loopDiv">
+									<input type="checkbox" id="loopInclude" onchange="drawChordLoops('null');" /> Include loops
+									<br />
+								</div>
+								<div id="selfConnectionsDiv">
+									<input type="checkbox" id="displaySelfConnections" onchange="switchView('chord'); drawChord();" /> Display interactions within secondary structures
+									<br />
+								</div>
+								<div id="showhide" style="background-color: rgba(0, 0, 0, 0.15); cursor:pointer; z-index:2;" data-toggle="modal" data-target="#myModalSS">
+									<a href="#">Click to redefine secondary structure details</a>
+									<span class="pull-right "><i id="sign" class="glyphicon glyphicon-plus"></i></span>
+								</div>
+								<!-- Modal -->
+								<div class="modal fade" id="myModalSS" tabindex="-1" role="dialog" aria-labelledby="myModalLabelSS" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												Redefine secondary structures
+												<div class="alert alert-warning" role="alert" id="ssnotice" style="display:none;">
+													<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+													</button>
+												</div>
+												<script>
+													$('.alert .close').click(function() {
+														$(this).parent().hide();
+													});
+
+													$('#showhide').click(function() {
+														viewOptions.showhide="yes";
+														updateURL(viewOptions);
+													});
+
+													$('#myModalSS').on('hidden.bs.modal', function (e) {
+														removeURLpart("showhide");
+													})
+
+												</script>
+											</div>
+											<div class="modal-body">
+												<div id="below_chart">
+													These secondary structural elements are derived from the PDB file. You can change the assignment by editing below, then pressing re-draw. For now, only change start and end residues. Name change will be added soon.</br>
+													<br>
+													<button class="btn btn-primary" id="redefine">Re-draw</button>
+													<button class="btn btn-success pull-right" onclick="$('#ssnotice').hide(); removeURLpart('groups'); updateURL(viewOptions); switchView('chord'); drawChordRedefineSS(); ">Restore default values</button>
+													</br>
+													<br></br>
+													<div id='elements'></div>
+													<button type='button' class='btn btn-primary add' id='addfield'>Add a new field <span class="glyphicon glyphicon-plus"></span></button>
+													<!-- <textarea rows="20" cols="80" id="secondary_ranges"></textarea> -->
+												</div>
+												<script>
+
+													$("#addfield").click(function() {
+
+														json.groups.length++;
+														var intId = json.groups.length-1;
+
+														var fieldWrapper = $(	"<div id='ss"+intId+"'>Name: <input type='text' size='20' value='' id='name" + intId+ "'> Start: <input type='text' value='' maxlength='4' size='10' id='start" + intId + "'> End: <input type='text' value='' maxlength='4' size='10' id='end"
+															+ intId+ "'> <button type=\"button\" class=\"btn btn-default btn-sm\" id='remove" + intId + "' onclick=\"$('#ss"+intId+"').remove(); json.groups.length--;\"><span class=\"glyphicon glyphicon-minus\"></span></button></div>");
+
+															$("#elements").append(fieldWrapper);
+													});
+
+													$('#redefine').click(function() {
+														// viewOptions.groups = document.getElementById('secondary_ranges').value;
+														//  checkValid();
+
+														console.log("json.groups.length "+json.groups.length);
+
+														var names = [];
+														var starts = [];
+														var ends = [];
+
+														var stringjson = "[";
+
+														for (var i = 0; i < json.groups.length; i++) {
+															nameid = 'name' + i;
+															startid = 'start' + i;
+															endid = 'end' + i;
+
+															var c = 0;
+															if(document.getElementById(nameid) != undefined){
+																names[c] = document.getElementById(nameid).value;
+																starts[c] = document.getElementById(startid).value;
+																ends[c] = document.getElementById(endid).value;
+
+																stringjson += "{\"name\":\"" + names[c] + "\",\"start\":" + starts[c] + ",\"end\":" + ends[c] + "},";
+
+																c++;
+															}
+
+
+														}
+
+														//stringjson += "{\"name\":\"" + names[c-1] + "\",\"start\":" + starts[c-1] + ",\"end\":" + ends[c-1] + "}";
+
+														stringjson = stringjson.slice(0, -1);
+														stringjson += "]";
+
+														//console.log(stringjson);
+														json.groups.length = c;
+														viewOptions.groups = stringjson;
+														checkValid();
+													});
+												</script>
+											</div>
+											<div class="modal-footer" style="z-index:8; position:relative;">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /"panel-default"  -->
+						<!-- PANEL FOR SPLOM PLOT STARTS HERE -->
+						<div class="panel panel-default" id="secondpanel" style="display:none;">
+							<div class="panel-heading text-center clearfix">
+
+								<div class="btn-group pull-left" id="chainbuttons"></div>
+								<!-- <div class="btn-group pull-left" style="z-index:2;">
+										<a href="#" id="colorview" class="btn btn-default btn-sm popover-top" data-toggle="popover"><span class="glyphicon glyphicon-wrench"></span></a>
+								</div> -->
+								<div class="btn-group pull-right">
+									<button type="button" class="btn btn-default btn-sm popover-top savearpeggio" id="savearpeggio" data-toggle="popover" data-content="Save arpeggio files which have all contact types (.zip)" style="display:none;">
+										<span class="glyphicon glyphicon-file">Arpeggio</span>
+									</button>
+									<button type="button" class="btn btn-default btn-sm popover-top savesif" id="savesif" data-toggle="popover" data-content="Save sif files to be used in Cytoscape (.zip)">
+										<span class="glyphicon glyphicon-file">Cytoscape</span>
+									</button>
+									<button type="button" class="btn btn-default btn-sm popover-top savecsv" id="savecsv" data-toggle="popover" data-content="List of all contacts in atomic level (.zip)">
+										<span class="glyphicon glyphicon-file">Contacts</span>
+									</button>
+									<button type="button" class="btn btn-default btn-sm popover-top" id="savesvg2" data-toggle="popover" data-content="Save the image as svg">
+										<span class="glyphicon glyphicon-camera"></span>
+									</button>
+									<div class="btn-group" style="z-index:2;">
+											<a href="#" id="resetall" class="btn btn-default btn-sm popover-top resetall" data-toggle="popover" data-content="Deselect and reset to default"><span class="glyphicon glyphicon-refresh"></span></a>
+											<a href="#" id="colorview" class="btn btn-default btn-sm popover-top" data-toggle="popover"><span style="cursor:pointer" > <img src="../img/color_palette.png" width="15" height="15"></span></a>
+											<!-- <a href="#" id="originalview" style="display: none;" class="btn btn-default btn-sm popover-top" data-toggle="popover"><span class="glyphicon glyphicon-refresh"></span></a> -->
+									</div>
+									<script>
+
+										$('#savesvg2').click(function() {
+											triggerSaveFile("savesvg2");
+										});
+
+										$(document).ready(function() {
+											$("#colorview").popover({
+											    trigger: "hover",
+											    placement: "top",
+												container: 'body',
+											    content: "Change colors according to secondary structures"
+											});
+										});
+
+										var click=0;
+
+										$('#colorview').click(function(event) {
+
+											if(click%2==0){
+												switchViewSplom('colorfull');
+
+												//$('#colorview').data('bs.popover').options.content = 'Change colors back to default grey';
+
+												event.preventDefault();
+											    var content = $("#colorview");
+											    content.popover("destroy").popover({
+											        trigger: "hover",
+											        placement: "top",
+													container: 'body',
+											        content: "Change colors back to default grey"
+											    });
+
+											}
+											else{
+												switchViewSplom('colorless');
+												//$('#colorview').data('bs.popover').options.content = 'Change colors according to secondary structures';
+												event.preventDefault();
+											    var content = $("#colorview");
+											    content.popover("destroy").popover({
+											        trigger: "hover",
+											        placement: "top",
+													container: 'body',
+											        content: "Change colors according to secondary structures"
+											    });
+											}
+
+											click++;
+										});
+									</script>
+								</div>
+								<h3 class="panel-title popover-top" style="text-align:left; font-size: 150%;" data-toggle="popover" data-content="Click and drag on a scatterplot to select residues to display on structure.">Scatterplot Matrix</h3>
+							</div>
+							<div class="panel-body" id="splomview">
+								<div id="content1" style="text-align:center;">
+									<!-- <p>Residue Number: <input type="text" id="center" size="4" onchange="updateAsteroid();"></input> <br /> </p> -->
+									<div class="input-group">
+										<span class="input-group-addon">Residue Number:</span>
+										<input type="text" id="center_splom" class="form-control" size="4" onchange="updateSplom();">
+									</div>
+								</div>
+								<div id="outer_schmips" style="height:450px; position:relative;">
+									<ul id="tabs_inner" class="nav nav-tabs nav-justified">
+										<li id="tab1s" class="active"><a href="#" onclick="changetabsplom('fragment-1s');">Scatter Plot</a>
+										</li>
+										<li id="tab2s"><a href="#" onclick="changetabsplom('fragment-2s');">Statistics Table</a>
+										</li>
+									</ul>
+
+									<div class="row" id="colorscale" style="display:none;">
+										<div class="col-md-4">
+											  <span><i>Min</i></span>
+											<div id="cp2_a" class="input-group colorpicker-component">
+										  <input type="text" id="in_1" value="#00FFFF" class="form-control" />
+										    <span class="input-group-addon"><i></i></span>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<span><i>Max</i></span>
+											<div id="cp2_b" class="input-group colorpicker-component">
+												<input type="text" id="in_2" value="#FF00FF" class="form-control" />
+												<span class="input-group-addon"><i></i></span>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<a href="#" onclick="viewOptions.color1 = document.getElementById('in_1').value; viewOptions.color2 = document.getElementById('in_2').value; updateURL(viewOptions); switchViewSplom('changecolor'); return false;" id="colorview" class="btn btn-default btn-sm popover-top" data-toggle="popover" data-content="Click to change color scale">Change color scale</a>
+											<a href="#" id="originalview" style="display: none;" class="btn btn-default btn-sm popover-top" data-toggle="popover">Change colors to grey</a>
+										</div>
+
+									<script>
+									    $(function() {
+									        $('#cp2_a').colorpicker();
+													$('#cp2_b').colorpicker();
+									    });
+
+
+											$(document).ready(function() {
+												$("#originalview").popover({
+														trigger: "hover",
+														placement: "top",
+													container: 'body',
+														content: "Change colors back to default grey"
+												});
+											});
+
+											var click=0;
+
+											$('#originalview').click(function(event) {
+
+												if(click%2!=0){
+
+													switchViewSplom('uploadeddata');
+
+													event.preventDefault();
+														var content = $("#originalview");
+														content.popover("destroy").popover({
+																trigger: "hover",
+																placement: "top",
+														container: 'body',
+																content: "Change colors back to default grey"
+														});
+
+												}
+												else{
+
+													switchViewSplom('original');
+
+													event.preventDefault();
+														var content = $("#originalview");
+														content.popover("destroy").popover({
+																trigger: "hover",
+																placement: "top",
+														container: 'body',
+																content: "Change colors to uploaded data"
+														});
+												}
+
+												click++;
+											});
+									</script>
+									</div>
+									<div id="fragment-1s">
+										<!-- <div id ="splom"></div> -->
+										<div id='splom' style="width: 100%; height:450px; position:absolute; margin: 0 auto; "> </div>
+									</div>
+									<div id="fragment-2s" style="display:none;">
+										<!-- <a id="showinfo" class="popover-top2 pull-right" style="cursor:pointer;" data-toggle="popover" data-content="Clicking on the title of any column in the table will re-sort the table by that column; clicking again will reverse this order. Typing in the search box will filter the entries in the table. Outliers are emphasised in the table by coloring: any value above the 0.95 quantile is colored red, and any value below the 0.05 quantile is colored blue."><span class="glyphicon glyphicon-info-sign"></span></a> -->
+										<div id='tables'></div>
+									</div>
+								</div>
+								<!-- end of tabs -->
+							</div>
+							<!-- /"panel-body"  -->
+							<div class="panel-footer" id="expand_footer2">
+								<!-- MELIS VERSION TO WRAP TEXT -->
+								<div id="content1s">
+									<ul>
+										<li>Each point represents one or more residues.</li>
+										<li> Click and drag on the scatter-plot to view corresponding residues on the structure</li>
+										<!-- <li id="tab3s" style="background-color: rgba(0, 0, 0, 0.15); cursor:pointer;" onclick="showhideAdvancedUpload(); return false;"><a href="#" >Advanced Options: Upload your own data file</a> -->
+										<li id="tab3s" style="background-color: rgba(0, 0, 0, 0.15); cursor:pointer;" data-toggle="modal" data-target="#myModalUpload"><a href="#">Advanced Options: Upload your own data file</a>
+											<span class="pull-right "><i id="sign2" class="glyphicon glyphicon-plus"></i></span>
+										</li>
+									</ul>
+
+									<!-- Modal -->
+									<div class="modal fade" id="myModalUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabelUpload" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+													</button>
+													<!-- <h4 class="modal-title text-center clearfix" id="myModalLabelUpload">Upload your data file (Please add chain, residue number and the score in a tab seperated text file (.txt):<a href="../conserve_3SN6_new.txt" target="_blank">Example File</a>)</h4> -->
+													<h4 class="modal-title text-center clearfix" id="myModalLabelUpload">Upload your data file (Please use the template generated for this structure which includes  chain, residue number and the score field in a tab seperated text file (.csv):
+													<button type="button" class="btn btn-default btn-sm popover-top" id="saveexample" data-toggle="popover" data-content="Save template file">
+														Template File
+													</button>
+												</h4>
+
+													<script>
+													$('#saveexample').click(function() {
+														//triggerSaveFile("savecsv");
+														triggerSaveFile("saveexample");
+													});
+													</script>
+												</div>
+												<div class="modal-body">
+													<div id="fragment" style="width:auto; text-align:center; margin-left:auto; margin-right:auto;">
+														<div class="span3">
+															<div class="well">
+																<form enctype="multipart/form-data" action="conservation.php" method="POST">
+																	<div class="input-group">
+																		<input name="uploadedfile" id="file" type="file" class="form-control">
+																		<input type="hidden" name="pdb" id="pdb">
+																		<script type="text/javascript">
+																			var elem = document.getElementById("pdb");
+																			elem.value = window.location.href;
+																		</script>
+																		<span class="input-group-btn">
+                                        <button type="submit" id="uploadbutton" class="btn btn-default disabled" data-loading-text="Processing..." onclick="var $btn = $(this).button('loading'); setTimeout(function(){ $btn.button('reset'); $btn.addClass('disabled'); }, 1000); " style="margin-left:auto;margin-right:auto;display:block; margin-top:-5px;">Click to load new data</button>
+                                        </span>
+																		<br/>
+																	</div>
+																</form>
+																<br/>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer" style="z-index:8; position:relative;">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<script>
+										$(document).ready(
+
+											function() {
+												$('input:file').change(
+													function() {
+														if ($(this).val()) {
+															//$('input:submit').attr('disabled',false);
+															$('#uploadbutton').removeClass('disabled');
+														}
+													}
+												);
+											});
+
+
+										(function() {
+
+											var bar = $('.bar');
+											var percent = $('.percent');
+											var status = $('#status');
+
+											//the form.js plugin allows us to upload a file and not refresh the page, just send info to php via ajax and get back result which is the new json file with additional data on splom
+
+											$('form').ajaxForm({
+
+												success: function(data) {
+
+													viewOptions.encode = 1;
+													viewOptions.json = data;
+
+													updateURL(viewOptions);
+
+													loadUploadSplom();
+
+													setTimeout(function() {
+														$('#myModalUpload').modal('hide');
+													}, 1000);
+
+
+												}
+
+											});
+
+										})();
+
+										$('#tab3s').click(function() {
+											viewOptions.showupload="yes";
+											updateURL(viewOptions);
+										});
+
+										$('#myModalUpload').on('hidden.bs.modal', function (e) {
+											removeURLpart("showupload");
+										})
+
+									</script>
+								</div>
+								<div id="content2s" style="display:none;">
+									<!-- <ul>
+                              <li>Clicking on the title of any column in the table will re-sort the table by that column; clicking again will reverse this order. Typing in the search box will filter the entries in the table.</li>
+                              <li>Outliers are emphasised in the table by coloring: any value above the 0.95 quantile is colored red, and any value below the 0.05 quantile is colored blue.</li>
+                              </ul> -->
+								</div>
+							</div>
+						</div>
+						<!-- /"panel-default"  -->
+						<!--PANEL FOR SPLOM PLOT STOPS HERE -->
+						<!-- PANEL FOR ASTEORID PLOT STARTS HERE -->
+						<div class="panel panel-default" id="thirdpanel" style="display:none;">
+							<div class="panel-heading text-center clearfix">
+								<div class="btn-group pull-right">
+									<button type="button" class="btn btn-default btn-sm popover-top savearpeggio" id="savearpeggio" data-toggle="popover" data-content="Save arpeggio files which have all contact types (.zip)" style="display:none;">
+										<span class="glyphicon glyphicon-file">Arpeggio</span>
+									</button>
+									<button type="button" class="btn btn-default btn-sm popover-top savesif" id="savesif" data-toggle="popover" data-content="Save sif files to be used in Cytoscape (.zip)">
+										<span class="glyphicon glyphicon-file">Cytoscape</span>
+									</button>
+									<button type="button" class="btn btn-default btn-sm popover-top savecsv" id="savecsv" data-toggle="popover" data-content="List of all contacts in atomic level (.zip)">
+										<span class="glyphicon glyphicon-file">Contacts</span>
+									</button>
+									<button type="button" class="btn btn-default btn-sm popover-top" id="savesvg3" data-toggle="popover" data-content="Save the image as svg">
+										<span class="glyphicon glyphicon-camera"></span>
+									</button>
+									<script>
+										$('#savesvg3').click(function() {
+											triggerSaveFile("savesvg3");
+										});
+									</script>
+
+								<div class="btn-group" style="z-index:2;">
+									<a href="#" id="resetall" class="btn btn-default btn-sm popover-top resetall" data-toggle="popover" data-content="Deselect and reset to default"><span class="glyphicon glyphicon-refresh"></span></a>
+									<a href="#" id="colorviewligand" class="btn btn-default btn-sm popover-top" data-toggle="popover"><span style="cursor:pointer" > <img src="../img/color_palette.png" width="15" height="15"></span></a>
+
+									<script>
+
+										$(document).ready(function() {
+											$("#colorviewligand").popover({
+											    trigger: "hover",
+											    placement: "top",
+												container: 'body',
+											    content: "Change colors according to secondary structures"
+											});
+										});
+
+										var click=0;
+
+										$('#colorviewligand').click(function(event) {
+
+											if(click%2==0){
+												switchViewLigand('colorfull');
+
+												event.preventDefault();
+											    var content = $("#colorviewligand");
+											    content.popover("destroy").popover({
+											        trigger: "hover",
+											        placement: "top",
+													container: 'body',
+											        content: "Change colors back to default grey"
+											    });
+
+											}
+											else{
+												switchViewLigand('colorless');
+
+												event.preventDefault();
+											    var content = $("#colorviewligand");
+											    content.popover("destroy").popover({
+											        trigger: "hover",
+											        placement: "top",
+													container: 'body',
+											        content: "Change colors according to secondary structures"
+											    });
+											}
+
+											click++;
+										});
+									</script>
+								</div>
+
+								</div>
+
+								<h3 class="panel-title popover-top" style="text-align:left; font-size: 150%;" data-toggle="popover" data-content="Click on any residue to view its neighbourhood of atomic contacts.">Asteroid Plot</h3>
+							</div>
+							<div class="panel-body" id="graphview">
+								<div id="content1" style="text-align:center;">
+									<!-- <p>Residue Number: <input type="text" id="center" size="4" onchange="updateAsteroid();"></input> <br /> </p> -->
+									<div class="input-group" id="ligandresidue">
+										<span class="input-group-addon">Residue Number:</span>
+										<input type="text" id="center" class="form-control" size="4" onchange="updateAsteroid();">
+										<span class="input-group-addon" id="ligandchain">Chain:</span>
+										<input type="text" id="centerchain" class="form-control" size="4" onchange="updateAsteroid();" readonly>
+									</div>
+
+								</div>
+
+								<div id="ligandid" style=" position:absolute; margin-top:10px;">
+									<p>Ligand ID:
+										<select id="ligandList" onchange="switchAsteroidLigand();">
+										</select>
+									</p>
+								</div>
+								<!-- <div id="matrixid" style=" position:absolute; margin-top:10px;"> -->
+								<div class="btn-group pull-right">
+								<button type="button" class="btn btn-default btn-sm popover-top" id="savesvg4" data-toggle="popover" data-content="Save the image as svg" style="display:none;">
+									<span class="glyphicon glyphicon-camera"></span>
+								</button>
+									<div class="btn-group pull-right popover-top" data-toggle="popover" data-content="Ligand Residue Matrix" style="z-index:12; width:auto; margin-left:auto; margin-right:auto; top:10px;" id="matrix_button"><a href="" onclick="switchView('ligand'); return false;"><span style="cursor:pointer" > <img src="../img/matrix_logo.png" width="35" height="35" onmouseover="this.src='../img/matrix_logo_dark.png'" onmouseout="this.src='../img/matrix_logo.png'"></span></a></div>
+
+									<script>
+										$('#savesvg4').click(function() {
+											triggerSaveFile("savesvg4");
+										});
+									</script>
+
+								</div>
+
+								<div id="outer_schmips" style="height:450px; position:relative; margin-top:30px;">
+
+									<div class="panel panel-default" id="infoboxligand" style="top:40px; left:180px; width: 60%; height:15%; position:relative; position:absolute; margin: 0 auto; display:none;">
+										<div class="panel-body" id="contactpanelligand" style="text-align:center;">
+										</div>
+									</div>
+									<div id="mainligandmatrix" style="top:150px; left:150px; width: 60%; height:60%; position:relative; position:absolute; margin: 0 auto; display:none;">
+										<div id='ligandmatrix' style=" top:60px; left:60px;  overflow-x:auto; overflow-y:auto; position:absolute; width:80%; height:80%;"></div>
+										<div id='ligrow' style="top:60px; left:0px; position:absolute; width:50px; height:80%; overflow-x:hidden; overflow-y:hidden; "> </div>
+										<div id='ligcol' style="top:0px; left:60px; position:absolute; width:80%; height:50px; overflow-x:hidden; overflow-y:hidden;"> </div>
+									</div>
+									<div class='gallery' id='asteroidGraph'> </div>
+
+									<script>
+										$(document).ready(function() {
+											$("#ligandmatrix").scroll(function() {
+												$("#ligrow").scrollTop($("#ligandmatrix").scrollTop());
+												//  $("#right").scrollLeft($("#left").scrollLeft());
+											});
+											$("#ligandmatrix").scroll(function() {
+												//  $("#lef").scrollTop($("#right").scrollTop());
+												$("#ligcol").scrollLeft($("#ligandmatrix").scrollLeft());
+											});
+											$("#ligrow").scroll(function() {
+												$("#ligandmatrix").scrollTop($("#ligrow").scrollTop());
+												//  $("#right").scrollLeft($("#left").scrollLeft());
+											});
+											$("#ligcol").scroll(function() {
+												//  $("#lef").scrollTop($("#right").scrollTop());
+												$("#ligandmatrix").scrollLeft($("#ligcol").scrollLeft());
+											});
+
+										});
+									</script>
+
+								</div>
+							</div>
+							<!-- /"panel-body"  -->
+							<div class="panel-footer">
+								<!-- MELIS VERSION TO WRAP TEXT -->
+								<div id="content1" style="height:200px;width:500px;">
+									<ul>
+										<li>Inner ring indicates first shell of immediate atomic contacts.</li>
+										<li>Outer ring indicates second shell of extended atomic contacts.</li>
+										<li>Size of the circle is proportional to the total number of contacts the residue is involved in with any of the residues in the ring inward to it.</li>
+										<ul>
+								</div>
+							</div>
+						</div>
+						<!-- /"panel-default"  -->
+						<!--PANEL FOR ASTEORID PLOT STOPS HERE -->
+					</div>
+
+					<script>
+
+					$('.savesif').click(function() {
+						//triggerSaveFile("savecsv");
+						triggerSaveFile("savesif");
+					});
+
+						$('.savecsv').click(function() {
+							//triggerSaveFile("savecsv");
+							triggerSaveFile("savezip");
+						});
+
+						$('.savesvg').click(function() {
+							triggerSaveFile("savesvg");
+						});
+
+						$('.savearpeggio').click(function() {
+							//triggerSaveFile("savecsv");
+							triggerSaveFile("savearpeggio");
+						});
+
+					</script>
+					<!-- /"col-md-6"  -->
+					<div class="col-md-6" id="second">
+						<div class="panel panel-default" style="margin-top:40px">
+							<!-- <div class="panel panel-default"> -->
+							<div class="panel-heading text-center clearfix">
+								<div class="btn-group pull-right">
+									<button type="button" class="btn btn-default btn-sm popover-top" id="showWater" data-toggle="popover" data-content="Hide/Show Water Molecules">
+										<span class="glyphicon glyphicon-file">HOH</span>
+									</button>
+									<button type="button" class="btn btn-default btn-sm popover-top" id="hideHetatm" data-toggle="popover" data-content="Hide/Show Hetatms">
+										<span class="glyphicon glyphicon-file">HETATM</span>
+									</button>
+									<button type="button" class="btn btn-default btn-sm popover-top" id="pymolscript" data-toggle="popover" data-content="Save as Pymol file">
+										<span class="glyphicon glyphicon-file">Pymol</span>
+									</button>
+									<button type="button" class="btn btn-default btn-sm popover-top" id="snapshot" data-toggle="popover" data-content="Take a snapshot">
+										<span class="glyphicon glyphicon-camera"></span>
+									</button>
+									<button type="button" class="btn btn-default btn-sm popover-top" id="reset" data-toggle="popover" data-content="Zoom out">
+										<span class="glyphicon glyphicon-zoom-out"></span>
+									</button>
+								</div>
+								<script>
+									$('#snapshot').click(function() {
+										saveImage();
+									});
+
+									$('#pymolscript').click(function() {
+										generatePymolText();
+									});
+									$('#reset').click(function() {
+										initializeProteinView([], [], 0);
+									});
+
+									//trigger function to hide or show heteroatms on 3d structure
+									var clickhet=0;
+									$('#hideHetatm').click(function(event) {
+
+										if(clickhet%2==0){
+											viewOptions.hideHetatm = "yes";
+											updateURL(viewOptions);
+											reDrawProtein([], []);
+											event.preventDefault();
+										}
+										else{
+											viewOptions.hideHetatm = "no";
+											updateURL(viewOptions);
+											reDrawProtein([], []);
+											event.preventDefault();
+										}
+										clickhet++;
+									});
+
+									//trigger function to add or remove HOH from both 3d structure view and interaction panels
+									var clickHOH=0;
+
+									$('#showWater').click(function(event) {
+
+										if(clickHOH%2==0){
+
+											viewOptions.showHOH = "yes";
+											updateURL(viewOptions);
+
+											switchViewHOH('show');
+
+											reDrawProtein([], []);
+											event.preventDefault();
+										}
+										else{
+											viewOptions.showHOH = "no";
+											updateURL(viewOptions);
+
+											switchViewHOH('hide');
+
+											reDrawProtein([], []);
+											event.preventDefault();
+										}
+										clickHOH++;
+									});
+
+								</script>
+								<h3 class="panel-title" style="text-align:center; margin-top:5px; margin-left:40px"></h3>
+							</div>
+							<div class="panel-body" id="proteinview">
+
+              	<div class="alert alert-info" role="alert" id="mutations" style="display:none; margin-top:20px; margin-bottom:-10px;">
+              	  <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              	  <h4 align="center">Residue mutations occur in this structure. Please check the sequence above for overlined, bold residues.</h4>
+              	</div>
+
+                <script>
+      				    $('.alert .close').click(function () {
+      				      $(this).parent().hide();
+      				    });
+                </script>
+
+								<div id="contenttext2" style="text-align:center; opacity:0;">
+								</div>
+								<h5 id="noglmol"></h5>
+								<script>
+									// to check if there is webglmol
+									var detailCounter = 0;
+
+									function addLine(tableID, name, value) {
+										if (typeof(value) === "object" && value !== null) {
+
+											var temp = '';
+											for (var i = 0; i < value.length; i++) {
+												temp += value[i];
+												if (i < value.length - 1) {
+													temp += ', ';
+												}
+											}
+											value = temp;
+										}
+
+										var table = getTag(tableID);
+
+										var tr = document.createElement('tr');
+										var tdName = document.createElement('td');
+										tdName.setAttribute('class', 'left');
+
+										var tdValue = document.createElement("td");
+
+										// Highlight every other line to make reading a bit easier
+										if (detailCounter % 2 === 0) {
+											tr.style.background = '#CCC';
+										}
+										detailCounter++;
+
+										tdName.innerHTML += name;
+										tdValue.innerHTML += value;
+
+										tr.appendChild(tdName);
+										tr.appendChild(tdValue);
+										table.appendChild(tr);
+									}
+
+									function getTag(str) {
+										return document.getElementById(str);
+									}
+
+									function commasToBr(s) {
+										var str = '';
+										for (i in s) {
+											str += s[i] + '<br />';
+										}
+										return str;
+									}
+
+									var cvs = document.createElement('canvas');
+									var contextNames = ['webgl', 'experimental-webgl', 'moz-webgl', 'webkit-3d'];
+									var ctx;
+
+									if (navigator.userAgent.indexOf('MSIE') >= 0) {
+										try {
+											ctx = WebGLHelper.CreateGLContext(cvs, 'canvas');
+										} catch (e) {}
+									} else {
+										for (var i = 0; i < contextNames.length; i++) {
+											try {
+												ctx = cvs.getContext(contextNames[i]);
+												if (ctx) {
+													// addLine('tab','Context Name', contextNames[i]);
+													break;
+												}
+											} catch (e) {}
+										}
+									}
+
+
+
+									if (ctx == null) {
+										//document.getElementById("noglmol").innerHTML = "You don't have WEBGLMOL! ";
+										document.getElementById("noglmol").innerHTML = "You don't have WEBGLMOL! Click http://webglmol.sourceforge.jp/index-en.html to see how to enable it.";
+										//document.getElementById('noglmol').href="http://webglmol.sourceforge.jp/index-en.html";
+										//alert(document.getElementById('noglmol').href);
+										//document.getElementById('noglmol').target="_blank";
+										//document.getElementById("noglmol").innerHTML = "Descriptions are in System Requirements.";
+
+									} else {
+										document.body.removeChild(document.getElementById('noglmol'));
+									}
+								</script>
+                                <!-- <div id="glmol01" style="width: 500px; height: 450px; text-align:center; margin-left:auto; margin-right:auto;"></div>   -->
+                <div id="glmol01" style="width: 100%; height: 450px; text-align:center; margin-left:auto; margin-right:auto;"></div>
+								<textarea id="glmol01_src" style="display: none;"></textarea>
+
+							</div>
+							<!-- /"panel-body"  -->
+							<div class="panel-footer">
+								<div id="displayMode" class="btn-group btn-group-justified">
+									<a href="#" class="btn btn-default btn-sm popover-bottom" onclick="changeDisplayMode('structure'); if(viewOptions.tab=='network'){reDrawProtein_V2(viewOptions.highlightedsplom, viewOptions.colors);} else {reDrawProtein_V2(viewOptions.highlighted, viewOptions.colors);} return false;" data-toggle="popover" data-content="Full protein structure"><span class="glyphicon glyphicon-cog"></span> Full</a>
+									<a href="#" class="btn btn-default btn-sm popover-bottom" onclick="changeDisplayMode('pair'); if(viewOptions.tab=='network'){reDrawProtein_V2(viewOptions.highlightedsplom, viewOptions.colors);} else {reDrawProtein_V2(viewOptions.highlighted, viewOptions.colors);} return false;" data-toggle="popover" data-content="Highlighted residues as spheres"><span class="glyphicon glyphicon-record"></span> Sphere</a>
+									<a href="#" class="btn btn-default btn-sm popover-bottom" onclick="changeDisplayMode('pairSticks'); if(viewOptions.tab=='network'){reDrawProtein_V2(viewOptions.highlightedsplom, viewOptions.colors);} else {reDrawProtein_V2(viewOptions.highlighted, viewOptions.colors);} return false;" data-toggle="popover" data-content="Highlighted residues as sticks"><span class="glyphicon glyphicon-minus"></span> Stick</a>
+									<a href="#" class="btn btn-default btn-sm popover-bottom" onclick="changeDisplayMode('network'); if(viewOptions.tab=='network'){reDrawProtein_V2(viewOptions.highlightedsplom, viewOptions.colors);} else {reDrawProtein_V2(viewOptions.highlighted, viewOptions.colors);} return false;" data-toggle="popover" data-content="Network view"><span class="glyphicon glyphicon-asterisk"></span> Network</a>
+                                    <!-- <a href="#" class="btn btn-default btn-sm popover-bottom" onclick="changeDisplayMode('network2'); reDrawProtein_V2(viewOptions.highlighted, viewOptions.colors); return false;" data-toggle="popover" data-content="Network view all"><span class="glyphicon glyphicon-asterisk"></span> Network (All)</a> -->
+								</div>
+							</div>
+						</div>
+						<!-- /"panel-default"  -->
+					</div>
+
+						<div style="z-index:-2; position:fixed; opacity:0;">
+							<div id="table_svg_sol_up"></div>
+							<div id="table_svg_sol_down"></div>
+							<div id="table_svg_between_up"></div>
+							<div id="table_svg_between_down"></div>
+							<div id="table_svg_close_up"></div>
+							<div id="table_svg_close_down"></div>
+							<div id="table_svg_degree_up"></div>
+							<div id="table_svg_degree_down"></div>
+							<div id="table_ligandlist_up"></div>
+							<div id="table_ligandlist_down"></div>
+						</div>
+					<script>
+						$(document).ready(function() {
+							var heights = $(".panel-body").map(function() {
+									return $(this).height();
+								}).get(),
+
+								//+150 not needed, can be smaller
+								//maxHeight = Math.max.apply(null, heights)+150;
+								//+50 was okay before splom went down after uploading data
+								maxHeight = Math.max.apply(null, heights) + 100;
+
+							$(".panel-body").height(maxHeight);
+
+							var heights1 = $(".panel-footer").map(function() {
+									return $(this).height();
+								}).get(),
+
+								maxHeight1 = Math.max.apply(null, heights1) + 30;
+
+							$(".panel-footer").height(maxHeight1);
+
+						});
+
+						var clicks = 1;
+						$("#left").click(function(event) {
+
+							event.preventDefault();
+
+							if (clicks % 2 == 0) {
+
+								$("#second").before($("#first"));
+								//$("#second").insertBefore($("#first"));
+
+							} else {
+
+								$("#first").before($("#second"));
+								//$("#first").insertBefore($("#second"));
+
+
+							}
+							clicks++;
+
+						});
+					</script>
+				</div>
+				<!-- /row -->
+				<script>
+					$(document).ready(function() {
+						$(".popover-top").popover({
+							trigger: 'hover',
+							placement: 'top',
+							container: 'body'
+						});
+						$(".popover-top2").popover({
+							trigger: 'click',
+							placement: 'top',
+							container: 'body'
+						});
+						$(".popover-right").popover({
+							trigger: 'hover',
+							placement: 'right',
+							container: 'body'
+						});
+						$(".popover-bottom").popover({
+							trigger: 'hover',
+							placement: 'bottom',
+							container: 'body'
+						});
+						$(".popover-left").popover({
+							trigger: 'hover',
+							placement: 'left',
+							container: 'body'
+						});
+					});
+				</script>
+			</div>
+			<footer>
+				<p>&copy; MRC Laboratory of Molecular Biology, 2017</p>
+			</footer>
+		</div>
+		<!-- end of container -->
+		<!-- Bootstrap core JavaScript
+         ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="../bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+		<script src="../bootstrap-3.2.0-dist/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg" style="width:72%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+					</button>
+                    <!-- <h4 class="modal-title text-center clearfix" id="myModalLabel"><div class="nav_" id="glmol01_pdbTitle" style="color: black; font-size:10px;"></div></h4> -->
+
+    					<div id="explanation" style=" width:auto; text-align:center; margin-left:auto; margin-right:auto; margin-bottom:-30px;">
+    						<div class="nav_" id="glmol01_pdbTitle2" style="color: black; font-size:10px;"></div>
+    					</div>
+
+
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="panel panel-default">
+								<div class="panel-heading text-center clearfix">
+									<h4>Interaction view for all chains <a id="showr" class="popover-top" style="cursor:pointer;" data-toggle="popover" data-content="Click on a node or edge to select interactions"><span class="glyphicon glyphicon-info-sign"></span></a></h4>
+                                   </div>
+								<div class="panel-body">
+
+									<div class="alert alert-success" role="alert" id="notice" style="display:none;">
+										<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+										</button>
+										<!-- <strong>Attention!</strong> You selected chain: <a href="#" class="alert-link" data-dismiss="modal" >Click here to return to main page</a> -->
+									</div>
+									<script>
+										$('.alert .close').click(function() {
+											$(this).parent().hide();
+										});
+									</script>
+									<div id='interactions' style="z-index:1; margin:auto; width:450px; height:450px; ">
+										<div id='interactionGraph' style="margin-left:auto; margin-right:auto; width:100%; height:100%;"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="panel panel-default">
+								<div class="panel-heading text-center clearfix">
+									<h4>Protein Structure View for all chains</h4>
+								</div>
+								<div class="panel-body" id="denemeglmol">
+									<div id="glmol01_load" style="width: 100%; height: 100%; margin-left:auto; margin-right:auto;"></div>
+								</div>
+								<script>
+									//$("#glmol01_load").css("width","50%");
+									//console.log("in modal");
+
+								</script>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer" style="z-index:8; position:relative;">
+					<button type="button" class="btn btn-primary pull-left" data-dismiss="modal">Go back to the main view</button>
+					<div class="alert alert-info alert-dismissible show pull-right" style="width:40%;" role="alert">
+					  Info: Protein Contacts Atlas only considers the last rotamer of the residue in the PDB file.
+						(The user can remove a specific rotamer by editing the PDB file and upload it for calculating the contacts.)
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					    <span aria-hidden="true">&times;</span>
+					  </button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+	$('.resetall').click(function(event) {
+
+		event.preventDefault();
+		switchViewSplom('original');
+		resetTableandPlot();
+
+		reDrawProtein([], [], 0);
+
+		switchView("chord");
+
+	});
+
+	</script>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModalMutations" tabindex="-1" role="dialog" aria-labelledby="myModalMutationsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <div id="mutation" class="btnExample" style="margin-left:auto; margin-right:auto; text-align:center;">
+                        <h4 align="center">Residue mutations occur in this structure. Please check the sequence above for overlined residues.</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+
+	<script type="text/javascript" src="../js/proteinview.js"></script>
+</body>

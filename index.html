@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="./img/Rajini_abstract_1.png">
+	<title>Protein Contacts Atlas</title>
+	<!-- Custom styles for this template -->
+	<link href="bootstrap-3.2.0-dist/css/navbar-fixed-top.css" rel="stylesheet">
+	<!-- To fix white space on the bottom of every page, done by melis -->
+	<link href="css/fix_bottom_space.css" rel="stylesheet">
+	<script type='text/javascript' src='./js/jquery.ba-hashchange.min.js'></script>
+	<script src="js/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+	<!--the original path has themes not theme -->
+	<link rel="stylesheet" href="css/ui/1.10.3/theme/smoothness/jquery-ui.css" />
+	<!-- Bootstrap core CSS -->
+	<link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+	<!--this  bootstrap-theme.min.css is actually version 3.3.1-->
+	<link rel="stylesheet" href="bootstrap-3.2.0-dist/css/bootstrap-theme.min.css">
+
+<style>
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+.info_science {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  -webkit-box-shadow: inset 0 5px 5px rgba(0, 0, 0, .05);
+          box-shadow: inset 0 5px 5px rgba(0, 0, 0, .05);
+}
+
+.item {
+	height: 400px !important;
+}
+.carousel-inner > .item > img {
+	margin: 0 auto;
+}
+.carousel-control.left, .carousel-control.right {
+background-image: none
+}
+.carousel-indicators li { visibility: hidden; }
+
+</style>
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function() {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+			a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-45268894-1', 'cam.ac.uk');
+		ga('send', 'pageview');
+
+	// $(document).ready(function() {
+// 		if ($(window).width() <= 1500 && $(window).height() <= 850) {
+// 			//document.body.style.zoom="67%";
+// 			if (navigator.userAgent.indexOf('Firefox') != -1 ) {
+//
+// 				$('body').css({'-moz-transform': 'scale(0.67)', '-moz-transform-origin': 'center top'});
+// 			}
+// 			else{
+// 				$('body').css({'zoom': '67%'});
+// 			}
+//
+// 		}
+// 	});
+
+		function uploadgifshow() {
+
+			$('#uploadgif').show();
+
+		}
+
+		function readText() {
+
+			$('#submitbutton').removeClass('disabled');
+
+		}
+
+		function process_new() {
+
+			$('#progressgif').show();
+
+			//var option=$('input[type="radio"]:checked').val();
+
+		var option_cutoff=$('input[name="options_main"]:radio:checked').val();
+		var option_chaintype=$('input[name="options_chain"]:radio:checked').val();
+		var option_norm_abs=$('input[name="options_norm_abs"]:radio:checked').val();
+		var option_weight=$('input[name="options_weight"]').val();
+		var option_ligandcutoff=$('input[name="options_ligandcutoff"]').val();
+
+		var checkedFilter = []
+		var filter_contacts_string = ""
+
+			 $("input[name='check_list[]']:checked").each(function ()
+			 {
+					 checkedFilter.push($(this).val());
+					 filter_contacts_string = filter_contacts_string.concat($(this).val());
+					 filter_contacts_string = filter_contacts_string.concat(",");
+			 });
+
+			 filter_contacts_string = filter_contacts_string.slice(0, -1);
+
+			$.ajax({
+				type: 'post',
+				url: 'chains_process_combined.php',
+				data: {
+					cutoff: option_cutoff,
+					filter_chain: option_chaintype,
+					filter: filter_contacts_string,
+					filter_norm_abs: option_norm_abs,
+					filter_weight: option_weight,
+					ligandcutoff: option_ligandcutoff,
+					PDB: $('#PDB').val(),
+				},
+				success: function(data) {
+
+					eval(data);
+
+				}
+			});
+		}
+
+		$(document).ready(function() {
+
+			//$('#maintanence').modal('show');
+
+			// $(".panel").hide();
+			$("#panel2").hide();
+
+			/* set advanced options toggle */
+			$("#flip").click(function(e) {
+				//$(".panel").slideToggle("slow");
+				$("#panel2").slideToggle("slow");
+				e.preventDefault();
+
+			});
+
+		});
+
+	</script>
+</head>
+
+<body>
+
+	<div class="modal fade" id="maintanence" tabindex="-1" role="dialog" aria-labelledby="myModalLabelprocess" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div id="progressgif" class="btnExample" style="margin-left:auto; margin-right:auto; text-align:center; ">
+
+							<article>
+							    <h1>We&rsquo;ll be back soon!</h1>
+							    <div>
+							        <p>Sorry for the inconvenience but we&rsquo;re performing some maintenance at the moment. If you need to you can always <a href="mailto:mkayikci@mrc-lmb.cam.ac.uk">contact us</a>, otherwise we&rsquo;ll be back online shortly!</p>
+
+							    </div>
+							</article>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- END OF MODALS -->
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="./index.html">Protein Contacts Atlas</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="./index.html">Home</a>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced Features <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="./index_search.html">Search any keyword</a></li>
+							<li><a href="./pfam_mapping.html">PDBs by PFAM</a></li>
+						</ul>
+					</li>
+					<!-- <li><a href="./about.html">About</a>
+					</li> -->
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">About<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="./about.html">Description</a></li>
+							<li><a href="./features.html">Features</a></li>
+							<li><a href="./downloadables.html">Downloadable Files' Description</a></li>
+							<li><a href="./disciplines.html">Scientific Disciplines</a></li>
+						</ul>
+					</li>
+					<li><a href="./contact.html">Contact</a>
+					</li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</div>
+	<div class="container">
+		<!-- Main component for a primary marketing message or call to action -->
+        <!-- <div class="jumbotron" style="background-color: #FFFFFF"> -->
+    <div class="jumbotron" style="height:130px; background-color: #FFFFFF;">
+			<div class="title" id="titles" style="width:100%; margin-top: -40px;">
+				<div align="center">
+					<h1 align="center">Protein Contacts Atlas</h1>
+					<!-- <a href="./index.html"><img border="0" src="./img/Rajini_logo_cyan_500by230.png" alt="Introduction to Protein Contacts Atlas" width="166" height="76">
+					</a> -->
+				</div>
+				<h4 align="center" style="font-style:italic;">Structural insights through visualization and analysis of non-covalent contacts</h4>
+				<!-- <a href="#" id="help" style="margin-top:-50px;" class="btn btn-primary popover-top pull-right" data-toggle="popover" data-content="Click to see tutorial">Quick Tutorial</a> -->
+			</div>
+		</div>
+		<!-- /jumbotron -->
+		<div class="jumbotron" style="background-color: #FFFFFF;">
+			<div class="container" style="margin-top: -60px;">
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-6">
+						<h4 class="text-center clearfix">Examine a protein structure</h4>
+						<div class="span3">
+							<div class="well">
+								<div class="input-group">
+									<input class="span1 form-control" type="text" id="PDB" name="PDB" size="30" oninput="if (!document.getElementById('PDB').value.charAt(0).match(/[^0-9]/)) { if(document.getElementById('PDB').value.length == 4) { readText();} else { $('#submitbutton').addClass('disabled'); } } " placeholder="PDB ID (crystal structures only)" />
+									<span class="input-group-btn">
+                  <button type="submit" onclick="var $btn = $(this).button('loading'); process_new();" data-loading-text="Processing..." data-toggle="modal" data-target="#myModalprocess" id="submitbutton" class="btn btn-default disabled" style="margin-left:auto;margin-right:auto;display:block;" >Process structure!</button>
+			  				<!-- Modal -->
+			  				<div class="modal fade" id="myModalprocess" tabindex="-1" role="dialog" aria-labelledby="myModalLabelprocess" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+			  					<div class="modal-dialog">
+			  						<div class="modal-content">
+
+			  							<div class="modal-body">
+			  								<div id="progressgif" class="btnExample" style="margin-left:auto; margin-right:auto; text-align:center; ">
+			  									<h4 align="center">Processing, please wait... Optional feature calculations take longer.</h4>
+			  									<div align="center">
+			  										<img src="./img/Preloader_4.gif" style="height:100px;width:100px; ">
+			  									</div>
+			  								</div>
+			  							</div>
+
+			  						</div>
+			  					</div>
+			  				</div><!-- END OF MODALS -->
+              </span>
+								</div>
+								<font size="2">(Examples: </font><a href="#" onclick="document.getElementById('PDB').value='3SN6'; readText(); return false;"><font size="2"> 3SN6</font></a><font size="2">,<a href="#" onclick="document.getElementById('PDB').value='2HPY'; readText(); return false;" ><font size="2"> 2HPY,</font>
+								</a><font size="2"><a href="#" onclick="document.getElementById('PDB').value='1QNE'; readText(); return false;" ><font size="2"> 1QNE</font>
+								</a><font size="2">)</font><br>
+								<h5>Optional features:</h5>
+
+								<div id="showhide" style="cursor:pointer; z-index:2;" data-toggle="modal" data-target="#myModalcutoff">
+									<a href="#">Click to change distance cutoff values</a>
+								</div>
+								<div id="showhidefilterchain" style="cursor:pointer; z-index:2;" data-toggle="modal" data-target="#myModalFilterChain">
+									<a href="#">Click to filter by main-chain/side-chain atom</a>
+								</div>
+								<div id="showhidefilterweight" style="cursor:pointer; z-index:2;" data-toggle="modal" data-target="#myModalFilterWeight">
+									<a href="#">Click to filter by normalized weight or absolute number of contacts</a>
+								</div>
+								<div id="showhideligandcutoff" style="cursor:pointer; z-index:2;" data-toggle="modal" data-target="#myModalLigandCutoff">
+									<a href="#">Click to change distance cutoff values for the ligands</a>
+								</div>
+								<div id="showhidefilter" style="cursor:pointer; z-index:2;" data-toggle="modal" data-target="#myModalFilter">
+									<a href="#">Click to identify contacts by type (hydrogen bonds, pi-pi contacts etc)</a>
+								</div>
+
+								<div id="tab" style="cursor:pointer;" data-toggle="modal" data-target="#myModalUpload"><a href="#"><h4>or click to upload your own structure<h4></a></div>
+
+								<!-- Modal for upload starts -->
+
+								<div class="modal fade" id="myModalUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabelUpload" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+												</button>
+												<h4 class="modal-title text-center clearfix" id="myModalLabelUpload">Upload your own structure</h4>
+											</div>
+											<div class="modal-body">
+												<div class="span3">
+											    <div class="well">
+											      <form enctype="multipart/form-data" action="chains_process_combined_upload.php" method="POST">
+											        <div class="input-group">
+											          <input name="uploadedfile" id="file" type="file" class="form-control">
+											          <span class="input-group-btn">
+											              <button type="submit" id="uploadbutton" class="btn btn-default disabled" data-loading-text="Processing..." data-toggle="modal" data-target="#myModalprocessup" onclick="var $btn = $(this).button('loading'); uploadgifshow();" style="margin-left:auto;margin-right:auto;display:block; margin-top:-5px;">Process structure!</button>
+														        <!-- Modal -->
+														        <div class="modal fade" id="myModalprocessup" tabindex="-1" role="dialog" aria-labelledby="myModalLabelprocessup" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+														          <div class="modal-dialog">
+														            <div class="modal-content">
+
+														              <div class="modal-body">
+														              <div id="uploadgif" class="btnExample" style="margin-left:auto; margin-right:auto; text-align:center; ">
+														                <h4 align="center">Uploading and processing the file, please wait...Optional feature calculations take longer.</h4>
+														                <div align="center">
+														                  <img src="./img/Preloader_4.gif" style="height:100px;width:100px; ">
+														                </div>
+														              </div>
+														              </div>
+
+														            </div>
+														          </div>
+														        </div><!-- END OF MODALS -->
+											      		</span>
+											          <br/>
+											        </div>
+															<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+															  <div class="panel panel-default">
+															    <div class="panel-heading" role="tab" id="headingOne">
+															      <h4 class="panel-title">
+															        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+															          Click to change distance cutoff values
+															        </a>
+															      </h4>
+															    </div>
+															    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+															      <div class="panel-body">
+																			<div id="showhide" style="cursor:pointer; z-index:2;" data-toggle="modal" data-target="#myModalcutoffupload">
+																			  <!-- <a href="#">Customize values</a> -->
+																			  <h4>Change cut off value for distance calculation between atoms</h4>
+																			  <div id="below_chart">
+																			    For contact identification, we calculate the distance between each pair of atoms based on the co-ordinates provided in the PDB file. The sum of the two atomic radii was subtracted from this distance and a contact was assigned if the resulting difference was less than a threshold. By default, the threshold used to define if two atoms are contacting is 0.5 Å, but the user can choose any value in the range of 0 to 1 Å. </br>
+																			    <br>
+																			    <div class="btn-group" data-toggle="buttons">
+																			      <label class="btn btn-primary">
+																			        <input type="radio" name="options" id="option0" value="0.0" autocomplete="off"> 0.0
+																			      </label>
+																			      <label class="btn btn-primary active">
+																			        <input type="radio" name="options" id="option1" value="0.5" autocomplete="off" checked> 0.5
+																			      </label>
+																			      <label class="btn btn-primary">
+																			        <input type="radio" name="options" id="option2" value="0.6" autocomplete="off"> 0.6
+																			      </label>
+																			      <label class="btn btn-primary">
+																			        <input type="radio" name="options" id="option3" value="0.7" autocomplete="off"> 0.7
+																			      </label>
+																			      <label class="btn btn-primary">
+																			        <input type="radio" name="options" id="option4" value="0.8" autocomplete="off"> 0.8
+																			      </label>
+																			      <label class="btn btn-primary">
+																			        <input type="radio" name="options" id="option5" value="1.0" autocomplete="off"> 1.0
+																			      </label>
+																			    </div>
+																			  </div>
+																			</div>
+															      </div>
+															    </div>
+															  </div>
+															  <div class="panel panel-default">
+															    <div class="panel-heading" role="tab" id="headingTwo">
+															      <h4 class="panel-title">
+															        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+															          Click to filter by main-chain/side-chain atom
+															        </a>
+															      </h4>
+															    </div>
+															    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+															      <div class="panel-body">
+																			<div id="below_chart">
+																				View and analyze contacts involving main chain-main chain, side chain-side chain or main chain-side chain atoms.
+																				<br><br>
+																				<div class="btn-group" data-toggle="buttons">
+																					<label class="btn btn-primary">
+																						<input type="radio" name="options_chain_upload" id="option0_c_u" value="main-main" autocomplete="off"> main-main
+																					</label>
+																				  <label class="btn btn-primary">
+																				    <input type="radio" name="options_chain_upload" id="option1_c_u" value="main-side" autocomplete="off" > main-side
+																				  </label>
+																				  <label class="btn btn-primary">
+																				    <input type="radio" name="options_chain_upload" id="option2_c_u" value="side-side" autocomplete="off"> side-side
+																				  </label>
+																					<!-- <label class="btn btn-primary">
+																					 <input type="radio" name="options_chain" id="option2_c" value="main-ligand" autocomplete="off"> main-ligand
+																				 </label> -->
+																				</div>
+																				</div>
+
+															      </div>
+															    </div>
+															  </div>
+															  <div class="panel panel-default">
+															    <div class="panel-heading" role="tab" id="headingThree">
+															      <h4 class="panel-title">
+															        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+															          Click to filter by normalized weight or absolute number of contacts
+															        </a>
+															      </h4>
+															    </div>
+															    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+															      <div class="panel-body">
+																			<div id="below_chart">
+																				Select filtering for either absolute number of residue contacts or normalized residue contacts for visualization and analysis.
+																				<br><br>
+																				<div>
+																					<div class="btn-group" data-toggle="buttons" style="display: inline-block;">
+																						<label class="btn btn-primary">
+																							<input type="radio" name="options_norm_abs_upload" id="option0_w_u" value="absolute" autocomplete="off"> Absolute
+																						</label>
+																					  <label class="btn btn-primary">
+																					    <input type="radio" name="options_norm_abs_upload" id="option1_w_u" value="normalized" autocomplete="off" > Normalized
+																					  </label>
+																					</div>
+																					<div style="display: inline-block;" id="showhidefilter" style="cursor:pointer; z-index:2;" data-toggle="modal" data-target="#myModalInfo">
+																						<a href="#">More info</a>
+																					</div>
+																				</div>
+
+																					<div class="input-group">
+																						<br>
+																						<font size="4">and enter weight: </font><input class="span1 form-control" type="text" id="option2_w_u" name="options_weight_upload" size="5" placeholder="weight" />
+																					</div>
+																				</div>
+															      </div>
+															    </div>
+															  </div>
+																<div class="panel panel-default">
+															    <div class="panel-heading" role="tab" id="headingFour">
+															      <h4 class="panel-title">
+															        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+															          Click to change distance cutoff values for the ligands
+															        </a>
+															      </h4>
+															    </div>
+															    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+															      <div class="panel-body">
+																			<div id="below_chart">
+																				For the ligands (including all non-amino acid residues except water (e.g. ions)) or water molecules in the HETATM record in the coordinate file, a contact is assigned if the distance is < 4 Å. Enter a different ligand distance cut off value.
+																				<br><br>
+																					<div class="input-group">
+																						<input class="span1 form-control" type="text" id="option2_l_u" name="options_ligandcutoff_upload" size="10" placeholder="default is 4" />
+																					</div>
+																			</div>
+
+															      </div>
+															    </div>
+															  </div>
+																<div class="panel panel-default">
+															    <div class="panel-heading" role="tab" id="headingFive">
+															      <h4 class="panel-title">
+															        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+																				Click to identify contacts by type (hydrogen bonds, pi-pi contacts etc)
+															        </a>
+															      </h4>
+															    </div>
+															    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+															      <div class="panel-body">
+																			<div id="below_chart">
+																				The different contact types below are computed using Arpeggio (Jubb et al, JMB 2017)
+																				<br><br>
+																				<!-- Non covalent contact types-->
+																					<div class="checkbox">
+																					  <label><input type="checkbox" name="contact_type_array[]" value="hydrogen">Hydrogen bonds</label>
+																					</div>
+																					<div class="checkbox">
+																					  <label><input type="checkbox" name="contact_type_array[]" value="weakhydrogen">Weak hydrogen bonds</label>
+																					</div>
+																					<div class="checkbox">
+																					  <label><input type="checkbox" name="contact_type_array[]" value="halogen">Halogen bonds</label>
+																					</div>
+																					<div class="checkbox">
+																					  <label><input type="checkbox" name="contact_type_array[]" value="ionic">Ionic bonds</label>
+																					</div>
+																					<div class="checkbox">
+																					  <label><input type="checkbox" name="contact_type_array[]" value="metal">Metal contacts</label>
+																					</div>
+																					<div class="checkbox">
+																					  <label><input type="checkbox" name="contact_type_array[]" value="hydrophobic">Hydrophobic contacts</label>
+																					</div>
+																					<div class="checkbox">
+																					  <label><input type="checkbox" name="contact_type_array[]" value="carbonyl">Carbonyl contacts</label>
+																					</div>
+																					<div class="checkbox">
+																					  <label><input type="checkbox" name="contact_type_array[]" value="polar">Polar contacts</label>
+																					</div>
+																					<div class="checkbox">
+																					  <label><input type="checkbox" name="contact_type_array[]" value="weakpolar">Weak polar contacts</label>
+																					</div>
+																					<div class="checkbox">
+																					  <label><input type="checkbox" name="contact_type_array[]" value="aromatic">Aromatic (pi-pi) contacts</label>
+																					</div>
+																					<!-- Aromatic Contact Types -->
+																					<div class="checkbox">
+																					  <label><input type="checkbox" name="contact_type_array[]" value="cationpi">Cation-pi contacts</label>
+																					</div>
+																					<div class="checkbox">
+																					  <label><input type="checkbox" name="contact_type_array[]" value="donorpi">Donor-pi contacts</label>
+																					</div>
+																					<div class="checkbox">
+																					  <label><input type="checkbox" name="contact_type_array[]" value="halogenpi">Halogen-pi contacts</label>
+																					</div>
+																					<div class="checkbox">
+																					  <label><input type="checkbox" name="contact_type_array[]" value="carbonpi">Carbon-pi contacts</label>
+																					</div>
+																			</div>
+
+															      </div>
+															    </div>
+															  </div>
+															</div>
+											      </form>
+											      <br/>
+											      <script>
+											        $(document).ready(
+
+											          function() {
+											            $('input:file').change(
+											              function() {
+											                if ($(this).val()) {
+											                  //$('input:submit').attr('disabled',false);
+											                  $('#uploadbutton').removeClass('disabled');
+											                }
+											              }
+											            );
+											          });
+											      </script>
+											    </div>
+											  </div>
+											</div>
+											<div class="modal-footer" style="z-index:8; position:relative;">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Modal for upload finishes -->
+								<!-- Modal for cutoff -->
+								<div class="modal fade" id="myModalcutoff" tabindex="-1" role="dialog" aria-labelledby="myModalLabelcutoff" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title">Change cut off value for distance calculation between atoms</h4>
+
+												<div class="alert alert-warning" role="alert" id="ssnotice" style="display:none;">
+													<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+													</button>
+												</div>
+												<script>
+													$('.alert .close').click(function() {
+														$(this).parent().hide();
+													});
+												</script>
+											</div>
+											<div class="modal-body">
+												<div id="below_chart">
+													For contact identification, we calculate the distance between each pair of atoms based on the co-ordinates provided in the PDB file. The sum of the two atomic radii was subtracted from this distance and a contact was assigned if the resulting difference was less than a threshold. By default, the threshold used to define if two atoms are contacting is 0.5 Å, but the user can choose any value in the range of 0 to 1 Å. </br>
+													<br><br>
+
+													<!-- <div id='elements'></div> -->
+													<div class="btn-group" data-toggle="buttons">
+														<label class="btn btn-primary">
+															<input type="radio" name="options_main" id="option0_m" value="0.0" autocomplete="off"> 0.0
+														</label>
+													  <label class="btn btn-primary active">
+													    <input type="radio" name="options_main" id="option1_m" value="0.5" autocomplete="off" checked> 0.5
+													  </label>
+													  <label class="btn btn-primary">
+													    <input type="radio" name="options_main" id="option2_m" value="0.6" autocomplete="off"> 0.6
+													  </label>
+													  <label class="btn btn-primary">
+													    <input type="radio" name="options_main" id="option3_m" value="0.7" autocomplete="off"> 0.7
+													  </label>
+													  <label class="btn btn-primary">
+													    <input type="radio" name="options_main" id="option4_m" value="0.8" autocomplete="off"> 0.8
+													  </label>
+														<label class="btn btn-primary">
+															<input type="radio" name="options_main" id="option5_m" value="1.0" autocomplete="off"> 1.0
+														</label>
+													</div>
+													<!-- <button class="btn btn-primary pull-right" id="redefine">Re-calculate and process structure</button></br> -->
+												</div>
+												<script>
+													$('#redefine').click(function() {
+
+													});
+												</script>
+											</div>
+											<div class="modal-footer" style="z-index:8; position:relative;">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Go back to the main page</button>
+											</div>
+										</div>
+									</div>
+								</div><!-- END OF MODALS for CUTOFF-->
+
+								<!-- MODAL FOR  FILTERING STEPS-->
+									<div class="modal fade" id="myModalFilter" tabindex="-1" role="dialog" aria-labelledby="myModalLabelFilter" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">Choose contact types to visualize selected contacts</h4>
+
+													<div class="alert alert-warning" role="alert" id="ssnotice" style="display:none;">
+														<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+														</button>
+													</div>
+													<script>
+														$('.alert .close').click(function() {
+															$(this).parent().hide();
+														});
+													</script>
+												</div>
+												<div class="modal-body">
+													<div id="below_chart">
+
+														The different contact types below are computed using Arpeggio (Jubb et al, JMB 2017)
+														<br><br>
+														<!-- Non covalent contact types-->
+															<div class="checkbox">
+															  <label><input type="checkbox" name="check_list[]" value="hydrogen">Hydrogen bonds</label>
+															</div>
+															<div class="checkbox">
+															  <label><input type="checkbox" name="check_list[]" value="weakhydrogen">Weak hydrogen bonds</label>
+															</div>
+															<div class="checkbox">
+															  <label><input type="checkbox" name="check_list[]" value="halogen">Halogen bonds</label>
+															</div>
+															<div class="checkbox">
+															  <label><input type="checkbox" name="check_list[]" value="ionic">Ionic bonds</label>
+															</div>
+															<div class="checkbox">
+															  <label><input type="checkbox" name="check_list[]" value="metal">Metal contacts</label>
+															</div>
+															<div class="checkbox">
+															  <label><input type="checkbox" name="check_list[]" value="hydrophobic">Hydrophobic contacts</label>
+															</div>
+															<div class="checkbox">
+															  <label><input type="checkbox" name="check_list[]" value="carbonyl">Carbonyl contacts</label>
+															</div>
+															<div class="checkbox">
+															  <label><input type="checkbox" name="check_list[]" value="polar">Polar contacts</label>
+															</div>
+															<div class="checkbox">
+															  <label><input type="checkbox" name="check_list[]" value="weakpolar">Weak polar contacts</label>
+															</div>
+															<div class="checkbox">
+															  <label><input type="checkbox" name="check_list[]" value="aromatic">Aromatic (pi-pi) contacts</label>
+															</div>
+															<!-- Aromatic Contact Types -->
+															<div class="checkbox">
+															  <label><input type="checkbox" name="check_list[]" value="cationpi">Cation-pi contacts</label>
+															</div>
+															<div class="checkbox">
+															  <label><input type="checkbox" name="check_list[]" value="donorpi">Donor-pi contacts</label>
+															</div>
+															<div class="checkbox">
+															  <label><input type="checkbox" name="check_list[]" value="halogenpi">Halogen-pi contacts</label>
+															</div>
+															<div class="checkbox">
+															  <label><input type="checkbox" name="check_list[]" value="carbonpi">Carbon-pi contacts</label>
+															</div>
+															<!-- <label class="btn btn-primary">
+																<input type="radio" name="options_main" id="option0_m" value="0.0" autocomplete="off"> 0.0
+															</label> -->
+
+														<!-- </div> -->
+														<!-- <button class="btn btn-primary pull-right" id="redefine">Re-calculate and process structure</button></br> -->
+													</div>
+												</div>
+												<div class="modal-footer" style="z-index:8; position:relative;">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Go back to the main page</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								<!-- END OF MODAL FOR FILTERING STEPS -->
+								<!-- MODAL FOR  FILTERING STEPS FOR CHAIN TYPES-->
+									<div class="modal fade" id="myModalFilterChain" tabindex="-1" role="dialog" aria-labelledby="myModalLabelFilterChain" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">Choose atom types to visualize selected contacts</h4>
+
+													<div class="alert alert-warning" role="alert" id="ssnotice" style="display:none;">
+														<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+														</button>
+													</div>
+													<script>
+														$('.alert .close').click(function() {
+															$(this).parent().hide();
+														});
+													</script>
+												</div>
+												<div class="modal-body">
+													<div id="below_chart">
+														View and analyze contacts involving main chain-main chain, side chain-side chain or main chain-side chain atoms.
+														<br><br>
+														<div class="btn-group" data-toggle="buttons">
+															<label class="btn btn-primary">
+																<input type="radio" name="options_chain" id="option0_c" value="main-main" autocomplete="off"> main-main
+															</label>
+														  <label class="btn btn-primary">
+														    <input type="radio" name="options_chain" id="option1_c" value="main-side" autocomplete="off" > main-side
+														  </label>
+														  <label class="btn btn-primary">
+														    <input type="radio" name="options_chain" id="option2_c" value="side-side" autocomplete="off"> side-side
+														  </label>
+															<!-- <label class="btn btn-primary">
+															 <input type="radio" name="options_chain" id="option2_c" value="main-ligand" autocomplete="off"> main-ligand
+														 </label> -->
+														</div>
+														</div>
+													<script>
+														$('#redefine').click(function() {});
+													</script>
+												</div>
+												<div class="modal-footer" style="z-index:8; position:relative;">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Go back to the main page</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								<!-- END OF MODAL FOR FILTERING STEPS for CHAIN-->
+								<!-- MODAL FOR  FILTERING STEPS FOR WEIGHT (absolute or normalized)-->
+									<div class="modal fade" id="myModalFilterWeight" tabindex="-1" role="dialog" aria-labelledby="myModalLabelFilterWeight" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">Select filtering for either absolute number of residue contacts or normalized residue contacts for visualization and analysis</h4>
+
+													<div class="alert alert-warning" role="alert" id="ssnotice" style="display:none;">
+														<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+														</button>
+													</div>
+													<script>
+														$('.alert .close').click(function() {
+															$(this).parent().hide();
+														});
+													</script>
+												</div>
+												<div class="modal-body">
+													<div id="below_chart">
+														<div>
+															<div class="btn-group" data-toggle="buttons" style="display: inline-block;">
+																<label class="btn btn-primary">
+																	<input type="radio" name="options_norm_abs" id="option0_w" value="absolute" autocomplete="off"> Absolute
+																</label>
+															  <label class="btn btn-primary">
+															    <input type="radio" name="options_norm_abs" id="option1_w" value="normalized" autocomplete="off" > Normalized
+															  </label>
+															</div>
+															<div style="display: inline-block;" id="showhidefilter" style="cursor:pointer; z-index:2;" data-toggle="modal" data-target="#myModalInfo">
+																<a href="#">More info</a>
+															</div>
+														</div>
+															<div class="input-group">
+																<br>
+																<font size="4">and enter weight: </font><input class="span1 form-control" type="text" id="option2_w" name="options_weight" size="5" placeholder="weight" />
+															</div>
+														</div>
+													<script>
+														$('#redefine').click(function() {});
+													</script>
+												</div>
+												<div class="modal-footer" style="z-index:8; position:relative;">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Go back to the main page</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								<!-- END OF MODAL FOR FILTERING STEPS for WEIGHT-->
+								<!-- MODAL FOR  LIGAND CUTOFF-->
+									<div class="modal fade" id="myModalLigandCutoff" tabindex="-1" role="dialog" aria-labelledby="myModalLabelLigandCutoff" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">Enter ligand distance cut off value</h4>
+
+													<div class="alert alert-warning" role="alert" id="ssnotice" style="display:none;">
+														<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+														</button>
+													</div>
+													<script>
+														$('.alert .close').click(function() {
+															$(this).parent().hide();
+														});
+													</script>
+												</div>
+												<div class="modal-body">
+													<div id="below_chart">
+														For the ligands (including all non-amino acid residues except water (e.g. ions)) or water molecules in the HETATM record in the coordinate file, a contact is assigned if the distance is < 4 Å. Enter a different ligand distance cut off value.
+														<br><br>
+															<div class="input-group">
+																<input class="span1 form-control" type="text" id="option2_l" name="options_ligandcutoff" size="10" placeholder="default is 4" />
+															</div>
+													</div>
+												</div>
+												<div class="modal-footer" style="z-index:8; position:relative;">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Go back to the main page</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								<!-- END OF MODAL FOR LIGAND CUTOFF-->
+								<!-- MODAL FOR NORMALIZED WEIGHT DESCRIPTION-->
+									<div class="modal fade" id="myModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabelInfo" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+
+												<div class="modal-body">
+													<div id="below_chart">
+														In this filtering step, contacts are normalized with respect to the the size of the amino acid. For the normalization, we used a previously published approach (Kannan et al, 1999 and Chakrabarty et al, 2016).
+															Briefly, we first identified all non-redundant crystal structures in the PDB (19.06.2017) from the NCBI database (ftp://ftp.ncbi.nih.gov/mmdb/ nrtable/) using a resolution cut-off of 2 Å. This resulted in 48,856 structures (95,159 chains).
+															We then calculated the average of the maximum number of atomic contacts made by each of the 20 amino acids in these structures (see <b>table</b> below). This was done using the precomputed results available as JSON files in Protein Contacts Atlas. Using this as our reference table,
+															we computed normalized contacts for any structure provided by the user using the following formula:
+															<br><br>
+															Normalized weight = (number of side chain atomic contacts /sqrt(norm_res1 * norm_res2))*100
+															<br><br>
+															where number of side chain atomic contacts is the number of atomic contacts between the side chains of two residues where the distance between two atoms is smaller than 4 Å and norm_res1 and norm_res2 are the values taken from the calculated table. After the normalized weight between the residues is calculated, any interaction which has the normalized weight smaller than the threshold chosen by the user is filtered.
+
+															<br><br>
+															<a href="./img/averageatomcontactsresidues.png" target="_blank">
+															<img id="fig1" src="./img/averageatomcontactsresidues.png" width="100%" height="auto" alt="">
+															</a>
+														</div>
+														<div id="below_chart">
+															The table below shows a distribution of the interaction weights across all non-redundant structures in the PDB.
+															The user can choose a specific “normalized weight” cut-off based on the following table.
+															x- axis shows the normalized weights calculates and y-axis shows the total number of interactions with the associated normalized weights.
+																<br><br>
+																<a href="./img/normalized_weightsvsnumber_interactions.png" target="_blank">
+																<img id="fig2" src="./img/normalized_weightsvsnumber_interactions.png" width="100%" height="auto" alt="">
+																</a>
+															</div>
+												</div>
+												<div class="modal-footer" style="z-index:8; position:relative;">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Go back to the main page</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								<!-- END OF MODAL FOR NORMALIZED WEIGHT DESCRIPTION-->
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3"></div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /jumbotron -->
+		<div class="jumbotron" style="margin-top: -60px;">
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="slides" style="padding-top:250px">
+						<div id="myCarousel" class="carousel slide" data-interval="3000" data-ride="carousel">
+							<!-- Carousel indicators -->
+							<ol class="carousel-indicators">
+								<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+								<li data-target="#myCarousel" data-slide-to="1"></li>
+								<li data-target="#myCarousel" data-slide-to="2"></li>
+								<li data-target="#myCarousel" data-slide-to="3"></li>
+								<li data-target="#myCarousel" data-slide-to="4"></li>
+								<li data-target="#myCarousel" data-slide-to="5"></li>
+								<li data-target="#myCarousel" data-slide-to="6"></li>
+							</ol>
+							<!-- Carousel items -->
+							<div class="carousel-inner">
+								<div class="active item">
+									<img src="./img/illustrations/3EML_A_mixed_trans.png" width="400" height="370" />
+								</div>
+								<div class="item">
+									<img src="./img/illustrations/3EML_A_chord_trans.png" width="400" height="370" />
+								</div>
+								<div class="item">
+									<img src="./img/illustrations/3EML_A_v275_scatter_trans.png" width="400" height="370" />
+									</div>
+								<div class="item">
+									<img src="./img/illustrations/3EML_A_asteroid_color.png" width="400" height="370" />
+								</div>
+								<div class="item">
+									<img src="./img/illustrations/features_slideshow_cartoon_network.png" width="400" height="370" />
+									</div>
+								<div class="item">
+									<img src="./img/illustrations/features_slideshow_cartoon.png" width="400" height="370" />
+									</div>
+								<div class="item">
+									<img src="./img/illustrations/features_slideshow_network.png" width="400" height="370" />
+									</div>
+							</div>
+							<!-- Carousel nav -->
+							<a class="carousel-control left" href="#myCarousel" data-slide="prev">
+								<span class="glyphicon glyphicon-chevron-left"></span>
+							</a>
+							<a class="carousel-control right" href="#myCarousel" data-slide="next">
+								<span class="glyphicon glyphicon-chevron-right"></span>
+							</a>
+						</div>
+
+					</div>
+					<!--end of class slides -->
+
+				</div>
+
+					<div class="col-md-6">
+
+							<div class="info_science">
+
+									<h3 style="color:#868686;">Visualization</h3>
+									<a href="./features.html#fig6" target="_blank" class="popover-bottom" data-toggle="popover" data-content="All subunits as network">
+										 <img id="fig6" src="./img/logos/subunits.png" width="30%" height="auto" alt="">
+									</a>
+									<a href="./features.html#fig1" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Chord plot">
+							       <img id="fig1" src="./img/logos/chord.png" width="30%" height="auto" alt="">
+							    </a>
+									<a href="./features.html#fig2" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Matrix plot">
+							       <img id="fig2" src="./img/logos/matrix.png" width="30%" height="auto" alt="">
+							    </a>
+									<a href="./features.html#fig3" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Asteroid plot">
+							       <img id="fig3" src="./img/logos/asteroid.png" width="30%" height="auto" alt="">
+							    </a>
+									<a href="./features.html#fig5" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Contact network">
+										 <img id="fig5" src="./img/logos/network.png" width="30%" height="auto" alt="">
+									</a>
+								<h3 style="color:#868686;">Analysis</h3>
+									<a href="./features.html#fig4" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Scatter plot">
+							       <img id="fig4" src="./img/logos/scatter.png" width="30%" height="auto" alt="">
+							    </a>
+									<a href="./features.html#fig7" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Statistics table">
+										 <img id="fig7" src="./img/logos/table.png" width="40%" height="auto" alt="">
+									</a>
+									<a href="./features.html#fig15" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Secondary structure sequence">
+										 <img id="fig15" src="./img/logos/sequence.png" width="30%" height="60px" alt="">
+									</a>
+
+								<h3 style="color:#868686;">Data Downloads</h3>
+								<a href="./features.html#fig8" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download contacts">
+									 <img id="fig8" src="./img/logos/contacts.png" width="30%" height="auto" alt="">
+								</a>
+								<a href="./features.html#fig9" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download cytoscape input">
+									 <img id="fig9" src="./img/logos/cytoscape.png" width="30%" height="auto" alt="">
+								</a>
+									<a href="./features.html#fig10" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Take screenshot">
+										 <img id="fig10" src="./img/logos/screenshot.png" width="30%" height="auto" alt="">
+									</a>
+									<a href="./features.html#fig11" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download pymol file">
+										 <img id="fig11" src="./img/logos/pymol.png" width="25%" height="auto" alt="">
+									</a>
+									<a href="./features.html#fig12" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Create structure report">
+										 <img id="fig12" src="./img/logos/structure_report.png" width="40%" height="auto" alt="">
+									</a>
+									<a href="./features.html#fig13" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Disease mutations">
+										 <img id="fig13" src="./img/logos/disease.png" width="40%" height="auto" alt="">
+									</a>
+									<a href="./features.html#fig14" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Pfam mappings">
+										 <img id="fig14" src="./img/logos/pfam.png" width="35%" height="auto" alt="">
+									</a>
+									<h3><a href="./disciplines.html" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Click here for the web resource tools for which scientific disciplines can benefit from">
+									Scientific Disciplines</a></h3>
+							</div>
+						</div>
+					</div>
+
+
+
+			<script>
+				$(document).ready(function() {
+					$(".popover-bottom").popover({
+						trigger: 'hover',
+						placement: 'bottom',
+						container: 'body'
+					});
+				});
+			</script>
+
+		</div>
+		<!-- /jumbotron -->
+		<footer>
+			<p>&copy; MRC Laboratory of Molecular Biology, 2017</p>
+		</footer>
+	</div>
+	<!-- /container -->
+	<!-- Bootstrap core JavaScript
+         ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+</body>
+
+</html>

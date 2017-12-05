@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="./img/Rajini_abstract_1.png">
+
+  <title>Protein Contacts Atlas -  Contact</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="bootstrap-3.2.0-dist/css/navbar-fixed-top.css" rel="stylesheet">
+
+<!-- To fix white space on the bottom of every page, done by melis -->
+<link href="css/fix_bottom_space.css" rel="stylesheet">
+
+	  <script>
+
+function readText() {
+
+	$('#submitbutton').removeClass('disabled');
+
+}
+function process_new() {
+
+	$('#progressgif').show();
+
+	var option="0.5";
+
+	$.ajax({
+	        type: 'post',
+	        url: 'chains_process_combined.php',
+	        data: {
+				cutoff: option,
+	            PDB: $('#PDB').val(),
+	        },
+	        success: function( data ) {
+
+				eval(data);
+
+	        }
+	    });
+}
+
+
+	</script>
+
+  </head>
+
+  <body>
+
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="./index.html">Protein Contacts Atlas</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+
+		 <li style="padding-top:12px;"><input class="span1" type="text" id="PDB" name="PDB" size="5" oninput="if (!document.getElementById('PDB').value.charAt(0).match(/[^0-9]/)) { if(document.getElementById('PDB').value.length == 4) { readText();} else { $('#submitbutton').addClass('disabled'); } } " placeholder="PDB ID"/ >
+		</li>
+		<li style="padding-top:10px; padding-left:10px;"><button type="submit" onclick="process_new();" id="submitbutton" class="btn btn-primary btn-xs disabled popover-bottom" data-toggle="popover" data-content="Click to process structure"> Run</button></li>
+
+          <li><a href="./index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced Features <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="./index_search.html">Search any keyword</a></li>
+              <li><a href="./pfam_mapping.html">PDBs by PFAM</a></li>
+            </ul>
+          </li>
+          <!-- <li><a href="./about.html">About</a>
+          </li> -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">About<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="./about.html">Description</a></li>
+              <li><a href="./features.html">Features</a></li>
+              <li><a href="./downloadables.html">Downloadable Files' Description</a></li>
+              <li><a href="./disciplines.html">Scientific Disciplines</a></li>
+            </ul>
+          </li>
+          <li class="active"><a href="./contact.html">Contact</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+	<p><strong>Melis Kayikci:</strong> <a title="E-mail: mkayikci@mrc-lmb.cam.ac.uk" href="mailto:mkayikci@mrc-lmb.cam.ac.uk">mkayikci@mrc-lmb.cam.ac.uk</a></p>
+	<p><strong>AJ Venkatakrishnan:</strong> <a title="E-mail: ajvenkat@stanford.edu" href="mailto:ajvenkat@stanford.edu">ajvenkat@stanford.edu</a></p>
+	<p><strong>M. Madan Babu:</strong> <a title="E-mail: madanm@mrc-lmb.cam.ac.uk" href="mailto:madanm@mrc-lmb.cam.ac.uk">madanm@mrc-lmb.cam.ac.uk</a></p>
+
+	<br><br>
+	<p> For questions or comments: </p>
+	<br><br>
+		<!-- <form name="htmlform" method="post" action="html_form_send.php">
+		<table width="450px">
+		</tr>
+		<tr>
+		 <td valign="top">
+		  <label for="first_name">First Name</label>
+		 </td>
+		 <td valign="top">
+		  <input  type="text" name="first_name" maxlength="50" size="30">
+		 </td>
+		</tr>
+
+		<tr>
+		 <td valign="top"">
+		  <label for="last_name">Last Name</label>
+		 </td>
+		 <td valign="top">
+		  <input  type="text" name="last_name" maxlength="50" size="30">
+		 </td>
+		</tr>
+		<tr>
+		 <td valign="top">
+		  <label for="affiliation">Affiliation</label>
+		 </td>
+		 <td valign="top">
+		  <input  type="text" name="affiliation" maxlength="50" size="30">
+		 </td>
+		</tr>
+		<tr>
+		 <td valign="top">
+		  <label for="email">Email Address</label>
+		 </td>
+		 <td valign="top">
+		  <input  type="text" name="email" maxlength="80" size="30">
+		 </td>
+
+		</tr>
+
+		<tr>
+		 <td valign="top">
+		  <label for="comments">Comments</label>
+		 </td>
+		 <td valign="top">
+		  <textarea class="form-control" rows="5" id="comment" name="comments" maxlength="1000" cols="25" rows="6"></textarea>
+		 </td>
+
+		</tr>
+		<tr>
+		 <td colspan="2" style="text-align:center">
+		  <input type="submit" value="Submit">
+		 </td>
+		</tr>
+		</table>
+		</form> -->
+
+			<form name="htmlform" method="post" action="html_form_send.php">
+			<table width="450px">
+			</tr>
+			<tr>
+			 <td valign="top">
+			  <label for="first_name">First Name</label>
+			 </td>
+			 <td valign="top">
+			  <input  type="text" name="first_name" maxlength="50" size="30">
+			 </td>
+			</tr>
+
+			<tr>
+			 <td valign="top"">
+			  <label for="last_name">Last Name</label>
+			 </td>
+			 <td valign="top">
+			  <input  type="text" name="last_name" maxlength="50" size="30">
+			 </td>
+			</tr>
+			<tr>
+			 <td valign="top">
+			  <label for="affiliation">Affiliation</label>
+			 </td>
+			 <td valign="top">
+			  <input  type="text" name="affiliation" maxlength="50" size="30">
+			 </td>
+			</tr>
+			<tr>
+			 <td valign="top">
+			  <label for="email">Email Address</label>
+			 </td>
+			 <td valign="top">
+			  <input  type="text" name="email" maxlength="80" size="30">
+			 </td>
+
+			</tr>
+
+			<tr>
+			 <td valign="top">
+			  <label for="comments">Comments</label>
+			 </td>
+			 <td valign="top">
+			  <textarea class="form-control" rows="5" id="comment" name="comments" maxlength="1000" cols="25" rows="6"></textarea>
+			 </td>
+
+			</tr>
+			<tr>
+			 <td colspan="2" style="text-align:center">
+			  <input type="submit" value="Submit">
+			 </td>
+			</tr>
+			</table>
+			</form>
+
+			<br><br>
+
+
+			 <p><strong>Babu Group Website: </strong><a href="http://mbgroup.mrc-lmb.cam.ac.uk/">http://mbgroup.mrc-lmb.cam.ac.uk/</a></p>
+
+		 	<br><br>
+
+		 <p><a href="http://www2.mrc-lmb.cam.ac.uk" target="_blank"><img title="LMB" src="./img/LMB_logo-300x88.jpeg" alt="MRC LMB logo" width="150" height="44" /></a></p>
+
+		 <p><strong>Address:</strong>MRC Laboratory of Molecular Biology, Francis Crick Avenue, Cambridge Biomedical Campus, Cambridge, CB2 0QH, United Kingdom</p>
+
+		 <p><strong>Website: </strong><a href="http://www2.mrc-lmb.cam.ac.uk/">http://www2.mrc-lmb.cam.ac.uk/</a></p>
+
+    </div>
+
+    <footer>
+      <p>&copy; MRC Laboratory of Molecular Biology, 2017</p>
+    </footer>
+
+  </div> <!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+<script type='text/javascript' src='./js/jquery.ba-hashchange.min.js'></script>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+</body>
+</html>

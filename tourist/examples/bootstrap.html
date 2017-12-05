@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrap Example</title>
+
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+  <script src="../test/vendor/javascripts/jquery-1.9.1.js"></script>
+  <script src="../test/vendor/javascripts/underscore-1.4.4.js"></script>
+  <script src="../test/vendor/javascripts/backbone-1.0.0.js"></script>
+
+  <!-- Uses JQUI for the effects only :/ -->
+  <script src="../test/vendor/javascripts/jquery-ui-1.10.2.custom.js"></script>
+
+  <script src="../tourist.js"></script>
+  <link rel="stylesheet" href="../tourist.css" type="text/css" media="screen">
+
+  <!-- Tour js is defined here -->
+  <script type="text/javascript">
+  $(function(){
+
+  STEP_OPTIONS = {
+    one: 1,
+    two: 2
+  };
+
+  STEPS = [{
+    content: '<p>This is a minimal step.</p><p class="action">Read the heading, then click next.</p>',
+    highlightTarget: true,
+    nextButton: true,
+    target: $('#main-heading'),
+    my: 'top center',
+    at: 'bottom center'
+  },{
+    content: '<p>This is a tip with no buttons</p><p class="action">Click the heading to continue</p>',
+    highlightTarget: true,
+    target: $('#main-heading'),
+    my: 'top center',
+    at: 'bottom center',
+    bind: ['onClick'],
+    setup: function(tour, options) {
+      $('#main-heading').on('click', this.onClick);
+    },
+    teardown: function(tour, options) {
+      $('#main-heading').off('click', this.onClick);
+    },
+    onClick: function(tour){
+      tour.next();
+      return false;
+    }
+  },{
+    content: '<p>This points to an absolute position: [100, 100]</p>',
+    target: [100, 100],
+    nextButton: true,
+    my: 'top left'
+  },{
+    content: '<p>This was delayed 1 second</p>',
+    nextButton: true,
+    highlightTarget: true,
+    my: 'top center',
+    at: 'bottom center',
+    setup: function(tour, options) {
+      var self = this;
+      setTimeout(function(){
+        tour.view.setTarget($('#main-heading'), self);
+        tour.view.show()
+      }, 1000)
+    },
+  }]
+
+  FINAL = {
+    content: '<p>Final Step</p>',
+    highlightTarget: true,
+    nextButton: true,
+    target: $('#main-heading'),
+    my: 'top center',
+    at: 'bottom center'
+  }
+
+  TOUR = new Tourist.Tour({
+    stepOptions: STEP_OPTIONS,
+    steps: STEPS,
+    successStep: FINAL,
+    tipOptions:{
+      showEffect: 'slidein'
+    }
+  });
+  TOUR.start();
+
+  });
+  </script>
+
+  <!-- Tour CSS is defined here -->
+  <style type="text/css">
+  </style>
+
+</head>
+<body>
+  <div class="container">
+    <h1 id="main-heading" class="page-header">Tourist works with Bootstrap. Let me show you.</h1>
+    <p>This is an extremely minimal example. Look at the page source!</p>
+
+  </div>
+</body>
+</html>

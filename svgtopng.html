@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<canvas width="500" height="500"></canvas>
+<script>
+
+var canvas = document.querySelector("canvas"),
+    context = canvas.getContext("2d");
+
+var image = new Image;
+// image.setAttribute('crossOrigin', 'anonymous');
+image.src = "3EML_A.svg";
+image.onload = function() {
+  context.drawImage(image, 50, 50);
+
+  var a = document.createElement("a");
+  a.download = "3EML_A.png";
+  a.href = canvas.toDataURL("image/png", 1.0);
+  a.click();
+
+  dataUrl = canvas.toDataURL("image/png", 1.0);
+  window.open(dataUrl);
+};
+
+</script>

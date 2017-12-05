@@ -1,0 +1,18 @@
+div.tooltip_custom {
+    background: #fff;
+    border:solid gray;
+    position: absolute;
+    max-width: 20em;
+    max-height: 20em;
+    text-align:center;
+    visibility:hidden;
+    z-index:10;
+    overflow-y:auto;
+}
+
+/*.style("position", "absolute")
+.style("z-index", "10")
+.style("visibility", "hidden")
+.style("background", "#fff")
+.style("border", "4px")
+.style("border-radius", "8px")*/

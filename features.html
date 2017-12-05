@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="./img/Rajini_abstract_1.png">
+
+  <title>Protein Contacts Atlas - About</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="bootstrap-3.2.0-dist/css/navbar-fixed-top.css" rel="stylesheet">
+
+<!-- To fix white space on the bottom of every page, done by melis -->
+<link href="css/fix_bottom_space.css" rel="stylesheet">
+<style>
+  .item {
+    height: 400px !important;
+  }
+  .carousel-inner > .item > img {
+    margin: 0 auto;
+  }
+  .carousel-control.left, .carousel-control.right {
+  background-image: none
+}
+.carousel-indicators li { visibility: hidden; }
+</style>
+
+<script>
+function readText() {
+
+	$('#submitbutton').removeClass('disabled');
+
+}
+function process_new() {
+
+	$('#progressgif').show();
+
+	var option="0.5";
+
+	$.ajax({
+	        type: 'post',
+	        url: 'chains_process_combined.php',
+	        data: {
+				cutoff: option,
+	            PDB: $('#PDB').val(),
+	        },
+	        success: function( data ) {
+
+				eval(data);
+
+	        }
+	    });
+}
+
+
+	</script>
+
+  </head>
+
+  <body>
+
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="./index.html">Protein Contacts Atlas</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+
+		 <li style="padding-top:12px;"><input class="span1" type="text" id="PDB" name="PDB" size="5" oninput="if (!document.getElementById('PDB').value.charAt(0).match(/[^0-9]/)) { if(document.getElementById('PDB').value.length == 4) { readText();} else { $('#submitbutton').addClass('disabled'); } } " placeholder="PDB ID"/ >
+		</li>
+		<li style="padding-top:10px; padding-left:10px;"><button type="submit" onclick="process_new();" id="submitbutton" class="btn btn-primary btn-xs disabled popover-bottom" data-toggle="popover" data-content="Click to process structure"> Run</button></li>
+
+		  <li><a href="./index.html">Home</a></li>
+      <li class="dropdown">
+  					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced Features <span class="caret"></span></a>
+  					<ul class="dropdown-menu" role="menu">
+  						<li><a href="./index_search.html">Search any keyword</a></li>
+  						<li><a href="./pfam_mapping.html">PDBs by PFAM</a></li>
+  					</ul>
+  		</li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">About<span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="./about.html">Description</a></li>
+          <li><a href="./features.html">Features</a></li>
+          <li><a href="./downloadables.html">Downloadable Files' Description</a></li>
+          <li><a href="./disciplines.html">Scientific Disciplines</a></li>
+        </ul>
+      </li>
+
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+
+<h2>Features</h2>
+
+	<p>Protein Contacts Atlas presents different sections, emphasizing different features of a protein's structure.
+    Each view consists of one or more diagrammatic representations of the underlying residue
+    interaction network, coupled to a conventional 3D protein structure view:
+
+    <div class="row">
+
+        <h2>All Subunits</h2>
+        <div class="col-md-6">
+          <center><a href="./img/logos/subunits.png" target="_blank">
+            <img id="fig6" src="./img/logos/subunits.png" width="60%" height="auto" alt="">
+          </a></center>
+        </div>
+        <div class="col-md-6">
+
+          <p>  Visualization of the contacts starts with a pop up page displaying the entire structure (PDB) in a network representation.
+            Nodes denote individual chains (<b>subunits</b>) in the structure, which could be proteins, or nucleic acids and
+            links denote the existence of non-covalent contacts among residues across the subunit interface.
+            The thickness of the link is proportional to the number of contacts between the chains.
+            By default the first chain is selected and highlighted on the structure.
+            The other chains (subunits) or edges (interfaces) between them can be clicked to display the interactions of those selected.
+            licking on any node (to view interactions in one chain) or link (to view interactions between two chains) will lead to a page
+            with three key visualization panels for sequence, structure and network views which are described in detail in the next section.
+          </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <h2>Secondary structure sequence</h2>
+            <center>
+            <a href="./img/logos/sequence.png" target="_blank">
+            <img id="fig15" src="./img/logos/sequence.png" width="90%" height="100px" alt="">
+          </a></center>
+        </div>
+        <div class="col-md-6">
+          <p><b>The sequence panel</b> shows the secondary structure and sequence information.
+            This panel includes the secondary structures (helices and sheets) on the top line with their respective colours.
+            Below this line is another representation of the secondary structures, which also includes the loops between them.
+            Finally below this line is the sequence with the residue letters. The positions of the residues in the sequence are
+            aligned with the secondary structures and loops above them.
+          </div>
+    </div>
+
+<div class="row">
+
+    <h2>Chord Plot</h2>
+    <div class="col-md-6">
+        <center><a href="./img/logos/chord.png" target="_blank">
+           <img id="fig1" src="./img/logos/chord.png" width="60%" height="auto" alt="">
+        </a>
+      </center>
+    </div>
+    <div class="col-md-6">
+  		<p><b>The Structure View</b> consists of a Chord Plot which shows the <i>interactions between pairs of secondary structural elements</i>
+        in which each secondary structural element is represented by an arc of a circle, and arcs are joined
+        by chords whose thickness is determined by the number of interactions between the corresponding elements.
+        Clicking on a chord reveals an adjacency matrix which reveals the specific residue-residue interactions that it represents.
+    </div>
+</div>
+
+<div class="row">
+
+    <h2>Matrix Plot</h2>
+    <div class="col-md-6">
+        <center><a href="./img/logos/matrix.png" target="_blank">
+           <img id="fig2" src="./img/logos/matrix.png" width="60%" height="auto" alt="">
+        </a>
+      </center>
+    </div>
+    <div class="col-md-6">
+  		<p>Clicking on a chord reveals an <b>adjacency matrix</b> which reveals the specific
+        residue-residue interactions that it represents and the number of atomic contacts between them.
+    </div>
+</div>
+
+<div class="row">
+
+    <h2>Asteroid Plot</h2>
+    <div class="col-md-6">
+      <center><a href="./img/logos/asteroid.png" target="_blank">
+        <img id="fig3" src="./img/logos/asteroid.png" width="60%" height="auto" alt="">
+      </a></center>
+    </div>
+    <div class="col-md-6">
+      <p><b>Ligand/Residue Centric View</b> consists of an Asteroid Plot which shows the <i>neighborhood of a particular residue or ligand</i>.
+        This view is simultaneously presented in a diagram of radially arranged circles,
+        and a 3D protein structure view.
+      </div>
+</div>
+
+<div class="row">
+
+    <h2>Scatter Plot</h2>
+    <div class="col-md-6">
+      <center><a href="./img/logos/scatter.png" target="_blank">
+        <img id="fig4" src="./img/logos/scatter.png" width="60%" height="auto" alt="">
+      </a></center>
+    </div>
+    <div class="col-md-6">
+      <p><b>The Network Statistics</b> section has a Scatter Plot Matrix which shows the <i>network metrics corresponding to each residue (Closeness, betweennes and degree
+         centrality measures and solvent accessible area)</i>.
+        The main view is a grid of scatter-plots, which includes a plot of every pair of metrics.
+        There is also a sortable table, which gives exact values for each metric.
+      </div>
+</div>
+
+<div class="row">
+
+    <h2>Extarnal Data Mapping</h2>
+    <div class="col-md-6">
+      <center><a href="./img/logos/externaldata.png" target="_blank">
+        <img id="fig16" src="./img/logos/externaldata.png" width="60%" height="auto" alt="">
+      </a></center>
+    </div>
+    <div class="col-md-6">
+      <p><b>External data mapping</b> is allowed where the users can
+        upload their data including <i>PTMs, conservation, thermostability etc.</i> in the form provided.
+        The scatter plot matrix is then updated with new data integrated as a color map
+        in which values from minimum to maximum are colored from cyan to magenta by default.
+        The user can change the color scheme with a color palette provided.
+      </div>
+</div>
+
+<div class="row">
+
+    <h2>Statistics Table</h2>
+    <div class="col-md-6">
+      <center><a href="./img/logos/table.png" target="_blank">
+        <img id="fig7" src="./img/logos/table.png" width="60%" height="auto" alt="">
+      </a></center>
+    </div>
+    <div class="col-md-6">
+      <p><b>The statistics table</b> provides the degree, betweenness, closeness centrality measures and solvated area of the selected residues.
+      </div>
+</div>
+
+<div class="row">
+
+    <h2>Contact Network</h2>
+    <div class="col-md-6">
+      <center><a href="./img/logos/network.png" target="_blank">
+        <img id="fig5" src="./img/logos/network.png" width="60%" height="auto" alt="">
+      </a></center>
+    </div>
+    <div class="col-md-6">
+      <p><b>The network view</b> shows the backbone of the structure as a loop with all the residues as small spheres.
+         The interactions are represented as edges, with the edge thickness signifying the number of atoms that form contacts between the two residues.
+         Only those residues interacting with their neighbors by 4 residues are displayed the first time the network view is clicked. Nevertheless, all contacts can be simultaneously visualized, as all the interactions are pre-calculated.
+      </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+
+        <h2>Disease mutations</h2>
+        <center>
+        <img id="fig13" src="./img/logos/disease.png" width="60%" height="auto" alt="">
+      </center>
+    </div>
+    <div class="col-md-6">
+      <p>Naturally occurring human single nucleotide polymorphisms and disease mutations taken from Uniprot can be viewed on the webserver. Detailed information on the <b>SNP/mutation</b> can be viewed for all the residues in the selected chain and structure.
+      </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+
+      <h2>Pfam mappings</h2>
+        <center>
+        <img id="fig14" src="./img/logos/pfam.png" width="60%" height="auto" alt="">
+      </center>
+    </div>
+    <div class="col-md-6">
+      <p>The resource is grouped according to the PFAM IDs of the PDB structures which can be found on the <b>PFAM mappings</b> page.
+        The residue interactions can be downloaded as simple text format accessible here.
+      </div>
+</div>
+
+
+	<!-- <h2>Visualization of the Residue Interaction Networks</h2>
+	<p>Rajini presents three different sections, emphasizing different features of a protein's structure.
+    Each view consists of one or more diagrammatic representations of the underlying residue
+    interaction network, coupled to a conventional 3D protein structure view:
+	<br><br>
+	<ul>
+		<li><p><b>The Structure View</b> consists of a Chord Plot which shows the <i>interactions between pairs of secondary structural elements</i>
+      in which each secondary structural element is represented by an arc of a circle, and arcs are joined
+      by chords whose thickness is determined by the number of interactions between the corresponding elements.
+      Clicking on a chord reveals an adjacency matrix which reveals the specific residue-residue interactions that it represents.
+    </li>
+      <center><a href="./img/illustrations/3EML_A_chord_trans.png" target="_blank">
+	       <img id="fig2" src="./img/illustrations/3EML_A_chord_trans.png" width="30%" height="auto" alt="">
+	    </a></center>
+
+		<li><p><b>The Network Statistics</b> section has a Scatter Plot Matrix which shows the <i>network metrics corresponding to each residue (Closeness, betweennes and degree
+       centrality measures and solvent accessible area)</i>.
+      The main view is a grid of scatter-plots, which includes a plot of every pair of metrics.
+      There is also a sortable table, which gives exact values for each metric.
+    </li>
+      <center><a href="./img/illustrations/3EML_A_v275_scatter_trans.png" target="_blank">
+        <img id="fig3" src="./img/illustrations/3EML_A_v275_scatter_trans.png" width="30%" height="auto" alt="">
+      </a></center>
+	<li><p><b>Ligand/Residue Centric View</b> consists of an Asteroid Plot which shows the <i>neighborhood of a particular residue or ligand</i>.
+    This view is simultaneously presented in a diagram of radially arranged circles,
+    and a 3D protein structure view.
+    </li>
+    <center><a href="./img/illustrations/3EML_A_asteroid_trans.png" target="_blank">
+      <img id="fig4" src="./img/illustrations/3EML_A_asteroid_trans.png" width="30%" height="auto" alt="">
+    </a></center>
+	</ul> -->
+
+
+<br><br>
+
+    <footer>
+      <p>&copy; MRC Laboratory of Molecular Biology, 2017</p>
+    </footer>
+
+  </div> <!-- /container -->
+
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+<script type='text/javascript' src='./js/jquery.ba-hashchange.min.js'></script>
+
+<link rel="stylesheet" href="css/ui/1.10.3/theme/smoothness/jquery-ui.css" />
+  <script src="js/jquery-1.9.1.min.js"></script>
+  <script src="js/ui/1.10.3/jquery-ui.js"></script>
+</body>
+</html>

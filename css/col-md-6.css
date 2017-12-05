@@ -1,0 +1,6 @@
+/*added seperately because we need to comment out the "position:relative" part which prevents the labeling of residues to work (when user clicks on structure) */
+.col-md-6{
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}

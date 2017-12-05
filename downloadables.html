@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="./img/Rajini_abstract_1.png">
+
+  <title>Protein Contacts Atlas - About</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="bootstrap-3.2.0-dist/css/navbar-fixed-top.css" rel="stylesheet">
+
+<!-- To fix white space on the bottom of every page, done by melis -->
+<link href="css/fix_bottom_space.css" rel="stylesheet">
+<style>
+  .item {
+    height: 400px !important;
+  }
+  .carousel-inner > .item > img {
+    margin: 0 auto;
+  }
+  .carousel-control.left, .carousel-control.right {
+  background-image: none
+}
+.carousel-indicators li { visibility: hidden; }
+</style>
+
+<script>
+function readText() {
+
+	$('#submitbutton').removeClass('disabled');
+
+}
+function process_new() {
+
+	$('#progressgif').show();
+
+	var option="0.5";
+
+	$.ajax({
+	        type: 'post',
+	        url: 'chains_process_combined.php',
+	        data: {
+				cutoff: option,
+	            PDB: $('#PDB').val(),
+	        },
+	        success: function( data ) {
+
+				eval(data);
+
+	        }
+	    });
+}
+
+
+	</script>
+
+  </head>
+
+  <body>
+
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="./index.html">Protein Contacts Atlas</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+
+		 <li style="padding-top:12px;"><input class="span1" type="text" id="PDB" name="PDB" size="5" oninput="if (!document.getElementById('PDB').value.charAt(0).match(/[^0-9]/)) { if(document.getElementById('PDB').value.length == 4) { readText();} else { $('#submitbutton').addClass('disabled'); } } " placeholder="PDB ID"/ >
+		</li>
+		<li style="padding-top:10px; padding-left:10px;"><button type="submit" onclick="process_new();" id="submitbutton" class="btn btn-primary btn-xs disabled popover-bottom" data-toggle="popover" data-content="Click to process structure"> Run</button></li>
+
+		  <li><a href="./index.html">Home</a></li>
+      <li class="dropdown">
+  					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced Features <span class="caret"></span></a>
+  					<ul class="dropdown-menu" role="menu">
+  						<li><a href="./index_search.html">Search any keyword</a></li>
+  						<li><a href="./pfam_mapping.html">PDBs by PFAM</a></li>
+  					</ul>
+  		</li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">About<span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="./about.html">Description</a></li>
+          <li><a href="./features.html">Features</a></li>
+          <li><a href="./downloadables.html">Downloadable Files' Description</a></li>
+          <li><a href="./disciplines.html">Scientific Disciplines</a></li>
+        </ul>
+      </li>
+
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+
+<center><h2>Downloadable Files</h2></center>
+<br><br>
+
+<div class="row">
+    <div class="col-md-6">
+      <center>
+        <h2>Download pymol file</h2>
+        <img id="fig11" src="./img/logos/pymol.png" width="40%" height="auto" alt="">
+    </center>
+    </div>
+    <div class="col-md-6">
+      <p>Any changes made on the 3D structure can be downloaded by clicking on the "Save as Pymol File" link (on the “Protein Structure” panel), which will generate this exact state of the structure as a <b>Pymol</b> session.
+        This will be useful for the users who want to investigate the structure with their preferred local structure visualization software.
+      </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+      <center>
+        <h2>Download Contacts</h2>
+        <img id="fig8" src="./img/logos/contacts.png" width="40%" height="auto" alt="">
+      </center>
+    </div>
+    <div class="col-md-6">
+      <p><b>The atomic level interaction information</b>  can be saved in a text file which has all the details such as which residue is contacting which residue and within these residues, which atoms are contacting which other atoms, the distance between the atoms, whether they are on main or side chains.
+        The text files are accessible via the “List of contacts on atomic level (.zip)” link in the top right corner of the panel titled “Density of Residue Contacts” on the main interactions analysis page or on the "PFAM mappings" page.
+      </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+      <center>
+        <h2>Download cytoscape input</h2>
+        <img id="fig9" src="./img/logos/cytoscape.png" width="40%" height="auto" alt="">
+      </center>
+    </div>
+    <div class="col-md-6">
+      <p>The residue interactions can be downloaded in sif format (a network format) to be used later in <b>Cytoscape</b> to view the interactions which is accessible on “Density of Residue Contacts” panel.
+      </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+      <center>
+        <h2>Take screenshot</h2>
+        <img id="fig10" src="./img/logos/screenshot.png" width="40%" height="auto" alt="">
+      </center>
+    </div>
+    <div class="col-md-6">
+      <p><b>Images</b> of all plots (chord, asteroid, scatter) as well as the 3D structure can also be created and downloaded by taking a snapshot.
+      </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+      <center>
+        <h2>Create Structure Report</h2>
+        <img id="fig12" src="./img/logos/structure_report.png" width="60%" height="auto" alt="">
+      </center>
+    </div>
+    <div class="col-md-6">
+      <p><b>A full report</b> of the whole analysis of the selected chain of the structure can be downloaded as an HTML file (accessible from the <i>Structure Report</i> link at the top of the interaction analysis page).
+        The report contains a chord plot with the interaction between secondary structures, an asteroid plot of the current selected residue/ligand, the 3D screenshot of the structure and the scatter plot matrix shown by the Network Statistics page.
+        The outlier residues are listed as six different tables. The first row of tables shows the top ten residues with the highest and bottom ten residues with the lowest solvent accessible areas; the second row of tables shows the top ten residues
+        with the highest and bottom ten residues with the lowest degree values; the third row of tables shows the top ten residues with the highest and bottom ten residues with the lowest betweenness centrality measures; and finally,
+        the last row shows the top ten residues with the highest and bottom ten residues with the lowest closeness centrality measures. Finally, if the structure has any ligands, the list of ligands are all shown in the report.
+        The two tables shown are the top and bottom ten ligands sorted by the number of atomic contacts they have with other residues/ligands. The report is generated by clicking on the “Structure Report” button on the top of the analysis page.
+        It takes around 30-40 seconds to generate the report. It will be generating the screenshots of the figures on the go as they were before clicking the button so that the users can personalize their reports by choosing which residues
+        they want to display in the figures or the 3D structure. The report can be useful as a summary of the features of the structure and can be used in publications of the users.
+      </div>
+</div>
+
+<br><br>
+
+    <footer>
+      <p>&copy; MRC Laboratory of Molecular Biology, 2017</p>
+    </footer>
+
+  </div> <!-- /container -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+<script type='text/javascript' src='./js/jquery.ba-hashchange.min.js'></script>
+
+<link rel="stylesheet" href="css/ui/1.10.3/theme/smoothness/jquery-ui.css" />
+  <script src="js/jquery-1.9.1.min.js"></script>
+  <script src="js/ui/1.10.3/jquery-ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="icon" type="image/png"
+       href="img/Rajini_abstract_1.png" />
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>Rajini</title>
+
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
+
+
+ <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+   <script type="text/javascript" src="js/d3.v3.min.js"></script>
+
+   <script type='text/javascript' src='js/jquery.ba-hashchange.min.js'></script>
+
+<!-- Bootstrap core CSS -->
+<link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="bootstrap-3.2.0-dist/css/navbar-fixed-top.css" rel="stylesheet">
+
+<!-- To fix white space on the bottom of every page, done by melis -->
+<link href="css/fix_bottom_space.css" rel="stylesheet">
+
+  <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="DataTables-1.10.3/media/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" src="DataTables-1.10.3/extensions/TableTools/js/dataTables.tableTools.js"></script>
+	<link type="text/css" rel="stylesheet" href="DataTables-1.10.3/media/css/jquery.dataTables.css" />
+	<link type="text/css" rel="stylesheet" href="DataTables-1.10.3/extensions/TableTools/css/dataTables.tableTools.css" />
+
+	<script src='pfam_mapping.js' type='text/javascript'></script>
+
+	<script data-pace-options='{ "restartOnPushState": false, "restartOnRequestAfter": false }' src="PACE/pace.min.js"></script>
+	<link href="PACE/pace-theme-center-circle.css" rel="stylesheet" />
+
+<script>
+
+	function readText() {
+		$('#submitbutton').removeClass('disabled');
+	}
+
+function process_new() {
+
+	$('#progressgif').show();
+
+	var option="0.5";
+
+	$.ajax({
+	        type: 'post',
+	        url: 'chains_process_combined.php',
+	        data: {
+				cutoff: option,
+	            PDB: $('#PDB').val(),
+	        },
+	        success: function( data ) {
+
+				eval(data);
+
+	        }
+	    });
+}
+ 	</script>
+
+
+	 <script>
+
+ 	 function trigger_popover() {
+
+	     $(".popover-right").popover({
+			 trigger: 'click',
+	         placement : 'right',
+			 container: 'body',
+
+		 	html: true,
+			content: function () {
+			   return $(this).next('.deneme-content').html();
+				//return $('.deneme-content').html();
+			}
+
+	     });
+
+ 	 }
+
+	 </script>
+
+</head>
+
+<body onload="load();" bgcolor="#F2F2F2">
+<!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Rajini</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+
+		 <li style="padding-top:12px;"><input class="span1" type="text" id="PDB" name="PDB" size="5" oninput="if (!document.getElementById('PDB').value.charAt(0).match(/[^0-9]/)) { if(document.getElementById('PDB').value.length == 4) { readText();} else { $('#submitbutton').addClass('disabled'); } } " placeholder="PDB ID"/ >
+		</li>
+		<li style="padding-top:10px; padding-left:10px;"><button type="submit" onclick="process_new();" id="submitbutton" class="btn btn-primary btn-xs disabled popover-bottom" data-toggle="popover" data-content="Click to process structure"> Run</button></li>
+
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced Features <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="./index_search.html">Search any keyword</a></li>
+            <li><a href="./pfam_mapping.html">PDBs by PFAM</a></li>
+          </ul>
+        </li>
+        <!-- <li><a href="./about.html">About</a>
+        </li> -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">About<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="./about.html">Description</a></li>
+            <li><a href="./features.html">Features</a></li>
+            <li><a href="./downloadables.html">Downloadable Files' Description</a></li>
+            <li><a href="./disciplines.html">Scientific Disciplines</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+<div class="container">
+
+  	  <div class="jumbotron "  >
+
+			 <div class="container" >
+
+			         <div class="row">
+
+
+			           <div class="col-md-12">
+
+						<div id='tables'> </div>
+
+		  				<!-- Modal -->
+		  				<div class="modal fade" id="myModalPDBS" tabindex="-1" role="dialog" aria-labelledby="myModalPDBSprocess" aria-hidden="true">
+		  					<div class="modal-dialog">
+		  						<div class="modal-content">
+									<div class="modal-header" style="text-align: center">
+										<div id='pfamtitle'> </div>
+									</div>
+		  							<div class="modal-body">
+
+										 <div class="container" >
+
+						   			         <div class="row">
+
+						   			           <div class="col-md-12">
+
+				  									<div id='pdbs'> </div>
+
+				  								</div>
+											</div>
+										</div>
+		  							</div>
+
+		  						</div>
+		  					</div>
+		  				</div><!-- END OF MODALS -->
+
+			           </div>
+
+			         </div> <!-- /row -->
+
+			 		<div id="progressgif" class="btnExample" style="margin-left:auto; margin-right:auto; text-align:center; display:none; ">
+
+			 			<h8 align="center" >Processing, please wait...</h8>
+
+			 			<div align="center">
+			 			 	<img src="img/Preloader_4.gif" style="height:100px;width:100px; ">
+			 			</div>
+
+			 		 </div>
+
+  			 </div> <!-- /container -->
+
+  		</div> <!-- /jumbotron -->
+
+        <footer>
+          <p>&copy; MRC Laboratory of Molecular Biology, 2017</p>
+        </footer>
+	<script>
+
+	//THIS WAY OF DEFINING POPOVER IS GOOD FOR DYNAMIC BUTTONS ADDED, LIKE IN OUR CASE IN THE TABLE THE LINK BUTTONS ARE CREATED BY READING THE JSON FILE.
+		//THIS WAY THE POPOVER BECAME VISIBLE WHEN HOVERED ON THEM
+		var popOverSettings = {
+			trigger: 'hover',
+		    placement: 'right',
+		    container: 'body',
+		    html: true,
+		    selector: '[rel="popover"]', //Sepcify the selector here
+		    content: 'Click to go to the PFAM page'
+		}
+
+		$('body').popover(popOverSettings);
+
+		var popOverSettings2 = {
+			trigger: 'hover',
+		    placement: 'right',
+		    container: 'body',
+		    html: true,
+		    selector: '[rel="popover2"]', //Sepcify the selector here
+		    content: 'Click to download json files'
+		}
+
+		$('body').popover(popOverSettings2);
+	</script>
+
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+</body>
+
+
+</html>

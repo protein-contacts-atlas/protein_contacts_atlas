@@ -1,0 +1,22 @@
+
+oneLetter = {}
+oneLetter["A"] ="ALA";
+oneLetter["F"] ="PHE";
+oneLetter["L"] ="LEU";
+oneLetter["I"] ="ILE";
+oneLetter["M"] ="MET";
+oneLetter["V"] ="VAL";
+oneLetter["S"] ="SER";
+oneLetter["P"] ="PRO";
+oneLetter["T"] ="THR";
+oneLetter["Y"] ="TYR";
+oneLetter["H"] ="HIS";
+oneLetter["Q"] ="GLN";
+oneLetter["N"] ="ASN";
+oneLetter["K"] ="LYS";
+oneLetter["D"] ="ASP";
+oneLetter["E"] ="GLU";
+oneLetter["C"] ="CYS";
+oneLetter["W"] ="TRP";
+oneLetter["R"] ="ARG";
+oneLetter["G"] ="GLY";

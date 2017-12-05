@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="./img/Rajini_abstract_1.png">
+
+  <title>Protein Contacts Atlas - Scientific Disciplines</title>
+
+  <link href="bootstrap-3.2.0-dist/css/navbar-fixed-top.css" rel="stylesheet">
+	<!-- To fix white space on the bottom of every page, done by melis -->
+	<link href="css/fix_bottom_space.css" rel="stylesheet">
+	<script type='text/javascript' src='./js/jquery.ba-hashchange.min.js'></script>
+	<script src="js/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+	<!--the original path has themes not theme -->
+	<link rel="stylesheet" href="css/ui/1.10.3/theme/smoothness/jquery-ui.css" />
+	<!-- Bootstrap core CSS -->
+	<link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+	<!--this  bootstrap-theme.min.css is actually version 3.3.1-->
+	<link rel="stylesheet" href="bootstrap-3.2.0-dist/css/bootstrap-theme.min.css">
+
+<style>
+.info_science {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  -webkit-box-shadow: inset 0 5px 5px rgba(0, 0, 0, .05);
+          box-shadow: inset 0 5px 5px rgba(0, 0, 0, .05);
+  }
+
+.inactiveLink {
+   pointer-events: none;
+   cursor: default;
+}
+
+</style>
+
+<script>
+function readText() {
+
+	$('#submitbutton').removeClass('disabled');
+
+}
+function process_new() {
+
+	$('#progressgif').show();
+
+	var option="0.5";
+
+	$.ajax({
+	        type: 'post',
+	        url: 'chains_process_combined.php',
+	        data: {
+				cutoff: option,
+	            PDB: $('#PDB').val(),
+	        },
+	        success: function( data ) {
+
+				eval(data);
+
+	        }
+	    });
+}
+
+	</script>
+  </head>
+
+  <body>
+
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="./index.html">Protein Contacts Atlas</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+
+		 <li style="padding-top:12px;"><input class="span1" type="text" id="PDB" name="PDB" size="5" oninput="if (!document.getElementById('PDB').value.charAt(0).match(/[^0-9]/)) { if(document.getElementById('PDB').value.length == 4) { readText();} else { $('#submitbutton').addClass('disabled'); } } " placeholder="PDB ID"/ >
+		</li>
+		<li style="padding-top:10px; padding-left:10px;"><button type="submit" onclick="process_new();" id="submitbutton" class="btn btn-primary btn-xs disabled popover-bottom" data-toggle="popover" data-content="Click to process structure"> Run</button></li>
+
+		  <li><a href="./index.html">Home</a></li>
+		<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced Features <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="./index_search.html">Search any keyword</a></li>
+						<li><a href="./pfam_mapping.html">PDBs by PFAM</a></li>
+					</ul>
+		</li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">About<span class="caret"></span></a>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="./about.html">Description</a></li>
+        <li><a href="./features.html">Features</a></li>
+        <li><a href="./downloadables.html">Downloadable Files' Description</a></li>
+        <li><a href="./disciplines.html">Scientific Disciplines</a></li>
+      </ul>
+    </li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+
+<h2>Scientific Disciplines</h2>
+<div class="jumbotron">
+
+  <div class="row">
+    <div class="col-md-6">
+
+        <div class="info_science">
+            <h4 style="color:#868686;">All features</h4>
+            <a href="./features.html#fig1" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Chord plot">
+               <img id="fig1" src="./img/logos/chord.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig2" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Matrix plot">
+               <img id="fig2" src="./img/logos/matrix.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig3" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Asteroid plot">
+               <img id="fig3" src="./img/logos/asteroid.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig4" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Scatter plot">
+               <img id="fig4" src="./img/logos/scatter.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig16" target="_blank" class="popover-bottom" data-toggle="popover" data-content="External data map">
+               <img id="fig16" src="./img/logos/externaldata.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig5" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Contact network">
+               <img id="fig5" src="./img/logos/network.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig6" target="_blank" class="popover-bottom" data-toggle="popover" data-content="All subunits as network">
+               <img id="fig6" src="./img/logos/subunits.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig7" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Statistics table">
+               <img id="fig7" src="./img/logos/table.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig8" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download contacts">
+               <img id="fig8" src="./img/logos/contacts.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig9" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download cytoscape input">
+               <img id="fig9" src="./img/logos/cytoscape.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig10" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Take screenshot">
+               <img id="fig10" src="./img/logos/screenshot.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig11" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download pymol file">
+               <img id="fig11" src="./img/logos/pymol.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig12" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Create structure report">
+               <img id="fig12" src="./img/logos/structure_report.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig13" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Disease mutations">
+               <img id="fig13" src="./img/logos/disease.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig14" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Pfam mappings">
+               <img id="fig14" src="./img/logos/pfam.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig15" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Secondary structure sequence">
+               <img id="fig15" src="./img/logos/sequence.png" width="15%" height="30px" alt="">
+            </a>
+        </div>
+
+    </div>
+
+      <div class="col-md-6">
+
+          <div class="info_science">
+              <h4 style="color:#868686;">Biochemists and Molecular Biologists</h4>
+              <a href="./features.html#fig1"  class="popover-bottom" data-toggle="popover" data-content="Chord plot">
+                 <img id="fig1" src="./img/logos/chord.png" width="15%" height="auto" alt="">
+              </a>
+              <a href="./features.html#fig2" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Matrix plot">
+                 <img id="fig2" src="./img/logos/matrix.png" width="15%" height="auto" alt="">
+              </a>
+              <a href="./features.html#fig3" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Asteroid plot">
+                 <img id="fig3" src="./img/logos/asteroid.png" width="15%" height="auto" alt="">
+              </a>
+              <a href="./features.html#fig4" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Scatter plot">
+                 <img id="fig4" src="./img/logos/scatter.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+              </a>
+              <a href="./features.html#fig16" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Scatter plot">
+                 <img id="fig16" src="./img/logos/externaldata.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+              </a>
+              <a href="./features.html#fig5" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Contact network">
+                 <img id="fig5" src="./img/logos/network.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+              </a>
+              <a href="./features.html#fig6" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="All subunits as network">
+                 <img id="fig6" src="./img/logos/subunits.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+              </a>
+              <a href="./features.html#fig7" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Statistics table">
+                 <img id="fig7" src="./img/logos/table.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+              </a>
+              <a href="./features.html#fig8" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download contacts">
+                 <img id="fig8" src="./img/logos/contacts.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+              </a>
+              <a href="./features.html#fig9" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download cytoscape input">
+                 <img id="fig9" src="./img/logos/cytoscape.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+              </a>
+              <a href="./features.html#fig10" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Take screenshot">
+                 <img id="fig10" src="./img/logos/screenshot.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+              </a>
+              <a href="./features.html#fig11" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download pymol file">
+                 <img id="fig11" src="./img/logos/pymol.png" width="15%" height="30px" alt="">
+              </a>
+              <a href="./features.html#fig12" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Create structure report">
+                 <img id="fig12" src="./img/logos/structure_report.png" width="15%" height="30px" alt="">
+              </a>
+              <a href="./features.html#fig13" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Disease mutations">
+                 <img id="fig13" src="./img/logos/disease.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+              </a>
+              <a href="./features.html#fig14" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Pfam mappings">
+                 <img id="fig14" src="./img/logos/pfam.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+              </a>
+              <a href="./features.html#fig15" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Secondary structure sequence">
+                 <img id="fig15" src="./img/logos/sequence.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+              </a>
+          </div>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-md-6">
+
+        <div class="info_science">
+            <h4 style="color:#868686;">Cell biologists</h4>
+            <a href="./features.html#fig1" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Chord plot">
+               <img id="fig1" src="./img/logos/chord.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig2" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Matrix plot">
+               <img id="fig2" src="./img/logos/matrix.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig3" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Asteroid plot">
+               <img id="fig3" src="./img/logos/asteroid.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig4" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Scatter plot">
+               <img id="fig4" src="./img/logos/scatter.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig16" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="External data map">
+               <img id="fig16" src="./img/logos/externaldata.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig5" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Contact network">
+               <img id="fig5" src="./img/logos/network.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig6" target="_blank" class="popover-bottom" data-toggle="popover" data-content="All subunits as network">
+               <img id="fig6" src="./img/logos/subunits.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig7" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Statistics table">
+               <img id="fig7" src="./img/logos/table.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig8" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download contacts">
+               <img id="fig8" src="./img/logos/contacts.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig9" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download cytoscape input">
+               <img id="fig9" src="./img/logos/cytoscape.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig10" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Take screenshot">
+               <img id="fig10" src="./img/logos/screenshot.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig11" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download pymol file">
+               <img id="fig11" src="./img/logos/pymol.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig12" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Create structure report">
+               <img id="fig12" src="./img/logos/structure_report.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig13" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Disease mutations">
+               <img id="fig13" src="./img/logos/disease.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig14" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Pfam mappings">
+               <img id="fig14" src="./img/logos/pfam.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig15" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Secondary structure sequence">
+               <img id="fig15" src="./img/logos/sequence.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+
+        </div>
+
+      </div>
+
+      <div class="col-md-6">
+
+        <div class="info_science">
+            <h4 style="color:#868686;">Structural biologists</h4>
+            <a href="./features.html#fig1" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Chord plot">
+               <img id="fig1" src="./img/logos/chord.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig2" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Matrix plot">
+               <img id="fig2" src="./img/logos/matrix.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig3" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Asteroid plot">
+               <img id="fig3" src="./img/logos/asteroid.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig4" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Scatter plot">
+               <img id="fig4" src="./img/logos/scatter.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig16" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="External data map">
+               <img id="fig16" src="./img/logos/externaldata.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig5" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Contact network">
+               <img id="fig5" src="./img/logos/network.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig6" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="All subunits as network">
+               <img id="fig6" src="./img/logos/subunits.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig7" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Statistics table">
+               <img id="fig7" src="./img/logos/table.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig8" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download contacts">
+               <img id="fig8" src="./img/logos/contacts.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig9" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download cytoscape input">
+               <img id="fig9" src="./img/logos/cytoscape.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig10" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Take screenshot">
+               <img id="fig10" src="./img/logos/screenshot.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig11" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download pymol file">
+               <img id="fig11" src="./img/logos/pymol.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig12" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Create structure report">
+               <img id="fig12" src="./img/logos/structure_report.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig13" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Disease mutations">
+               <img id="fig13" src="./img/logos/disease.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig14" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Pfam mappings">
+               <img id="fig14" src="./img/logos/pfam.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig15" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Secondary structure sequence">
+               <img id="fig15" src="./img/logos/sequence.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+
+        </div>
+      </div>
+      </div>
+  <div class="row">
+      <div class="col-md-6">
+
+        <div class="info_science">
+            <h4 style="color:#868686;">Protein engineers</h4>
+            <a href="./features.html#fig1" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Chord plot">
+               <img id="fig1" src="./img/logos/chord.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig2" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Matrix plot">
+               <img id="fig2" src="./img/logos/matrix.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig3" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Asteroid plot">
+               <img id="fig3" src="./img/logos/asteroid.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig4" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Scatter plot">
+               <img id="fig4" src="./img/logos/scatter.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig16" target="_blank" class="popover-bottom" data-toggle="popover" data-content="External data map">
+               <img id="fig16" src="./img/logos/externaldata.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig5" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Contact network">
+               <img id="fig5" src="./img/logos/network.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig6" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="All subunits as network">
+               <img id="fig6" src="./img/logos/subunits.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig7" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Statistics table">
+               <img id="fig7" src="./img/logos/table.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig8" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download contacts">
+               <img id="fig8" src="./img/logos/contacts.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig9" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download cytoscape input">
+               <img id="fig9" src="./img/logos/cytoscape.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig10" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Take screenshot">
+               <img id="fig10" src="./img/logos/screenshot.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig11" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download pymol file">
+               <img id="fig11" src="./img/logos/pymol.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig12" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Create structure report">
+               <img id="fig12" src="./img/logos/structure_report.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig13" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Disease mutations">
+               <img id="fig13" src="./img/logos/disease.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig14" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Pfam mappings">
+               <img id="fig14" src="./img/logos/pfam.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig15" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Secondary structure sequence">
+               <img id="fig15" src="./img/logos/sequence.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+
+        </div>
+      </div>
+
+      <div class="col-md-6">
+
+        <div class="info_science">
+            <h4 style="color:#868686;">Geneticists</h4>
+            <a href="./features.html#fig1" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Chord plot">
+               <img id="fig1" src="./img/logos/chord.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig2" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Matrix plot">
+               <img id="fig2" src="./img/logos/matrix.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig3" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Asteroid plot">
+               <img id="fig3" src="./img/logos/asteroid.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig4" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Scatter plot">
+               <img id="fig4" src="./img/logos/scatter.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig16" target="_blank" class="popover-bottom" data-toggle="popover" data-content="External data map">
+               <img id="fig16" src="./img/logos/externaldata.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig5" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Contact network">
+               <img id="fig5" src="./img/logos/network.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig6" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="All subunits as network">
+               <img id="fig6" src="./img/logos/subunits.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig7" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Statistics table">
+               <img id="fig7" src="./img/logos/table.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig8" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download contacts">
+               <img id="fig8" src="./img/logos/contacts.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig9" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download cytoscape input">
+               <img id="fig9" src="./img/logos/cytoscape.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig10" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Take screenshot">
+               <img id="fig10" src="./img/logos/screenshot.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig11" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download pymol file">
+               <img id="fig11" src="./img/logos/pymol.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig12" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Create structure report">
+               <img id="fig12" src="./img/logos/structure_report.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig13" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Disease mutations">
+               <img id="fig13" src="./img/logos/disease.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig14" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Pfam mappings">
+               <img id="fig14" src="./img/logos/pfam.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig15" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Secondary structure sequence">
+               <img id="fig15" src="./img/logos/sequence.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+
+        </div>
+      </div>
+      </div>
+    <div class="row">
+      <div class="col-md-6">
+
+        <div class="info_science">
+            <h4 style="color:#868686;">Cancer biologists</h4>
+            <a href="./features.html#fig1" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Chord plot">
+               <img id="fig1" src="./img/logos/chord.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig2" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Matrix plot">
+               <img id="fig2" src="./img/logos/matrix.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig3" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Asteroid plot">
+               <img id="fig3" src="./img/logos/asteroid.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig4" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Scatter plot">
+               <img id="fig4" src="./img/logos/scatter.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig16" target="_blank" class="popover-bottom" data-toggle="popover" data-content="External data map">
+               <img id="fig16" src="./img/logos/externaldata.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig5" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Contact network">
+               <img id="fig5" src="./img/logos/network.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig6" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="All subunits as network">
+               <img id="fig6" src="./img/logos/subunits.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig7" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Statistics table">
+               <img id="fig7" src="./img/logos/table.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig8" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download contacts">
+               <img id="fig8" src="./img/logos/contacts.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig9" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download cytoscape input">
+               <img id="fig9" src="./img/logos/cytoscape.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig10" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Take screenshot">
+               <img id="fig10" src="./img/logos/screenshot.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig11" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download pymol file">
+               <img id="fig11" src="./img/logos/pymol.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig12" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Create structure report">
+               <img id="fig12" src="./img/logos/structure_report.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig13" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Disease mutations">
+               <img id="fig13" src="./img/logos/disease.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig14" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Pfam mappings">
+               <img id="fig14" src="./img/logos/pfam.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig15" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Secondary structure sequence">
+               <img id="fig15" src="./img/logos/sequence.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+        </div>
+      </div>
+      <div class="col-md-6">
+
+        <div class="info_science">
+            <h4 style="color:#868686;">Evolutionary Biologists</h4>
+            <a href="./features.html#fig1" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Chord plot">
+               <img id="fig1" src="./img/logos/chord.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig2" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Matrix plot">
+               <img id="fig2" src="./img/logos/matrix.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig3" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Asteroid plot">
+               <img id="fig3" src="./img/logos/asteroid.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig4" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Scatter plot">
+               <img id="fig4" src="./img/logos/scatter.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig16" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="External data map">
+               <img id="fig16" src="./img/logos/externaldata.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig5" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Contact network">
+               <img id="fig5" src="./img/logos/network.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig6" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="All subunits as network">
+               <img id="fig6" src="./img/logos/subunits.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig7" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Statistics table">
+               <img id="fig7" src="./img/logos/table.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig8" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download contacts">
+               <img id="fig8" src="./img/logos/contacts.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig9" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download cytoscape input">
+               <img id="fig9" src="./img/logos/cytoscape.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig10" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Take screenshot">
+               <img id="fig10" src="./img/logos/screenshot.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig11" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download pymol file">
+               <img id="fig11" src="./img/logos/pymol.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig12" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Create structure report">
+               <img id="fig12" src="./img/logos/structure_report.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig13" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Disease mutations">
+               <img id="fig13" src="./img/logos/disease.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig14" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Pfam mappings">
+               <img id="fig14" src="./img/logos/pfam.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig15" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Secondary structure sequence">
+               <img id="fig15" src="./img/logos/sequence.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+
+        <div class="info_science">
+            <h4 style="color:#868686;">Bioinformaticians and Computational Biologists</h4>
+            <a href="./features.html#fig1" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Chord plot">
+               <img id="fig1" src="./img/logos/chord.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig2" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Matrix plot">
+               <img id="fig2" src="./img/logos/matrix.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig3" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Asteroid plot">
+               <img id="fig3" src="./img/logos/asteroid.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig4" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Scatter plot">
+               <img id="fig4" src="./img/logos/scatter.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig16" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="External data map">
+               <img id="fig16" src="./img/logos/externaldata.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig5" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Contact network">
+               <img id="fig5" src="./img/logos/network.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig6" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="All subunits as network">
+               <img id="fig6" src="./img/logos/subunits.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig7" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Statistics table">
+               <img id="fig7" src="./img/logos/table.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig8" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download contacts">
+               <img id="fig8" src="./img/logos/contacts.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig9" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download cytoscape input">
+               <img id="fig9" src="./img/logos/cytoscape.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig10" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Take screenshot">
+               <img id="fig10" src="./img/logos/screenshot.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig11" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download pymol file">
+               <img id="fig11" src="./img/logos/pymol.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig12" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Create structure report">
+               <img id="fig12" src="./img/logos/structure_report.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig13" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Disease mutations">
+               <img id="fig13" src="./img/logos/disease.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig14" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Pfam mappings">
+               <img id="fig14" src="./img/logos/pfam.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig15" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Secondary structure sequence">
+               <img id="fig15" src="./img/logos/sequence.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+        </div>
+      </div>
+      <div class="col-md-6">
+
+        <div class="info_science">
+            <h4 style="color:#868686;">Medicinal and computational chemists</h4>
+            <a href="./features.html#fig1" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Chord plot">
+               <img id="fig1" src="./img/logos/chord.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig2" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Matrix plot">
+               <img id="fig2" src="./img/logos/matrix.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig3" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Asteroid plot">
+               <img id="fig3" src="./img/logos/asteroid.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig4" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Scatter plot">
+               <img id="fig4" src="./img/logos/scatter.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig16" target="_blank" class="popover-bottom" data-toggle="popover" data-content="External data map">
+               <img id="fig16" src="./img/logos/externaldata.png" width="15%" height="auto" alt="">
+            </a>
+            <a href="./features.html#fig5" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Contact network">
+               <img id="fig5" src="./img/logos/network.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig6" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="All subunits as network">
+               <img id="fig6" src="./img/logos/subunits.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig7" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Statistics table">
+               <img id="fig7" src="./img/logos/table.png" width="15%" height="auto" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig8" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download contacts">
+               <img id="fig8" src="./img/logos/contacts.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig9" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download cytoscape input">
+               <img id="fig9" src="./img/logos/cytoscape.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig10" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Take screenshot">
+               <img id="fig10" src="./img/logos/screenshot.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig11" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Download pymol file">
+               <img id="fig11" src="./img/logos/pymol.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig12" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Create structure report">
+               <img id="fig12" src="./img/logos/structure_report.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig13" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Disease mutations">
+               <img id="fig13" src="./img/logos/disease.png" width="15%" height="30px" alt="">
+            </a>
+            <a href="./features.html#fig14" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Pfam mappings">
+               <img id="fig14" src="./img/logos/pfam.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+            <a href="./features.html#fig15" target="_blank" class="popover-bottom inactiveLink" data-toggle="popover" data-content="Secondary structure sequence">
+               <img id="fig15" src="./img/logos/sequence.png" width="15%" height="30px" alt="" style="opacity: 0.1;">
+            </a>
+        </div>
+      </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="info_science">
+          <h4 style="color:#868686;">Students and teachers</h4>
+          <a href="./features.html#fig1" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Chord plot">
+             <img id="fig1" src="./img/logos/chord.png" width="15%" height="auto" alt="">
+          </a>
+          <a href="./features.html#fig2" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Matrix plot">
+             <img id="fig2" src="./img/logos/matrix.png" width="15%" height="auto" alt="">
+          </a>
+          <a href="./features.html#fig3" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Asteroid plot">
+             <img id="fig3" src="./img/logos/asteroid.png" width="15%" height="auto" alt="">
+          </a>
+          <a href="./features.html#fig4" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Scatter plot">
+             <img id="fig4" src="./img/logos/scatter.png" width="15%" height="auto" alt="">
+          </a>
+          <a href="./features.html#fig16" target="_blank" class="popover-bottom" data-toggle="popover" data-content="External data map">
+             <img id="fig16" src="./img/logos/externaldata.png" width="15%" height="auto" alt="">
+          </a>
+          <a href="./features.html#fig5" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Contact network">
+             <img id="fig5" src="./img/logos/network.png" width="15%" height="auto" alt="">
+          </a>
+          <a href="./features.html#fig6" target="_blank" class="popover-bottom" data-toggle="popover" data-content="All subunits as network">
+             <img id="fig6" src="./img/logos/subunits.png" width="15%" height="auto" alt="">
+          </a>
+          <a href="./features.html#fig7" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Statistics table">
+             <img id="fig7" src="./img/logos/table.png" width="15%" height="auto" alt="">
+          </a>
+          <a href="./features.html#fig8" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download contacts">
+             <img id="fig8" src="./img/logos/contacts.png" width="15%" height="30px" alt="">
+          </a>
+          <a href="./features.html#fig9" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download cytoscape input">
+             <img id="fig9" src="./img/logos/cytoscape.png" width="15%" height="30px" alt="">
+          </a>
+          <a href="./features.html#fig10" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Take screenshot">
+             <img id="fig10" src="./img/logos/screenshot.png" width="15%" height="30px" alt="">
+          </a>
+          <a href="./features.html#fig11" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Download pymol file">
+             <img id="fig11" src="./img/logos/pymol.png" width="15%" height="30px" alt="">
+          </a>
+          <a href="./features.html#fig12" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Create structure report">
+             <img id="fig12" src="./img/logos/structure_report.png" width="15%" height="30px" alt="">
+          </a>
+          <a href="./features.html#fig13" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Disease mutations">
+             <img id="fig13" src="./img/logos/disease.png" width="15%" height="30px" alt="">
+          </a>
+          <a href="./features.html#fig14" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Pfam mappings">
+             <img id="fig14" src="./img/logos/pfam.png" width="15%" height="30px" alt="">
+          </a>
+          <a href="./features.html#fig15" target="_blank" class="popover-bottom" data-toggle="popover" data-content="Secondary structure sequence">
+             <img id="fig15" src="./img/logos/sequence.png" width="15%" height="30px" alt="">
+          </a>
+      </div>
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      $(".popover-bottom").popover({
+        trigger: 'hover',
+        placement: 'bottom',
+        container: 'body'
+      });
+    });
+  </script>
+
+</div>
+<br><br>
+    </div>
+    <footer>
+      <p>&copy; MRC Laboratory of Molecular Biology, 2017</p>
+    </footer>
+
+  </div> <!-- /container -->
+
+
+</body>
+</html>

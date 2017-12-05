@@ -1,0 +1,22 @@
+```{r}
+library(ggplot2)
+
+```
+```{r}
+norm_Weights = read.delim("TOTAL_norm_weight_stats.txt",sep="\t")
+norm_Weights
+```
+
+```{r}
+ggplot(norm_Weights, aes(x=X.norm_weights, y=X.number_of_interactions)) +
+  geom_point() +
+  labs(x = "Normalized Weights", y = "Number of interactions") +
+  scale_y_log10() + 
+  coord_cartesian(xlim = c(0,250))
+  ggsave("normalized_weightsvsnumber_interactions.png")
+```
+
+```{r}
+
+```
+

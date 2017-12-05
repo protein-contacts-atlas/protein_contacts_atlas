@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="icon" type="image/png"
+       href="./img/Rajini_abstract_1.png" />
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>Protein Contacts Atlas</title>
+
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
+
+
+ <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+   <script type='text/javascript' src='./js/jquery.ba-hashchange.min.js'></script>
+
+<!--FROM PDBE -->
+ <!-- <link href="http://wwwdev.ebi.ac.uk/pdbe/entry/static/css/ebi-core.css" type="text/css" rel="stylesheet" media="screen, projection" /> -->
+ <!-- <link href="http://wwwdev.ebi.ac.uk/pdbe/entry/static/bundle-pdbe-ui_head.css" type="text/css" rel="stylesheet" media="screen, projection" /> -->
+ <!-- <link href="http://wwwdev.ebi.ac.uk/pdbe/entry/static/bundle-bundle_pdbe-ui-search_head.css" type="text/css" rel="stylesheet" media="screen, projection" /> -->
+
+<!--combination of top THREE css with only wanted parts -->
+ <link href="css/fromPDBe.css" type="text/css" rel="stylesheet" media="screen, projection" />
+
+ <!-- <link href="http://wwwdev.ebi.ac.uk/pdbe/entry/static/css/pdbe-atlas-print.css" type="text/css" rel="stylesheet" media="print" /> -->
+
+
+<!-- Bootstrap core CSS -->
+<link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="bootstrap-3.2.0-dist/css/navbar-fixed-top.css" rel="stylesheet">
+
+<!-- To fix white space on the bottom of every page, done by melis -->
+<link href="css/fix_bottom_space.css" rel="stylesheet">
+
+  <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+  <script src="js/bundle-pdbe-ui_defer.js" type="text/javascript" ></script>
+
+  <script src="js/bundle-bundle_pdbe-ui-search_defer_rajini_version.js" type="text/javascript" ></script>
+
+<script>
+function myFunction(keyword)
+ {
+	  var keywordsStr = keyword;
+    var keyword =  keywordsStr;
+	  var artistURL = "http://wwwdev.ebi.ac.uk/pdbe/api/pdb/compound/in_pdb/" + keyword;
+
+       $.ajax({
+           type: "GET",
+		//   contentType: "application/x-www-form-urlencoded; charset=utf-8", //it's default anyways
+
+		   dataType: "text",
+           async: true,
+           url: artistURL,
+		  // data: restmessage,
+
+         error: function(request, status, error) {
+			alert(request.responseText)
+		 },
+
+		 success: function(data) {
+
+			 //console.log(data);
+
+			 var sub = data.substring(data.indexOf('[')+1, data.indexOf(']'));
+
+			 //console.log(sub);
+
+			var spl = sub.split(",");
+
+    		var rs=0;
+    		var h = "";
+    		var qrId=null;
+    		for (var spliti = 0; spliti < spl.length; spliti++){
+    			var it = spl[spliti].replace(/[\n\t\r\"]/g,"");
+
+				//console.log(it);
+
+	    		if (it.length==4) {
+
+					h+='<a href="chains_process_combined.php?PDB='+it+'">'+it+'</a> <br/><br/>';
+
+	    			rs++;
+	    		} else if(it.length>4 && spliti>0 && rs>0) {
+	    			//h+='<br/><br/><a href="http://www.rcsb.org/pdb/results/results.do?qrid='+it+'">View results</a></p> ';
+
+					h+='<br/><br/><a href="http://www.rcsb.org/pdb/results/results.do?qrid='+it+'">View results</a></p> ';
+	    		}
+				//pdbarray[spliti]=it;//BUNA BAK IKINCI ASAMA ICIN, TO FETCH TITLE
+    		}
+
+    		// h+="</p>";
+    		h="<p>"+rs+" results for "+keyword+"</p>"+h;
+
+    		$("div#myOutput").html(h);
+		  }
+
+       });
+
+
+       return (false);
+
+ }
+ </script>
+
+ 	<script>
+
+
+function readText() {
+
+	$('#submitbutton').removeClass('disabled');
+
+}
+function process_new() {
+
+	$('#progressgif').show();
+
+	var option="0.5";
+
+	$.ajax({
+	        type: 'post',
+	        url: 'chains_process_combined.php',
+	        data: {
+				cutoff: option,
+	            PDB: $('#PDB').val(),
+	        },
+	        success: function( data ) {
+
+				eval(data);
+
+	        }
+	    });
+}
+ 	</script>
+
+
+  <style type="text/css">
+    /* You have the option of setting a maximum width for your page, and making sure everything is centered */
+    /* body { max-width: 1600px; margin: 0 auto; } */
+    .atm a {
+      border: none;
+    }
+    .ui-menu .ui-menu-item {
+      margin: 0;
+      padding: 0;
+      zoom: 1;
+      float: left;
+      clear: left;
+      width: 100%;
+      list-style-image: none;
+    }
+    .ui-menu .ui-menu-item {
+      margin: 0;
+      padding: 0;
+      zoom: 1;
+      float: left;
+      clear: left;
+      width: 100%;
+    }
+    .ui-menu .ui-menu-item a {
+      text-decoration: none;
+      display: block;
+      padding: 2px 4px;
+      line-height: 1.5;
+      zoom: 1;
+    }
+    .ui-widget-content {
+      color: #222;
+      border: 1px solid #AAA;
+      background: white;
+      color: #222;
+    }
+    .ui-tooltip {
+      border-width: 2px !important;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      border-radius: 4px;
+      background: white;
+      color: #222;
+      font-family: Verdana,Arial,sans-serif;
+      font-size: 1.1em;
+      padding: 8px;
+      position: absolute;
+      z-index: 9999;
+      max-width: 300px;
+      -webkit-box-shadow: 0 0 5px #AAA;
+      box-shadow: 0 0 5px #AAA;
+      word-wrap: break-word;
+    }
+    .ui-menu .ui-menu-item a.ui-state-focus,
+    .ui-menu .ui-menu-item a.ui-state-active {
+      font-weight: normal;
+      margin: -1px 0 -1px 0 !important;
+    }
+    .ui-helper-hidden-accessible {
+      position: absolute !important;
+      clip: rect(1px,1px,1px,1px);
+      border: 0;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+    .pdbe_search_autocomplete {
+      left: 19% !important;
+      z-index: 9999;
+      width: 70% !important;
+      max-width: 1600px;
+      margin: 0 auto !important;
+      -moz-border-radius: 0;
+      -webkit-border-radius: 0;
+      border-radius: 0;
+      list-style: none;
+      float: left;
+      display: block;
+      position: absolute;
+      cursor: default;
+      border: 1px solid #AAA;
+      background: white;
+      color: #222;
+      font-family: Verdana,Arial,sans-serif;
+      /*font-size: 1.1em;*/
+      font-size: 85%;
+      outline: none;
+    }
+    .pdbe_search_autocomplete div[data-type="category"] {
+      margin-bottom: 10px;
+    }
+    .pdbe_search_autocomplete .truncate-text {
+      width: 74%;
+    }
+    .pdbe_search_autocomplete .item_count {
+      float: right;
+    }
+    .pdbe_search_autocomplete .ui-widget {
+      font-size: 90%;
+      background: white;
+    }
+    .pdbe_search_autocomplete .item_count {
+      float: right;
+    }
+    .pdbe_search_autocomplete .truncate-text {
+      width: 74%;
+    }
+    .pdbe_search_autocomplete .ui-state-focus {
+      background-image: none;
+    }
+    /*Perhaps it's better to add category class to div with data-type='category'*/
+    .pdbe_search_autocomplete div[data-type='category'] {
+      margin-bottom: 10px;
+    }
+    .pdbe_search_autocomplete .hover,
+    .pdbe_search_autocomplete .ui-widget-content .ui-state-hover,
+    .pdbe_search_autocomplete .ui-widget-header .ui-state-hover,
+    .pdbe_search_autocomplete .ui-state-focus,
+    .pdbe_search_autocomplete .ui-widget-content .ui-state-focus,
+    .pdbe_search_autocomplete .ui-widget-header .ui-state-focus {
+      border: 1px solid #999;
+      background: #DADADA;
+      font-weight: normal;
+      color: #212121;
+      padding: .2em .3em;
+    }
+    .pdbe_search_autocomplete .ui-menu-item a.ui-state-focus,
+    .pdbe_search_autocomplete .ui-menu-item a.ui-state-active {
+      margin: -1px 0 0 0 !important;
+      padding: 2px 3px;
+    }
+
+  </style>
+
+	 <script>
+
+ 	 function trigger_popover() {
+
+	     $(".popover-right").popover({
+ 					 trigger: 'click',
+ 			         placement : 'right',
+ 					 container: 'body',
+
+ 				 	html: true,
+ 					content: function () {
+ 					   return $(this).next('.deneme-content').html();
+ 						//return $('.deneme-content').html();
+ 					}
+
+ 			     });
+
+ 	 }
+
+	 </script>
+
+</head>
+
+<!-- <body onload="myFunction(getviewOptions().pdb);" bgcolor="#F2F2F2"> -->
+
+<!--ADDED ONLOAD FUNCTION BECAUSE WE WANT TO CALL THIS FUNCTION AFTER EVERY DIV IS LOADED ON THE PAGE, SO THAT THE CLASS OF THE DIV GENERATED IS CALLED IN THIS FUNCTION FOR POPOVER SEE MORE BUTTON -->
+<body onload="trigger_popover();" bgcolor="#F2F2F2">
+<!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="./index.html">Protein Contacts Atlas</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+
+		 <li style="padding-top:12px;"><input class="span1" type="text" id="PDB" name="PDB" size="5" oninput="if (!document.getElementById('PDB').value.charAt(0).match(/[^0-9]/)) { if(document.getElementById('PDB').value.length == 4) { readText();} else { $('#submitbutton').addClass('disabled'); } } " placeholder="PDB ID"/ >
+		</li>
+		<li style="padding-top:10px; padding-left:10px;"><button type="submit" onclick="process_new();" id="submitbutton" class="btn btn-primary btn-xs disabled popover-bottom" data-toggle="popover" data-content="Click to process structure"> Run</button></li>
+
+        <li><a href="./index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced Features <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="./index_search.html">Search any keyword</a></li>
+            <li><a href="./pfam_mapping.html">PDBs by PFAM</a></li>
+          </ul>
+        </li>
+        <!-- <li><a href="./about.html">About</a>
+        </li> -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">About<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="./about.html">Description</a></li>
+            <li><a href="./features.html">Features</a></li>
+            <li><a href="./downloadables.html">Downloadable Files' Description</a></li>
+            <li><a href="./disciplines.html">Scientific Disciplines</a></li>
+          </ul>
+        </li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+<div class="container">
+
+  	  <div class="jumbotron "  >
+
+  					 <div class="container" >
+
+  					    <div class="row">
+
+ 					      <div class="col-md-12">
+
+								   <div id="wrapper" class="container_pdbe">
+
+								 	  <div id="content" role="main" class="container_pdbe clearfix">
+								   <!-- Example layout containers -->
+
+								   <section>
+
+								     <div class="entry-content grid_24 alpha omega">
+								       <section class="grid_24 pdbe-topic" style="margin-top: 0;">
+
+								         <div id="tabs" class="grid_17 alpha omega reset_100 tabs" style="display: none;">
+								           <div>
+
+											 <div id="results"></div>
+								             <div>
+								               <div class="grid_24">
+								                 <div id="entry_result">
+								                   <div style="padding: 5px 10px; background-color: #fff; border: solid #333;border-width: 2px 0;">
+								                     <span class="view_navigation">
+								                       <ul class="view_pager"></ul>
+								                       <div class="view_header"></div>
+								                     </span>
+								                   </div>
+								                   <div class="grid_24">
+								                     <div class="result_container"></div>
+								                   </div>
+								                   <div class="grid_24" style="background-color: #eee;border: solid #333;border-width: 2px 0;margin-top: 9px;">
+								                     <div class="view_navigation" style="padding: 5px 10px;">
+								                       <ul class="view_pager"></ul>
+								                       <div class="view_header"></div>
+								                     </div>
+								                   </div>
+								                 </div>
+								               </div>
+								             </div>
+								           </div>
+
+								         </div>
+
+								       </section>
+								     </div>
+								     <!--</div>-->
+
+								   </section>
+								 </div>
+								 <!-- End example layout containers -->
+
+								 </div> <!--! end of #wrapper -->
+
+ 					           </div>
+
+  					         </div> <!-- /row -->
+
+  					 		<div id="progressgif" class="btnExample" style="margin-left:auto; margin-right:auto; text-align:center; display:none; ">
+
+  					 			<h8 align="center" >Processing, please wait...</h8>
+
+  					 			<div align="center">
+  					 			 	<img src="./img/Preloader_4.gif" style="height:100px;width:100px; ">
+  					 			</div>
+
+  					 		 </div>
+
+
+  			 </div> <!-- /container -->
+
+  		</div> <!-- /jumbotron -->
+
+        <footer>
+          <p>&copy; MRC Laboratory of Molecular Biology, 2017</p>
+        </footer>
+
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+</body>
+
+
+</html>
